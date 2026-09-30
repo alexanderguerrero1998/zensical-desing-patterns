@@ -1,0 +1,2265 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Traducción al español de Head First Design Patterns (Freeman y Robson, 2.ª edición), con diagramas reconstruidos en Mermaid.">
+      
+      
+        <meta name="author" content="Head First Design Patterns — traducción al español">
+      
+      
+      
+        <link rel="prev" href="../capitulo-4/">
+      
+      
+        <link rel="next" href="../capitulo-6/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.36">
+    
+    
+      
+        <title>Capítulo 5: El patrón Singleton - Head First Design Patterns — español</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.1e981d71.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navegación"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capitulo-5-el-patron-singleton" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="./.." title="Head First Design Patterns — español" class="md-header__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navegación">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Head First Design Patterns — español
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Capítulo 5: El patrón Singleton
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Buscar">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Buscar">
+  <button type="button" class="md-search__button">
+    Buscar
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Head First Design Patterns — español" class="md-nav__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Head First Design Patterns — español
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 1: Introducción a los patrones de diseño
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 2: El patrón Observer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 3: El patrón Decorator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 4: El patrón Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 5: El patrón Singleton
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 5: El patrón Singleton
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uno-y-solo-uno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Uno y solo uno
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-pequeno-singleton" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El pequeño Singleton
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="El pequeño Singleton">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-pequeno-ejercicio-socratico-al-estilo-de-the-little-lisper" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un pequeño ejercicio socrático al estilo de <em>The Little Lisper</em>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desmontando-la-implementacion-clasica-del-patron-singleton" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desmontando la implementación clásica del patrón Singleton
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desmontando la implementación clásica del patrón Singleton">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-codigo-de-cerca" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El código de cerca
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patrones-al-descubierto" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrones al descubierto
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-fabrica-de-chocolate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La fábrica de chocolate
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-patron-singleton-definido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El patrón Singleton definido
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hershey-pa-houston-tenemos-un-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Hershey, PA: Houston, tenemos un problema...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#se-la-jvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sé la JVM
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abordando-el-multihilo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abordando el multihilo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podemos-mejorar-el-multihilo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Podemos mejorar el multihilo?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Podemos mejorar el multihilo?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-no-hacer-nada-si-el-rendimiento-de-getinstance-no-es-critico-para-tu-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. No hacer nada si el rendimiento de <code>getInstance()</code> no es crítico para tu aplicación
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pasa-a-una-instancia-creada-ansiosamente-en-lugar-de-creada-perezosamente" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Pasa a una instancia creada ansiosamente en lugar de creada perezosamente
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-usar-el-doble-comprobamiento-bloqueante-para-reducir-el-uso-de-la-sincronizacion-en-getinstance" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Usar el «doble comprobamiento bloqueante» para reducir el uso de la sincronización en <code>getInstance()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mientras-tanto-de-vuelta-en-la-fabrica-de-chocolate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Mientras tanto, de vuelta en la fábrica de chocolate...
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mientras tanto, de vuelta en la fábrica de chocolate...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#felicidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¡Felicidades!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preguntas-y-respuestas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Preguntas y respuestas
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y-si-usaramos-un-enum" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Y si usáramos un enum?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-herramientas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de herramientas de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solucion-de-se-la-jvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución de «Sé la JVM»
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soluciones-de-los-ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Soluciones de los ejercicios
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Soluciones de los ejercicios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solucion-convertir-chocolateboiler-en-un-singleton" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución: convertir <code>ChocolateBoiler</code> en un Singleton
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-secciones-de-multihilo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución: secciones de multihilo
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno-soluciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño: soluciones
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 6: El patrón Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 7: Los patrones Adapter y Facade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 8: El patrón Template Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 9: Los patrones Iterator y Composite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 10: El patrón State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 11: El patrón Proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 12: Patrones compuestos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 13: Mejor vivir con patrones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 14: Apéndice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uno-y-solo-uno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Uno y solo uno
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-pequeno-singleton" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El pequeño Singleton
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="El pequeño Singleton">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-pequeno-ejercicio-socratico-al-estilo-de-the-little-lisper" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un pequeño ejercicio socrático al estilo de <em>The Little Lisper</em>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desmontando-la-implementacion-clasica-del-patron-singleton" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desmontando la implementación clásica del patrón Singleton
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desmontando la implementación clásica del patrón Singleton">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-codigo-de-cerca" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El código de cerca
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patrones-al-descubierto" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrones al descubierto
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-fabrica-de-chocolate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La fábrica de chocolate
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-patron-singleton-definido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El patrón Singleton definido
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hershey-pa-houston-tenemos-un-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Hershey, PA: Houston, tenemos un problema...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#se-la-jvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sé la JVM
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abordando-el-multihilo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abordando el multihilo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podemos-mejorar-el-multihilo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Podemos mejorar el multihilo?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Podemos mejorar el multihilo?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-no-hacer-nada-si-el-rendimiento-de-getinstance-no-es-critico-para-tu-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. No hacer nada si el rendimiento de <code>getInstance()</code> no es crítico para tu aplicación
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pasa-a-una-instancia-creada-ansiosamente-en-lugar-de-creada-perezosamente" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Pasa a una instancia creada ansiosamente en lugar de creada perezosamente
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-usar-el-doble-comprobamiento-bloqueante-para-reducir-el-uso-de-la-sincronizacion-en-getinstance" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Usar el «doble comprobamiento bloqueante» para reducir el uso de la sincronización en <code>getInstance()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mientras-tanto-de-vuelta-en-la-fabrica-de-chocolate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Mientras tanto, de vuelta en la fábrica de chocolate...
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mientras tanto, de vuelta en la fábrica de chocolate...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#felicidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¡Felicidades!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preguntas-y-respuestas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Preguntas y respuestas
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y-si-usaramos-un-enum" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Y si usáramos un enum?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-herramientas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de herramientas de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solucion-de-se-la-jvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución de «Sé la JVM»
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soluciones-de-los-ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Soluciones de los ejercicios
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Soluciones de los ejercicios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solucion-convertir-chocolateboiler-en-un-singleton" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución: convertir <code>ChocolateBoiler</code> en un Singleton
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-secciones-de-multihilo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución: secciones de multihilo
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno-soluciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño: soluciones
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="capitulo-5-el-patron-singleton">Capítulo 5: El patrón Singleton<a class="headerlink" href="#capitulo-5-el-patron-singleton" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Objetos únicos</strong></p>
+<p>Nuestra próxima parada es el patrón Singleton, nuestro boleto para crear objetos únicos de los que existe una sola y única instancia, siempre. Quizá te alegre saber que, de todos los patrones, el Singleton es el más simple en lo que se refiere a su diagrama de clases; de hecho, ¡el diagrama contiene una única clase! Pero no te acomodes demasiado; a pesar de su simplicidad desde el punto de vista del diseño de clases, va a exigir un pensar profundo orientado a objetos en su implementación. Así que ponte la gorra de pensador y vamos allá.</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p><strong>Objetos únicos</strong></p>
+<ul>
+<li>¿Le estás hablando a mí o al coche?</li>
+<li>Ah, ¿y cuándo me devuelven mi manopla de horno?</li>
+<li>Te digo que es ÚNICA DE SU CLASE. Mira las líneas, las curvas, la carrocería, los faros.</li>
+</ul>
+</div>
+<h2 id="uno-y-solo-uno">Uno y solo uno<a class="headerlink" href="#uno-y-solo-uno" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p><strong>Uno y solo uno</strong></p>
+<ul>
+<li>¿Qué es esto? ¿Un capítulo entero sobre cómo instanciar un solo objeto?</li>
+<li>Eso es un solo y ÚNICO objeto.</li>
+</ul>
+</div>
+<p><strong>Desarrollador:</strong> ¿De qué sirve eso?</p>
+<p><strong>Guru:</strong> Hay muchos objetos de los que solo necesitamos uno: grupos de hilos (<em>thread pools</em>), cachés, cuadros de diálogo, objetos que gestionan las preferencias y los ajustes del registro, objetos usados para el registro de eventos (<em>logging</em>) y objetos que actúan como controladores de dispositivo para dispositivos como impresoras y tarjetas gráficas. De hecho, para muchos de estos tipos de objetos, si instanciáramos más de uno nos enfrentaríamos a toda clase de problemas: un comportamiento incorrecto del programa, el uso excesivo de recursos o resultados inconsistentes.</p>
+<p><strong>Desarrollador:</strong> Vale, así que quizá haya clases que deberían instanciarse una sola vez, pero ¿de verdad necesito un capítulo entero para eso? ¿No puedo hacerlo simplemente por convención o mediante variables globales? Ya sabes, por ejemplo en Java podría hacerlo con una variable estática.</p>
+<p><strong>Guru:</strong> De muchas maneras, el patrón Singleton es una convención para garantizar que se instancia uno y solo un objeto de una clase dada. Si tienes una forma mejor, al mundo le gustaría oírla; pero recuerda, como todos los patrones, el patrón Singleton es un método contrastado en el tiempo para garantizar que solo se cree un objeto. El patrón Singleton también nos da un punto de acceso global, igual que una variable global, pero sin los inconvenientes.</p>
+<p><strong>Desarrollador:</strong> ¿Qué inconvenientes?</p>
+<p><strong>Guru:</strong> Bueno, aquí tienes un ejemplo: si asignas un objeto a una variable global, ese objeto se podría crear cuando tu aplicación arranca. ¿Verdad? ¿Y si ese objeto consume muchos recursos y tu aplicación nunca llega a usarlo? Como veremos, con el patrón Singleton podemos crear nuestros objetos solo cuando se necesitan.</p>
+<p><strong>Desarrollador:</strong> Esto sigue sin parecerme algo que debería ser tan difícil.</p>
+<p><strong>Guru:</strong> Si manejas bien las variables y los métodos estáticos de una clase, así como los modificadores de acceso, no lo es. Pero, en cualquier caso, resulta interesante ver cómo funciona un Singleton y, por simple que suene, el código de un Singleton es difícil de dejar bien. Pregúntate a ti mismo: ¿cómo evito que se instancie más de un objeto? No es tan obvio, ¿verdad?</p>
+<h2 id="el-pequeno-singleton">El pequeño Singleton<a class="headerlink" href="#el-pequeno-singleton" title="Permanent link">&para;</a></h2>
+<h3 id="un-pequeno-ejercicio-socratico-al-estilo-de-the-little-lisper">Un pequeño ejercicio socrático al estilo de <em>The Little Lisper</em><a class="headerlink" href="#un-pequeno-ejercicio-socratico-al-estilo-de-the-little-lisper" title="Permanent link">&para;</a></h3>
+<p><strong>El pequeño Singleton:</strong> ¿Cómo crearías un único objeto?</p>
+<p><strong>Tú:</strong></p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">new</span><span class="w"> </span><span class="n">MyObject</span><span class="p">();</span>
+</span></code></pre></div>
+<p><strong>El pequeño Singleton:</strong> Sí, por supuesto. ¿Y si otro objeto quisiera crear un <code>MyObject</code>? ¿Podría llamar a <code>new</code> sobre <code>MyObject</code> otra vez?</p>
+<p><strong>Tú:</strong> Sí. Bueno, solo si es una clase pública.</p>
+<p><strong>El pequeño Singleton:</strong> Así que, siempre que tengamos una clase, ¿siempre podemos instanciarla una o más veces?</p>
+<p><strong>Tú:</strong> Sí.</p>
+<p><strong>El pequeño Singleton:</strong> ¿Y si no lo es?</p>
+<p><strong>Tú:</strong> Bueno, si no es una clase pública, solo las clases del mismo paquete pueden instanciarla. Pero todavía pueden instanciarla más de una vez.</p>
+<p><strong>El pequeño Singleton:</strong> Hmm, interesante.</p>
+<p><strong>Tú:</strong> No, nunca lo había pensado, pero supongo que tiene sentido porque es una definición válida.</p>
+<p><strong>El pequeño Singleton:</strong> ¿Sabías que podías hacer esto?</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">   </span><span class="kd">private</span><span class="w"> </span><span class="nf">MyClass</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>El pequeño Singleton:</strong> ¿Qué significa esto?</p>
+<p><strong>Tú:</strong> Supongo que es una clase que no se puede instanciar porque tiene un constructor privado.</p>
+<p><strong>El pequeño Singleton:</strong> Bueno, ¿existe ALGÚN objeto que pudiera usar el constructor privado?</p>
+<p><strong>Tú:</strong> Hmm, creo que el código de <code>MyClass</code> es el único código que podría llamarlo. Pero eso no tiene mucho sentido.</p>
+<p><strong>El pequeño Singleton:</strong> ¿Por qué no?</p>
+<p><strong>Tú:</strong> Porque tendría que tener una instancia de la clase para llamarlo, y no puedo tener una instancia porque ninguna otra clase puede instanciarla. Es un problema del huevo y la gallina: puedo usar el constructor desde un objeto de tipo <code>MyClass</code>, pero nunca podré instanciar ese objeto porque ningún otro objeto puede usar «<code>new MyClass()</code>».</p>
+<p><strong>El pequeño Singleton:</strong> Vale. Solo era una idea.</p>
+<p><strong>Tú:</strong> <code>MyClass</code> es una clase con un método estático. Podemos llamar al método estático así:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">MyClass</span><span class="p">.</span><span class="na">getInstance</span><span class="p">();</span>
+</span></code></pre></div>
+<p><strong>El pequeño Singleton:</strong> ¿Qué significa esto?</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">   </span><span class="p">}</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>El pequeño Singleton:</strong> ¿Por qué usaste <code>MyClass</code> en lugar del nombre de algún objeto?</p>
+<p><strong>Tú:</strong> Bueno, <code>getInstance()</code> es un método estático; dicho de otro modo, es un método de CLASE. Necesitas usar el nombre de la clase para referenciar un método estático.</p>
+<p><strong>El pequeño Singleton:</strong> Muy interesante. ¿Y si lo juntamos todo?</p>
+<p><strong>Tú:</strong> Vaya, desde luego que puedes.</p>
+<p><em>¿Ahora sí puedo instanciar un <code>MyClass</code>?</em></p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">MyClass</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyClass</span><span class="p">();</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">MyClass</span><span class="p">.</span><span class="na">getInstance</span><span class="p">();</span>
+</span></code></pre></div>
+<p><strong>El pequeño Singleton:</strong> Bien, ahora ¿se te ocurre una segunda forma de instanciar un objeto? ¿Puedes completar el código de modo que solo se cree NUNCA más de UNA instancia de <code>MyClass</code>?</p>
+<p><strong>Tú:</strong> Sí, creo que sí...</p>
+<p><em>(Encontrarás el código en la página siguiente.)</em></p>
+<h2 id="desmontando-la-implementacion-clasica-del-patron-singleton">Desmontando la implementación clásica del patrón Singleton<a class="headerlink" href="#desmontando-la-implementacion-clasica-del-patron-singleton" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>Tenemos una variable estática que guarda nuestra única instancia de la clase <code>Singleton</code>. Vamos a renombrar <code>MyClass</code> a <code>Singleton</code>.</p>
+<p>Nuestro constructor está declarado como privado; solo <code>Singleton</code> puede instanciar esta clase.</p>
+<p>El método <code>getInstance()</code> nos da una forma de instanciar la clase y, además, de devolver una instancia de ella.</p>
+<p>Por supuesto, <code>Singleton</code> es una clase normal; tiene otras variables de instancia y otros métodos útiles.</p>
+<p>Si estás simplemente hojeando el libro, no escribas este código a ciegas; lo veremos con más detalle más adelante en el capítulo.</p>
+</div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Singleton</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="c1">// other useful instance variables here</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Singleton</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">            </span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Singleton</span><span class="p">();</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="c1">// other useful methods here</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="el-codigo-de-cerca">El código de cerca<a class="headerlink" href="#el-codigo-de-cerca" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">El código de cerca</p>
+<p>Si <code>uniqueInstance</code> es <code>null</code>, es que todavía no hemos creado la instancia...</p>
+<p><code>uniqueInstance</code> guarda nuestra ÚNICA instancia; recuerda, es una variable estática.</p>
+<p>...y, si no existe, instanciamos <code>Singleton</code> a través de su constructor privado y la asignamos a <code>uniqueInstance</code>. Fíjate en que, si nunca necesitamos la instancia, esta nunca llega a crearse; esto es instanciación perezosa (<em>lazy</em>).</p>
+<p>Si <code>uniqueInstance</code> no era <code>null</code>, es que se había creado previamente. Simplemente caemos hasta la sentencia <code>return</code>.</p>
+<p>Para cuando llegamos a este código ya tenemos una instancia, y la devolvemos.</p>
+</div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Singleton</span><span class="p">();</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">}</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">return</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span></code></pre></div>
+<h2 id="patrones-al-descubierto">Patrones al descubierto<a class="headerlink" href="#patrones-al-descubierto" title="Permanent link">&para;</a></h2>
+<div class="admonition example">
+<p class="admonition-title">La entrevista de esta semana: Confesiones de un Singleton</p>
+<p><strong>Head First:</strong> Hoy tenemos el placer de traerles una entrevista con un objeto Singleton. ¿Por qué no empiezan contándonos algo sobre ustedes?</p>
+<p><strong>Singleton:</strong> Bueno, soy totalmente único; ¡solo hay uno de mí!</p>
+<p><strong>Head First:</strong> ¿Uno?</p>
+<p><strong>Singleton:</strong> Sí, uno. Estoy basado en el patrón Singleton, que garantiza que en todo momento solo hay una instancia de mí.</p>
+<p><strong>Head First:</strong> Eso sí que parece un desperdicio, ¿no? Alguien se tomó el tiempo de desarrollar una clase completa y ahora todo lo que obtenemos es un solo objeto.</p>
+<p><strong>Singleton:</strong> Así es. Mi constructor está declarado como privado.</p>
+<p><strong>Head First:</strong> ¿Y cómo funciona eso? ¿Cómo se los instancia a USTEDES?</p>
+<p><strong>Singleton:</strong> A ver, llegar a un objeto Singleton en tu aplicación es hacer uso del mismo recurso global.</p>
+<p><strong>Head First:</strong> Cuéntenos más...</p>
+<p><strong>Singleton:</strong> Ah, sirvo para toda clase de cosas. Ser único a veces tiene sus ventajas, ya sabes. Se me usa a menudo para gestionar conjuntos de recursos, como conjuntos de conexiones o de hilos.</p>
+<p><strong>Head First:</strong> Con todo respeto, ¿solo uno de los de su especie? Eso suena solo.</p>
+<p><strong>Singleton:</strong> Como solo hay uno de mí, sí, tengo trabajo, pero estaría bien que más desarrolladores me conocieran: muchos desarrolladores se encuentran con errores porque tienen varias copias de objetos dando vueltas por ahí de las que ni siquiera son conscientes.</p>
+<p><strong>Head First:</strong> Bueno, si se nos permite preguntar: ¿cómo saben que solo hay uno de ustedes? ¿Acaso cualquiera con un nuevo operador no puede crear «un nuevo ustedes»?</p>
+<p><strong>Singleton:</strong> ¡No! Soy realmente único.</p>
+<p><strong>Head First:</strong> Bueno, ¿hacen los desarrolladores un juramento de no instanciarlos más de una vez?</p>
+<p><strong>Singleton:</strong> Por supuesto que no. La verdad es que… esto se está poniendo un poco personal, pero… no tengo constructor público.</p>
+<p><strong>Head First:</strong> ¡SIN CONSTRUCTOR PÚBLICO! Oh, perdón, ¿sin constructor público?</p>
+<p><strong>Singleton:</strong> ¡En absoluto! Hay poder en UNO. Supongamos que tienen un objeto que contiene ajustes del registro. No querrán tener varias copias de ese objeto y de sus valores dando vueltas por ahí: eso conduciría al caos. Al usar un objeto como yo pueden asegurarse de que todos los objetos de su aplicación estén usando el mismo objeto; no instancian ninguno, simplemente piden una instancia. Así que mi clase tiene un método estático llamado <code>getInstance()</code>. Llámenlo y apareceré al instante, listo para trabajar. De hecho, es posible que ya esté ayudando a otros objetos cuando me pidan.</p>
+<p><strong>Head First:</strong> Bueno, señor Singleton, parece que hay bastante bajo la manga para que todo esto funcione. Gracias por revelarse y esperamos volver a hablar con usted pronto.</p>
+</div>
+<h2 id="la-fabrica-de-chocolate">La fábrica de chocolate<a class="headerlink" href="#la-fabrica-de-chocolate" title="Permanent link">&para;</a></h2>
+<p>Todo el mundo sabe que todas las fábricas de chocolate modernas tienen calderas controladas por computadora. El trabajo de la caldera es recibir chocolate y leche, ponerlos a hervir y pasarlos a la siguiente fase de fabricación de barras de chocolate.</p>
+<p>Aquí está la clase controladora de la <code>ChocolateBoiler</code> industrial de Choc-O-Holic, Inc. Echa un vistazo al código; te darás cuenta de que se han esforzado mucho por asegurar que no pasen cosas malas, como vaciar 500 galones de mezcla sin hervir, o llenar la caldera cuando ya está llena, o hervir una caldera vacía.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ChocolateBoiler</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">empty</span><span class="p">;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">boiled</span><span class="p">;</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">ChocolateBoiler</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">        </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">        </span><span class="n">boiled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">fill</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">            </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">            </span><span class="n">boiled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">            </span><span class="c1">// fill the boiler with a milk/chocolate mixture</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">drain</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">isEmpty</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">isBoiled</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">            </span><span class="c1">// drain the boiled milk and chocolate</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">            </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">boil</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">isEmpty</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">isBoiled</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="w">            </span><span class="c1">// bring the contents to a boil</span>
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="w">            </span><span class="n">boiled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isEmpty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-28"><a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">empty</span><span class="p">;</span>
+</span><span id="__span-8-29"><a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-30"><a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isBoiled</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-31"><a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">boiled</span><span class="p">;</span>
+</span><span id="__span-8-32"><a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p>Este código solo arranca cuando la caldera está vacía.</p>
+<p>Para llenar la caldera tiene que estar vacía y, una vez llena, ponemos a <code>false</code> las banderas <code>empty</code> y <code>boiled</code>.</p>
+<p>Para vaciar la caldera, tiene que estar llena (no vacía) y también hervida. Una vez que la vaciamos, ponemos <code>empty</code> de nuevo a <code>true</code>.</p>
+<p>Para hervir la mezcla, la caldera tiene que estar llena y no debe estar ya hervida. Una vez hervida, ponemos la bandera <code>boiled</code> a <code>true</code>.</p>
+</div>
+<p>Choc-O-Holic ha hecho un trabajo decente al asegurar que no pasen cosas malas, ¿no crees? Dicho de otro modo, seguramente sospechas que, si se sueltan dos instancias de <code>ChocolateBoiler</code>, pueden pasar cosas muy malas.</p>
+<p>¿Cómo podrían salir mal las cosas si se creara más de una instancia de <code>ChocolateBoiler</code> en una aplicación?</p>
+<div class="admonition exercise">
+<p class="admonition-title">Ejercicio</p>
+<p>¿Puedes ayudar a Choc-O-Holic a mejorar su clase <code>ChocolateBoiler</code> convirtiéndola en un Singleton?</p>
+</div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ChocolateBoiler</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">empty</span><span class="p">;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">boiled</span><span class="p">;</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">             </span><span class="n">ChocolateBoiler</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">        </span><span class="n">boiled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">fill</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">           </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">           </span><span class="n">boiled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">           </span><span class="c1">// fill the boiler with a milk/chocolate mixture</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">    </span><span class="c1">// rest of ChocolateBoiler code...</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="el-patron-singleton-definido">El patrón Singleton definido<a class="headerlink" href="#el-patron-singleton-definido" title="Permanent link">&para;</a></h2>
+<p>Ahora que ya tienes en la cabeza la implementación clásica de Singleton, es hora de sentarte, disfrutar de una barra de chocolate y revisar los detalles más finos del patrón Singleton.</p>
+<p>Empecemos por la definición concisa del patrón:</p>
+<blockquote>
+<p><strong>El patrón Singleton asegura que una clase tenga una sola instancia y proporciona un punto de acceso global a ella.</strong></p>
+</blockquote>
+<p>No hay grandes sorpresas ahí. Pero vamos a desglosarlo un poco más:</p>
+<div class="admonition note">
+<p class="admonition-title">Qué está pasando realmente aquí</p>
+<ul>
+<li>
+<p>Estamos tomando una clase y dejándole gestionar una única instancia de sí misma. También estamos impidiendo que cualquier otra clase cree una instancia nueva por su cuenta. Para obtener una instancia tienes que pasar por la propia clase.</p>
+</li>
+<li>
+<p>También estamos proporcionando un punto de acceso global a la instancia: siempre que necesites una instancia, solo tienes que preguntar a la clase y te devolverá la única instancia.</p>
+</li>
+</ul>
+</div>
+<p>Como has visto, podemos implementarlo de modo que el Singleton se cree de forma perezosa (<em>lazy</em>), lo cual es especialmente importante para los objetos que consumen muchos recursos.</p>
+<p>Vale, veamos el diagrama de clases:</p>
+<pre class="mermaid"><code>classDiagram
+    class Singleton {
+        -static uniqueInstance
+        +static getInstance()
+    }</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p>La variable de clase <code>uniqueInstance</code> guarda nuestra única y sola instancia de <code>Singleton</code>.</p>
+<p>El método <code>getInstance()</code> es estático, lo que significa que es un método de clase, así que puedes acceder cómodamente a este método desde cualquier parte de tu código usando <code>Singleton.getInstance()</code>. Es tan fácil como acceder a una variable global, pero obtenemos beneficios como la instanciación perezosa desde el propio Singleton.</p>
+<p>Una clase que implemente el patrón Singleton es algo más que un Singleton; es una clase de propósito general con su propio conjunto de datos y métodos.</p>
+</div>
+<h2 id="hershey-pa-houston-tenemos-un-problema">Hershey, PA: Houston, tenemos un problema...<a class="headerlink" href="#hershey-pa-houston-tenemos-un-problema" title="Permanent link">&para;</a></h2>
+<p>Parece que la caldera de chocolate nos ha fallado; a pesar de que mejoramos el código usando el patrón Singleton clásico, de algún modo el método <code>fill()</code> de la caldera fue capaz de empezar a llenar la caldera cuando ya había una tanda de leche y chocolate hirviendo. ¡Eso son 500 galones de leche (y chocolate) derramados! ¿Qué ha pasado?</p>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>¡No sabemos qué ha pasado! El nuevo código del Singleton estaba funcionando bien. Lo único que se nos ocurre es que acabáramos de añadir algunas optimizaciones al controlador de la caldera de chocolate que hace uso de múltiples hilos.</p>
+</div>
+<p>¿Podría la incorporación de hilos haber causado esto? ¿No es cierto que, una vez que hemos puesto la variable <code>uniqueInstance</code> a la única instancia de <code>ChocolateBoiler</code>, todas las llamadas a <code>getInstance()</code> deberían devolver la misma instancia? ¿Verdad?</p>
+<h2 id="se-la-jvm">Sé la JVM<a class="headerlink" href="#se-la-jvm" title="Permanent link">&para;</a></h2>
+<div class="admonition exercise">
+<p class="admonition-title">Sé la JVM</p>
+<p>Tenemos dos hilos, cada uno ejecutando este código. Tu trabajo es hacer de JVM y determinar si existe algún caso en el que dos hilos puedan acabar con objetos de caldera distintos.</p>
+<p><strong>Pista:</strong> en realidad solo necesitas mirar la secuencia de operaciones del método <code>getInstance()</code> y el valor de <code>uniqueInstance</code> para ver cómo podrían solaparse. Usa los imanes de código para que te ayuden a estudiar cómo podría intercalarse el código y crear dos objetos de caldera.</p>
+<p>¡Asegúrate de comprobar tu respuesta en la página 188 antes de continuar!</p>
+</div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">ChocolateBoiler</span><span class="w"> </span><span class="n">boiler</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="n">ChocolateBoiler</span><span class="p">.</span><span class="na">getInstance</span><span class="p">();</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">boiler</span><span class="p">.</span><span class="na">fill</span><span class="p">();</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">boiler</span><span class="p">.</span><span class="na">boil</span><span class="p">();</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">boiler</span><span class="p">.</span><span class="na">drain</span><span class="p">();</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ChocolateBoiler</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">ChocolateBoiler</span><span class="p">();</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">La rejilla del ejercicio</p>
+<p>Rellena a mano estas tres columnas —<strong>Hilo uno</strong>, <strong>Hilo dos</strong> y <strong>Valor de <code>uniqueInstance</code></strong>— para cada línea de código, e indica en qué momento se solapan los dos hilos. La solución está al final del capítulo.</p>
+</div>
+<h2 id="abordando-el-multihilo">Abordando el multihilo<a class="headerlink" href="#abordando-el-multihilo" title="Permanent link">&para;</a></h2>
+<p>Nuestros problemas de multihilo se resuelven casi trivialmente haciendo que <code>getInstance()</code> sea un método <code>synchronized</code>:</p>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>Al añadir la palabra clave <code>synchronized</code> a <code>getInstance()</code>, obligamos a que todos los hilos esperen su turno antes de poder entrar en el método. Es decir, dos hilos no pueden entrar en el método al mismo tiempo.</p>
+</div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Singleton</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="c1">// other useful instance variables here</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Singleton</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">synchronized</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">            </span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Singleton</span><span class="p">();</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="c1">// other useful methods here</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>Estoy de acuerdo en que esto arregla el problema. Pero la sincronización es cara; ¿es eso un problema?</p>
+</div>
+<p>Buen punto, y en realidad es algo peor de lo que supposeis: el único momento en que la sincronización es relevante es la primera vez que se pasa por este método. Dicho de otro modo, una vez que hemos puesto la variable <code>uniqueInstance</code> a una instancia de <code>Singleton</code>, ya no tenemos ninguna necesidad de más de sincronizar este método. ¡Tras la primera vez, la sincronización es un lastre totalmente innecesario!</p>
+<h2 id="podemos-mejorar-el-multihilo">¿Podemos mejorar el multihilo?<a class="headerlink" href="#podemos-mejorar-el-multihilo" title="Permanent link">&para;</a></h2>
+<p>Para la mayoría de las aplicaciones Java, obviamente necesitamos asegurarnos de que el Singleton funciona en presencia de múltiples hilos. Pero sincronizar el método <code>getInstance()</code> es caro, así que ¿qué hacemos?</p>
+<p>Pues bien, tenemos algunas opciones...</p>
+<h3 id="1-no-hacer-nada-si-el-rendimiento-de-getinstance-no-es-critico-para-tu-aplicacion">1. No hacer nada si el rendimiento de <code>getInstance()</code> no es crítico para tu aplicación<a class="headerlink" href="#1-no-hacer-nada-si-el-rendimiento-de-getinstance-no-es-critico-para-tu-aplicacion" title="Permanent link">&para;</a></h3>
+<p>Exacto; si llamar al método <code>getInstance()</code> no supone una sobrecarga sustancial para tu aplicación, olvídate de ello. Sincronizar <code>getInstance()</code> es directo y eficaz. Ten en mente solo que sincronizar un método puede reducir el rendimiento en un factor de 100, así que, si una parte de tu código con mucho tráfico empieza a usar <code>getInstance()</code>, quizá tengas que reconsiderarlo.</p>
+<h3 id="2-pasa-a-una-instancia-creada-ansiosamente-en-lugar-de-creada-perezosamente">2. Pasa a una instancia creada ansiosamente en lugar de creada perezosamente<a class="headerlink" href="#2-pasa-a-una-instancia-creada-ansiosamente-en-lugar-de-creada-perezosamente" title="Permanent link">&para;</a></h3>
+<p>Si tu aplicación siempre crea y usa una instancia del Singleton, o si la sobrecarga de la creación y de los aspectos de ejecución del Singleton no es onerosa, quizá quieras crear tu Singleton ansiosamente, así:</p>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p>Adelante, crea una instancia de <code>Singleton</code> en un inicializador estático. Este código tiene la garantía de ser seguro frente a hilos.</p>
+<p>Ya tenemos una instancia, así que solo hay que devolverla.</p>
+</div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Singleton</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Singleton</span><span class="p">();</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Singleton</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Con este enfoque, delegamos en la JVM la creación de la única instancia del Singleton cuando se carga la clase. La JVM garantiza que la instancia se creará antes de que algún hilo acceda a la variable estática <code>uniqueInstance</code>.</p>
+<h3 id="3-usar-el-doble-comprobamiento-bloqueante-para-reducir-el-uso-de-la-sincronizacion-en-getinstance">3. Usar el «doble comprobamiento bloqueante» para reducir el uso de la sincronización en <code>getInstance()</code><a class="headerlink" href="#3-usar-el-doble-comprobamiento-bloqueante-para-reducir-el-uso-de-la-sincronizacion-en-getinstance" title="Permanent link">&para;</a></h3>
+<p>Con el doble comprobamiento bloqueante, primero comprobamos si hay una instancia creada y, si no, ENTONCES sincronizamos. De este modo, solo sincronizamos la primera vez que pasamos, que es justo lo que queremos.</p>
+<p>Veamos el código:</p>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p>Comprueba si hay una instancia y, si no hay, entra en un bloque <code>synchronized</code>.</p>
+<p>Fíjate en que ¡solo sincronizamos la primera vez que pasamos!</p>
+<p>Una vez dentro del bloque, comprueba de nuevo y, si sigue siendo <code>null</code>, crea una instancia.</p>
+<p>La palabra clave <code>volatile</code> asegura que múltiples hilos manejen correctamente la variable <code>uniqueInstance</code> mientras se está inicializando a la instancia del Singleton.</p>
+</div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Singleton</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">volatile</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Singleton</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">            </span><span class="kd">synchronized</span><span class="w"> </span><span class="p">(</span><span class="n">Singleton</span><span class="p">.</span><span class="na">class</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">                    </span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Singleton</span><span class="p">();</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">                </span><span class="p">}</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Si el rendimiento es un problema en tu uso del método <code>getInstance()</code>, entonces este modo de implementar el Singleton puede reducir drásticamente la sobrecarga.</p>
+<div class="admonition warning">
+<p class="admonition-title">El doble comprobamiento bloqueante no funciona en Java 1.4 ni anteriores</p>
+<p>Si por algún motivo estás usando una versión antigua de Java, por desgracia, en la versión 1.4 de Java y anteriores, muchas JVM contienen implementaciones de la palabra clave <code>volatile</code> que permiten una sincronización incorrecta para el doble comprobamiento bloqueante. Si debes usar una JVM anterior a Java 5, considera otros métodos de implementar tu Singleton.</p>
+</div>
+<h2 id="mientras-tanto-de-vuelta-en-la-fabrica-de-chocolate">Mientras tanto, de vuelta en la fábrica de chocolate...<a class="headerlink" href="#mientras-tanto-de-vuelta-en-la-fabrica-de-chocolate" title="Permanent link">&para;</a></h2>
+<p>Mientras nosotros estábamos fuera diagnosticando los problemas de multihilo, la caldera de chocolate se ha arreglado y está lista para funcionar. Pero primero tenemos que arreglar los problemas de multihilo. Tenemos algunas soluciones a mano, cada una con sus propias ventajas e inconvenientes, así que ¿qué solución vamos a emplear?</p>
+<div class="admonition exercise">
+<p class="admonition-title">Ejercicio</p>
+<p>Para cada solución, describe su aplicabilidad al problema de arreglar el código de la caldera de chocolate:</p>
+<ul>
+<li><strong>Sincronizar el método <code>getInstance()</code>:</strong></li>
+<li><strong>Usar la instanciación ansiosa:</strong></li>
+<li><strong>Usar el doble comprobamiento bloqueante:</strong></li>
+</ul>
+</div>
+<h3 id="felicidades">¡Felicidades!<a class="headerlink" href="#felicidades" title="Permanent link">&para;</a></h3>
+<p>En este punto, la fábrica de chocolate es un cliente contento y Choc-O-Holic se congratuló de que le aplicaran algo de experiencia a su código de la caldera. Elijas la solución de multihilo que aplicaras, la caldera debería estar en buen estado y sin más accidentes. ¡Felicidades!; no solo has conseguido escapar de 500 libras de chocolate caliente en este capítulo, sino que además has atravesado todos los problemas potenciales del patrón Singleton.</p>
+<h2 id="preguntas-y-respuestas">Preguntas y respuestas<a class="headerlink" href="#preguntas-y-respuestas" title="Permanent link">&para;</a></h2>
+<p><strong>P:</strong> Para un patrón tan simple, compuesto por una sola clase, el Singleton parece tener algunos problemas.</p>
+<p><strong>R:</strong> Bueno, ¡ya te avisamos desde el principio! Pero no dejes que los problemas te desanimen; aunque el Singleton no está pensado necesariamente como una solución que pueda encajar en una biblioteca. Además, el código del Singleton es trivial de añadir a cualquier clase existente. Por último, si estás usando un gran número de Singletons en tu aplicación, deberías revisar tu diseño con lupa. Los Singletons están pensados para usarse con moderación.</p>
+<p><strong>P:</strong> ¿Y qué pasa con la reflexión y la serialización/deserialización?</p>
+<p><strong>R:</strong> Sí, la reflexión y la serialización/deserialización también pueden plantear problemas con los Singletons. Si eres un usuario avanzado de Java que usa reflexión, serialización y deserialización, tendrás que tener esto en cuenta. Si cambias tu constructor, hay otro problema. La implementación de Singleton se basa en una variable estática, así que, si haces una subclase de forma directa, todas tus clases derivadas compartirán la misma variable de instancia. Probablemente eso no es lo que tenías en mente. Así que, para que la subclasificación funcione, es necesario implementar en la clase base una especie de registro.</p>
+<p><strong>P:</strong> Antes hablamos del principio de acoplamiento débil. ¿No está violando el Singleton este principio? Después de todo, cada objeto de nuestro código que dependa del Singleton va a quedar fuertemente acoplado a ese objeto concreto.</p>
+<p><strong>R:</strong> Sí, y de hecho esta es una crítica habitual al patrón Singleton. El principio de acoplamiento débil dice «esfuérzate por lograr diseños débilmente acoplados entre objetos que interactúan». Es fácil que los Singletons violen este principio: si haces un cambio en el Singleton, probablemente tendrás que hacer un cambio en todos los objetos conectados a él. Este escenario puede dar lugar a errores sutiles y difíciles de encontrar que involucran el orden de inicialización. A menos que haya una razón de peso para implementar tu «singleton» de esta forma, es mucho mejor quedarse en el mundo de los objetos.</p>
+<p><strong>P:</strong> Siempre me han enseñado que una clase debería hacer una sola cosa y solo una. Que una clase haga dos cosas se considera un mal diseño OO. ¿No está violando el Singleton esto también?</p>
+<p><strong>R:</strong> Te estarías refiriendo al Principio de Responsabilidad Única, y sí, tienes razón: el Singleton es responsable no solo de gestionar su única instancia (y de proporcionar acceso global), sino también de aquello que sea su papel principal en tu aplicación. Así que, sin ninguna duda, podrías argumentar que asume dos responsabilidades. No obstante, no es difícil ver que hay utilidad en una clase que gestiona su propia instancia; sin duda hace el diseño global más sencillo. Además, muchos desarrolladores están familiarizados con el patrón Singleton tal como es de uso generalizado. Dicho esto, algunos desarrolladores sienten la necesidad de abstraer la funcionalidad del Singleton.</p>
+<p><strong>P:</strong> Tampoco entiendo del todo por qué las variables globales son peores que un Singleton.</p>
+<p><strong>R:</strong> En Java, las variables globales son básicamente referencias estáticas a objetos. Hay un par de desventajas al usar variables globales de este modo. Ya hemos mencionado una: la cuestión de la instanciación perezosa frente a la ansiosa. Pero tenemos que tener presente la intención del patrón: asegurar que solo exista una instancia de una clase y proporcionar acceso global. Una variable global puede proporcionar lo último, pero no lo primero. Las variables globales también tienden a empujar a los desarrolladores a contaminar el espacio de nombres con un montón de referencias globales a objetos pequeños. Los Singletons no animan a hacer lo mismo, pero también pueden ser explotados de todos modos.</p>
+<p><strong>P:</strong> ¿No puedo simplemente crear una clase en la que todos los métodos y variables estén definidos como <code>static</code>? ¿No sería eso lo mismo que un Singleton?</p>
+<p><strong>R:</strong> Sí, si tu clase es autocontenida y no depende de una inicialización compleja. Sin embargo, debido a la forma en que se manejan las inicializaciones estáticas en Java, esto puede ponerse muy enrevesado, especialmente si intervienen varias clases.</p>
+<p><strong>P:</strong> ¿Y qué hay de los cargadores de clases? He oído que existe la posibilidad de que dos cargadores de clases acaben cada uno con su propia instancia de <code>Singleton</code>.</p>
+<p><strong>R:</strong> Sí, es cierto, ya que cada cargador de clases define un espacio de nombres. Si tienes dos o más cargadores de clases, puedes cargar la misma clase varias veces (una vez en cada cargador de clases). Ahora bien, si esa clase resulta ser un Singleton, como tenemos más de una versión de la clase, también tenemos más de una instancia de <code>Singleton</code>. Así que, si estás usando varios cargadores de clases y Singletons, ten cuidado. Una manera de salir del problema es especificar tú mismo el cargador de clases.</p>
+<p><strong>P:</strong> Quería subclasar mi código de Singleton, pero me encontré con problemas. ¿Está bien subclasar un Singleton?</p>
+<p><strong>R:</strong> Uno de los problemas de subclasar un Singleton es que el constructor es privado. No puedes extender una clase con un constructor privado. Así que, lo primero que tendrás que hacer es cambiar tu constructor para que sea <code>public</code> o <code>protected</code>. Pero entonces ya no es realmente un Singleton, porque otras clases pueden instanciarlo.</p>
+<h2 id="y-si-usaramos-un-enum">¿Y si usáramos un enum?<a class="headerlink" href="#y-si-usaramos-un-enum" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>Me acabo de dar cuenta de... creo que podemos resolver muchos de los problemas de Singleton usando un enum. ¿Es correcto?</p>
+</div>
+<p>¡Ah, buena idea!</p>
+<p>Muchos de los problemas que hemos discutido —preocuparnos por la sincronización, los problemas de carga de clases, la reflexión y los problemas de serialización/deserialización— se pueden resolver todos usando un enum para crear tu Singleton. Así es como lo harías:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="n">UNIQUE_INSTANCE</span><span class="p">;</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="c1">// more useful fields here</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SingletonClient</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">        </span><span class="n">Singleton</span><span class="w"> </span><span class="n">singleton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Singleton</span><span class="p">.</span><span class="na">UNIQUE_INSTANCE</span><span class="p">;</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">        </span><span class="c1">// use the singleton here</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Sí, eso es todo. El Singleton más simple que existe, ¿verdad? Ahora, quizá te estés preguntando: ¿por qué pasamos por todo aquello de crear una clase Singleton con un método <code>getInstance()</code> y luego sincronizarlo, y así sucesivamente? Lo hicimos para que entiendas de verdad, a fondo, cómo funciona un Singleton. Ahora que lo sabes, ya puedes usar <code>enum</code> siempre que necesites un Singleton y aun así sacarle buena nota a esa pregunta de entrevista en Java: «¿cómo implementas un Singleton sin usar <code>enum</code>?».</p>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>Y en los buenos tiempos, cuando teníamos que ir andando a la escuela, cuesta arriba, con nieve, en ambas direcciones, Java no tenía enums.</p>
+</div>
+<div class="admonition exercise">
+<p class="admonition-title">Ejercicio</p>
+<p>¿Puedes reestructurar Choc-O-Holic para que use un enum? Inténtalo.</p>
+</div>
+<h2 id="herramientas-para-tu-caja-de-herramientas-de-diseno">Herramientas para tu caja de herramientas de diseño<a class="headerlink" href="#herramientas-para-tu-caja-de-herramientas-de-diseno" title="Permanent link">&para;</a></h2>
+<p>Ya has añadido otro patrón a tu caja de herramientas.</p>
+<p>Singleton te da otro método de creación de objetos; en este caso, objetos únicos.</p>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>El patrón Singleton asegura que tengas como máximo una instancia de una clase en tu aplicación.</li>
+<li>El patrón Singleton también proporciona un punto de acceso global a esa instancia.</li>
+<li>La implementación de Java del patrón Singleton hace uso de un constructor privado, un método estático combinado con una variable estática.</li>
+<li>Examina tus restricciones de rendimiento y de recursos y elige con cuidado una implementación de Singleton adecuada para tu aplicación.</li>
+<li><strong>Ten cuidado con el doble comprobamiento bloqueante</strong>: no es seguro frente a hilos en versiones anteriores a Java 5.</li>
+<li>Ten cuidado si usas varios cargadores de clases; esto podría derrotar la implementación del Singleton y dar como resultado múltiples instancias.</li>
+<li>Puedes usar los enums de Java para simplificar tu implementación de Singleton.</li>
+</ul>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">Fundamentos de OO</p>
+<ul>
+<li>Abstracción</li>
+<li>Encapsulación</li>
+<li>Polimorfismo</li>
+<li>Herencia</li>
+</ul>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">Principios de OO</p>
+<ul>
+<li>Encapsula lo que varía.</li>
+<li>Favorece la composición sobre la herencia.</li>
+<li>Programa a interfaces, no a implementaciones.</li>
+<li>Esfuérzate por lograr diseños débilmente acoplados entre objetos que interactúan.</li>
+<li>Las clases deberían estar abiertas a la extensión, pero cerradas a la modificación.</li>
+<li>Depende de las abstracciones. No dependas de las clases concretas.</li>
+</ul>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">Patrones de OO</p>
+<ul>
+<li><strong>Strategy</strong> — define una familia de algoritmos, encapsula cada uno y los hace intercambiables. Strategy permite que el algoritmo varíe independientemente de los clientes que lo usan.</li>
+<li><strong>Observer</strong> — define una dependencia de uno a muchos entre objetos, de modo que cuando un objeto cambia de estado, todos sus dependientes son notificados y actualizados automáticamente.</li>
+<li><strong>Decorator</strong> — adjunta responsabilidades adicionales a un objeto de forma dinámica. Los decoradores proporcionan una alternativa flexible a la subclase para extender la funcionalidad.</li>
+<li><strong>Abstract Factory</strong> — proporciona una interfaz para crear familias de objetos relacionados o dependientes sin especificar sus clases concretas.</li>
+<li><strong>Factory Method</strong> — define una interfaz para crear un objeto, pero deja que las subclases decidan qué clase instanciar. Factory Method permite que una clase difiera la instanciación a sus subclases.</li>
+<li><strong>Singleton</strong> — asegura que una clase tenga solo una instancia y proporciona un punto de acceso global a ella.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Resumen</p>
+<p>Cuando necesites asegurarte de que en tus aplicaciones multihilo solo hay una instancia de una clase dando vueltas por tu aplicación (y deberíamos considerar que todas las aplicaciones son multihilo), recurre al Singleton.</p>
+<p>Como has visto, a pesar de su aparente simplicidad, hay muchos detalles involucrados en la implementación del Singleton. Ahora que has leído este capítulo, ya estás listo para salir ahí fuera y usar el Singleton en el mundo real.</p>
+</div>
+<h2 id="crucigrama-de-patrones-de-diseno">Crucigrama de patrones de diseño<a class="headerlink" href="#crucigrama-de-patrones-de-diseno" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La retícula del crucigrama original no es reproducible en Markdown, por lo que se conservan las definiciones y sus soluciones.</p>
+</div>
+<p>¡Siéntate, abre esa caja de chocolate que te mandaron para resolver el problema de multihilo y disfruta de un rato de calma resolviendo este pequeño crucigrama; todas las palabras de la solución son de este capítulo.</p>
+<table>
+<thead>
+<tr>
+<th>N.º</th>
+<th>Dirección</th>
+<th>Definición</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Vertical</td>
+<td>Se añade al chocolate en la caldera.</td>
+<td>MILK</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Vertical</td>
+<td>Enfoque de multihilo defectuoso si no se usa Java 5 o posterior (dos palabras).</td>
+<td>DOUBLE-CHECKED</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Horizontal</td>
+<td>Empresa que produce calderas.</td>
+<td>CHOC-O-HOLIC</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Vertical</td>
+<td>Era «única de su clase».</td>
+<td>CAR</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Vertical</td>
+<td>Múltiples __________ pueden causar problemas (dos palabras).</td>
+<td>CLASS LOADERS</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Vertical</td>
+<td>Si no te preocupan por la instanciación perezosa, puedes crear tu instancia __________.</td>
+<td>STATICALLY</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Horizontal</td>
+<td>Una implementación incorrecta provocó que esto se desbordara.</td>
+<td>KLSBOILER</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Horizontal</td>
+<td>El patrón Singleton tiene una.</td>
+<td>CLASS</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Vertical</td>
+<td>Una ventaja frente a las variables globales: creación ________.</td>
+<td>LAZY</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Vertical</td>
+<td>Capital del chocolate de EE. UU.</td>
+<td>HERSHEY</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Horizontal</td>
+<td>Para derrotar del todo al nuevo constructor, tenemos que declarar el constructor como __________.</td>
+<td>PRIVATE</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Vertical</td>
+<td>El Singleton asegura que solo exista una de estas cosas.</td>
+<td>INSTANCE</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Horizontal</td>
+<td>La implementación clásica no maneja esto.</td>
+<td>MULTTHREADING</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Horizontal</td>
+<td>El patrón Singleton proporciona una única instancia y __________ (tres palabras).</td>
+<td>GLOBAL ACCESS POINT</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Horizontal</td>
+<td>Una forma fácil de crear Singletons en Java.</td>
+<td>ENUM</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Horizontal</td>
+<td>El Singleton se avergonzaba de no tener un __________ público.</td>
+<td>CONSTRUCTOR</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Horizontal</td>
+<td>Un Singleton es una clase que gestiona una instancia de ________.</td>
+<td>ITSELF</td>
+</tr>
+</tbody>
+</table>
+<h2 id="solucion-de-se-la-jvm">Solución de «Sé la JVM»<a class="headerlink" href="#solucion-de-se-la-jvm" title="Permanent link">&para;</a></h2>
+<div class="admonition success">
+<p class="admonition-title">Sé la JVM — solución</p>
+<p>Tenemos dos hilos, cada uno ejecutando este código. ¡Vaya, esto no tiene buena pinta! Se devuelven ¡dos objetos distintos! ¡Tenemos dos instancias de <code>ChocolateBoiler</code>!</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Solución paso a paso</p>
+<p><strong>Hilo uno</strong> va por delante: comprueba <code>uniqueInstance</code>, ve que es <code>null</code> y le asigna <code>&lt;object1&gt;</code>. <strong>Hilo dos</strong>, entre medias, también ve <code>null</code> y le asigna <code>&lt;object2&gt;</code>. Cuando cada hilo sale del método, cada uno devuelve un objeto distinto.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Paso</th>
+<th>Hilo uno</th>
+<th>Hilo dos</th>
+<th>Valor de <code>uniqueInstance</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>if (uniqueInstance == null)</code></td>
+<td></td>
+<td><code>null</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td><code>if (uniqueInstance == null)</code></td>
+<td><code>null</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>uniqueInstance = new ChocolateBoiler();</code></td>
+<td></td>
+<td><code>&lt;object1&gt;</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td><code>uniqueInstance = new ChocolateBoiler();</code></td>
+<td><code>&lt;object2&gt;</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>return uniqueInstance;</code></td>
+<td><code>return uniqueInstance;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ChocolateBoiler</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">        </span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ChocolateBoiler</span><span class="p">();</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="soluciones-de-los-ejercicios">Soluciones de los ejercicios<a class="headerlink" href="#soluciones-de-los-ejercicios" title="Permanent link">&para;</a></h2>
+<h3 id="solucion-convertir-chocolateboiler-en-un-singleton">Solución: convertir <code>ChocolateBoiler</code> en un Singleton<a class="headerlink" href="#solucion-convertir-chocolateboiler-en-un-singleton" title="Permanent link">&para;</a></h3>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ChocolateBoiler</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">empty</span><span class="p">;</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">boiled</span><span class="p">;</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ChocolateBoiler</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">ChocolateBoiler</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">        </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">        </span><span class="n">boiled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ChocolateBoiler</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="w">            </span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ChocolateBoiler</span><span class="p">();</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">fill</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a><span class="w">            </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a><span class="w">            </span><span class="n">boiled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-18-19"><a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a><span class="w">            </span><span class="c1">// fill the boiler with a milk/chocolate mixture</span>
+</span><span id="__span-18-20"><a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-18-21"><a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-18-22"><a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="w">   </span><span class="c1">// rest of ChocolateBoiler code...</span>
+</span><span id="__span-18-23"><a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="solucion-secciones-de-multihilo">Solución: secciones de multihilo<a class="headerlink" href="#solucion-secciones-de-multihilo" title="Permanent link">&para;</a></h3>
+<p>Para cada solución, describe su aplicabilidad al problema de arreglar el código de la caldera de chocolate:</p>
+<ul>
+<li><strong>Sincronizar el método <code>getInstance()</code>:</strong> una técnica directa que tiene la garantía de funcionar. No parece que tengamos ningún problema de rendimiento con la caldera de chocolate, así que esta sería una buena elección.</li>
+<li><strong>Usar la instanciación ansiosa:</strong> siempre vamos a instanciar la caldera de chocolate en nuestro código, así que inicializar la instancia estáticamente no causaría ningún problema. Esta solución funcionaría igual de bien que el método sincronizado, aunque quizá sea menos obvia para un desarrollador familiarizado con el patrón estándar.</li>
+<li><strong>Usar el doble comprobamiento bloqueante:</strong> dado que no tenemos problemas de rendimiento, el doble comprobamiento bloqueante parece innecesario. Además, tendríamos que asegurarnos de estar ejecutando al menos Java 5.</li>
+</ul>
+<h2 id="crucigrama-de-patrones-de-diseno-soluciones">Crucigrama de patrones de diseño: soluciones<a class="headerlink" href="#crucigrama-de-patrones-de-diseno-soluciones" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>N.º</th>
+<th>Dirección</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Vertical</td>
+<td>MILK</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Vertical</td>
+<td>DOUBLE-CHECKED</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Horizontal</td>
+<td>CHOC-O-HOLIC</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Vertical</td>
+<td>CAR</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Vertical</td>
+<td>CLASS LOADERS</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Vertical</td>
+<td>STATICALLY</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Horizontal</td>
+<td>KLSBOILER</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Horizontal</td>
+<td>CLASS</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Vertical</td>
+<td>LAZY</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Vertical</td>
+<td>HERSHEY</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Horizontal</td>
+<td>PRIVATE</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Vertical</td>
+<td>INSTANCE</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Horizontal</td>
+<td>MULTTHREADING</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Horizontal</td>
+<td>GLOBAL ACCESS POINT</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Horizontal</td>
+<td>ENUM</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Horizontal</td>
+<td>CONSTRUCTOR</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Horizontal</td>
+<td>ITSELF</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../capitulo-4/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Capítulo 4: El patrón Factory">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 4: El patrón Factory
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../capitulo-6/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Capítulo 6: El patrón Command">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 6: El patrón Command
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copiado al portapapeles","clipboard.copy":"Copiar al portapapeles","search.result.more.one":"1 más en esta página","search.result.more.other":"# más en esta página","search.result.none":"No se encontraron documentos","search.result.one":"1 documento encontrado","search.result.other":"# documentos encontrados","search.result.placeholder":"Teclee para comenzar búsqueda","search.result.term.missing":"Falta","select.version":"Seleccionar versión"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      
+    
+  </body>
+</html>

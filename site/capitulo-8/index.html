@@ -1,0 +1,2768 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Traducción al español de Head First Design Patterns (Freeman y Robson, 2.ª edición), con diagramas reconstruidos en Mermaid.">
+      
+      
+        <meta name="author" content="Head First Design Patterns — traducción al español">
+      
+      
+      
+        <link rel="prev" href="../capitulo-7/">
+      
+      
+        <link rel="next" href="../capitulo-9/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.36">
+    
+    
+      
+        <title>Capítulo 8: El patrón Template Method: encapsulando algoritmos - Head First Design Patterns — español</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.1e981d71.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navegación"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capitulo-8-el-patron-template-method-encapsulando-algoritmos" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="./.." title="Head First Design Patterns — español" class="md-header__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navegación">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Head First Design Patterns — español
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Capítulo 8: El patrón Template Method: encapsulando algoritmos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Buscar">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Buscar">
+  <button type="button" class="md-search__button">
+    Buscar
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Head First Design Patterns — español" class="md-nav__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Head First Design Patterns — español
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 1: Introducción a los patrones de diseño
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 2: El patrón Observer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 3: El patrón Decorator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 4: El patrón Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 5: El patrón Singleton
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 6: El patrón Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 7: Los patrones Adapter y Facade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 8: El patrón Template Method
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 8: El patrón Template Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#un-poco-mas-de-cafeina" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un poco más de cafeína
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparando-clases-de-cafe-y-te-en-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Preparando clases de café y té (en Java)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y-ahora-el-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Y ahora el té...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vamos-a-abstraer-ese-coffee-y-ese-tea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vamos a abstraer ese Coffee y ese Tea
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llevando-el-diseno-mas-lejos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Llevando el diseño más lejos...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abstrayendo-preparerecipe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abstrayendo prepareRecipe()
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-hemos-hecho" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué hemos hecho?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conoce-el-patron-template-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conoce el patrón Template Method
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vamos-a-preparar-un-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vamos a preparar un té...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-nos-ha-dado-el-patron-template-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué nos ha dado el patrón Template Method?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patron-template-method-definido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrón Template Method definido
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-codigo-de-cerca" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El código de cerca
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-codigo-bien-de-cerca" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El código bien de cerca
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conectado-al-template-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conectado al Template Method...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usando-el-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Usando el hook
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probemoslo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Probémoslo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-principio-de-hollywood" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El principio de Hollywood
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-principio-de-hollywood-y-el-template-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El principio de Hollywood y el Template Method
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template-methods-en-la-vida-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Template Methods en la vida real
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordenar-con-template-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ordenar con Template Method
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tengo-patos-que-ordenar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tengo patos que ordenar...
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tengo patos que ordenar...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-compareto" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué es compareTo()?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparando-patos-y-patos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comparando patos y patos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vamos-a-ordenar-unos-patos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vamos a ordenar unos patos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversacion-junto-a-la-chimenea-template-method-y-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conversación junto a la chimenea: Template Method y Strategy
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-herramientas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de herramientas de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soluciones-de-los-ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Soluciones de los ejercicios
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno-solucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño: solución
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 9: Los patrones Iterator y Composite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 10: El patrón State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 11: El patrón Proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 12: Patrones compuestos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 13: Mejor vivir con patrones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 14: Apéndice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#un-poco-mas-de-cafeina" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un poco más de cafeína
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparando-clases-de-cafe-y-te-en-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Preparando clases de café y té (en Java)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y-ahora-el-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Y ahora el té...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vamos-a-abstraer-ese-coffee-y-ese-tea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vamos a abstraer ese Coffee y ese Tea
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llevando-el-diseno-mas-lejos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Llevando el diseño más lejos...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abstrayendo-preparerecipe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abstrayendo prepareRecipe()
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-hemos-hecho" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué hemos hecho?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conoce-el-patron-template-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conoce el patrón Template Method
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vamos-a-preparar-un-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vamos a preparar un té...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-nos-ha-dado-el-patron-template-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué nos ha dado el patrón Template Method?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patron-template-method-definido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrón Template Method definido
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-codigo-de-cerca" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El código de cerca
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-codigo-bien-de-cerca" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El código bien de cerca
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conectado-al-template-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conectado al Template Method...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usando-el-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Usando el hook
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probemoslo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Probémoslo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-principio-de-hollywood" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El principio de Hollywood
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-principio-de-hollywood-y-el-template-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El principio de Hollywood y el Template Method
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template-methods-en-la-vida-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Template Methods en la vida real
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordenar-con-template-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ordenar con Template Method
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tengo-patos-que-ordenar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tengo patos que ordenar...
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tengo patos que ordenar...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-compareto" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué es compareTo()?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparando-patos-y-patos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comparando patos y patos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vamos-a-ordenar-unos-patos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vamos a ordenar unos patos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversacion-junto-a-la-chimenea-template-method-y-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conversación junto a la chimenea: Template Method y Strategy
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-herramientas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de herramientas de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soluciones-de-los-ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Soluciones de los ejercicios
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno-solucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño: solución
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="capitulo-8-el-patron-template-method-encapsulando-algoritmos">Capítulo 8: El patrón Template Method: encapsulando algoritmos<a class="headerlink" href="#capitulo-8-el-patron-template-method-encapsulando-algoritmos" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Estamos en una racha de encapsulación: hemos encapsulado la creación de objetos, la invocación de métodos, las interfaces complejas, los patos, las pizzas... ¿qué podría venir después? Vamos a bajar al terreno de los fragmentos: vamos a encapsular trozos de algoritmo para que las subclases puedan engancharse por su cuenta a un cálculo cuando les apetezca. Hasta vamos a aprender un principio de diseño inspirado en Hollywood. Empecemos...</p>
+</blockquote>
+<h2 id="un-poco-mas-de-cafeina">Un poco más de cafeína<a class="headerlink" href="#un-poco-mas-de-cafeina" title="Permanent link">&para;</a></h2>
+<p>Hay gente que no puede vivir sin su café; hay gente que no puede vivir sin su té. ¿El ingrediente común? ¡La cafeína, por supuesto!</p>
+<p>Pero hay más: el té y el café se preparan de maneras muy parecidas. Veámoslo:</p>
+<div class="admonition warning">
+<p class="admonition-title">Manual de barista de Starbuzz Coffee</p>
+<p><strong>¡Baristas! Por favor, sigan estas recetas al pie de la letra cuando preparen bebidas de Starbuzz.</strong></p>
+<p><strong>Receta de café de Starbuzz</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>(1) Hervir algo de agua
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>(2) Preparar el café con el agua hirviendo
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>(3) Verter el café en la taza
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>(4) Añadir azúcar y leche
+</span></code></pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Receta de té de Starbuzz</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>(1) Hervir algo de agua
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>(2) Infusionar el té en el agua hirviendo
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>(3) Verter el té en la taza
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>(4) Añadir limón
+</span></code></pre></div>
+<p>Todas las recetas son secretos comerciales de Starbuzz Coffee y deben mantenerse estrictamente confidenciales.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Nota marginal</p>
+<p>La receta del café se parece muchísimo a la del té, ¿no te parece?</p>
+</div>
+<h2 id="preparando-clases-de-cafe-y-te-en-java">Preparando clases de café y té (en Java)<a class="headerlink" href="#preparando-clases-de-cafe-y-te-en-java" title="Permanent link">&para;</a></h2>
+<p>Vamos a jugar al «programador barista» y a escribir un poco de código para crear café y té. Aquí tienes el café:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Coffee</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">prepareRecipe</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">boilWater</span><span class="p">();</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">        </span><span class="n">brewCoffeeGrinds</span><span class="p">();</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="n">pourInCup</span><span class="p">();</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="n">addSugarAndMilk</span><span class="p">();</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">boilWater</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Boiling water&quot;</span><span class="p">);</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">brewCoffeeGrinds</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Dripping Coffee through filter&quot;</span><span class="p">);</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">pourInCup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Pouring into cup&quot;</span><span class="p">);</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addSugarAndMilk</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Adding Sugar and Milk&quot;</span><span class="p">);</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Aquí tienes nuestra clase <code>Coffee</code> para preparar café. Y aquí está nuestra receta de café, tal cual sale del manual de formación.</li>
+<li>Cada uno de los pasos está implementado como un método independiente.</li>
+<li>Cada uno de estos métodos implementa un paso del algoritmo. Hay un método para hervir el agua, otro para preparar el café, otro para verter el café en una taza y otro para añadir azúcar y leche.</li>
+</ul>
+</div>
+<h2 id="y-ahora-el-te">Y ahora el té...<a class="headerlink" href="#y-ahora-el-te" title="Permanent link">&para;</a></h2>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Tea</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">prepareRecipe</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="n">boilWater</span><span class="p">();</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="n">steepTeaBag</span><span class="p">();</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="n">pourInCup</span><span class="p">();</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="n">addLemon</span><span class="p">();</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">boilWater</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Boiling water&quot;</span><span class="p">);</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">steepTeaBag</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Steeping the tea&quot;</span><span class="p">);</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addLemon</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Adding Lemon&quot;</span><span class="p">);</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">pourInCup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Pouring into cup&quot;</span><span class="p">);</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p>Esto se parece muchísimo a lo que acabamos de implementar en <code>Coffee</code>; los pasos segundo y cuarto son distintos, pero en lo esencial es la misma receta.
+- Fíjate en que estos dos métodos son exactamente los mismos que en <code>Coffee</code>. Así que aquí tenemos claramente duplicación de código.
+- Estos dos métodos están especializados para <code>Tea</code>.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Nota marginal</p>
+<p>Cuando tenemos duplicación de código, es buena señal de que necesitamos limpiar el diseño. Parece que aquí deberíamos abstraer la parte común en una clase base, ya que el café y el té son tan parecidos.</p>
+</div>
+<div class="admonition exercise">
+<p class="admonition-title">Rompecabezas de diseño</p>
+<p>Ya has visto que las clases <code>Coffee</code> y <code>Tea</code> tienen bastante duplicación de código. Echa otro vistazo a las clases <code>Coffee</code> y <code>Tea</code> y dibuja un diagrama de clases que muestre cómo rediseñarías las clases para eliminar la redundancia.</p>
+</div>
+<h2 id="vamos-a-abstraer-ese-coffee-y-ese-tea">Vamos a abstraer ese Coffee y ese Tea<a class="headerlink" href="#vamos-a-abstraer-ese-coffee-y-ese-tea" title="Permanent link">&para;</a></h2>
+<p>Parece que tenemos un ejercicio de diseño bastante directo entre manos con las clases <code>Coffee</code> y <code>Tea</code>. Tu primer intento podría haber sido algo así:</p>
+<pre class="mermaid"><code>classDiagram
+    class CaffeineBeverage {
+        +prepareRecipe()
+        +boilWater()
+        +pourInCup()
+    }
+    class Coffee {
+        +prepareRecipe()
+        +brewCoffeeGrinds()
+        +addSugarAndMilk()
+    }
+    class Tea {
+        +prepareRecipe()
+        +steepTeaBag()
+        +addLemon()
+    }
+    CaffeineBeverage &lt;|-- Coffee
+    CaffeineBeverage &lt;|-- Tea</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Los métodos <code>boilWater()</code> y <code>pourInCup()</code> son compartidos por ambas subclases, así que están definidos en la superclase.</li>
+<li>El método <code>prepareRecipe()</code> difiere en cada subclase, así que se define como abstracto. Cada subclase implementa su propia receta.</li>
+<li>Cada subclase sobrescribe el método <code>prepareRecipe()</code> e implementa su propia receta.</li>
+<li>Los métodos específicos de <code>Coffee</code> y de <code>Tea</code> se quedan en las subclases.</li>
+</ul>
+</div>
+<p>¿Hemos hecho un buen trabajo con el rediseño? Hmmmm, échale otro vistazo. ¿Se nos está escapando alguna otra cosa en común? ¿En qué otros sentidos se parecen <code>Coffee</code> y <code>Tea</code>?</p>
+<h2 id="llevando-el-diseno-mas-lejos">Llevando el diseño más lejos...<a class="headerlink" href="#llevando-el-diseno-mas-lejos" title="Permanent link">&para;</a></h2>
+<p>Bueno, ¿qué más tienen en común <code>Coffee</code> y <code>Tea</code>? Empecemos por las recetas.</p>
+<div class="admonition warning">
+<p class="admonition-title">Receta de café de Starbuzz</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>(1) Hervir algo de agua
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>(2) Preparar el café con el agua hirviendo
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>(3) Verter el café en la taza
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>(4) Añadir azúcar y leche
+</span></code></pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Receta de té de Starbuzz</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>(1) Hervir algo de agua
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>(2) Infusionar el té en el agua hirviendo
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>(3) Verter el té en la taza
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>(4) Añadir limón
+</span></code></pre></div>
+</div>
+<p>Fíjate en que ambas recetas siguen el mismo algoritmo:</p>
+<ol>
+<li>Hervir algo de agua.</li>
+<li>Usar el agua caliente para extraer el café o el té.</li>
+<li>Verter la bebida resultante en una taza.</li>
+<li>Añadir a la bebida los condimentos apropiados.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Estas dos recetas ya están abstraídas a la clase base; solo se aplican a bebidas distintas.</li>
+</ul>
+</div>
+<p>Así que, ¿podemos encontrar una manera de abstraer también <code>prepareRecipe()</code>? Sí, vamos a averiguarlo...</p>
+<h2 id="abstrayendo-preparerecipe">Abstrayendo prepareRecipe()<a class="headerlink" href="#abstrayendo-preparerecipe" title="Permanent link">&para;</a></h2>
+<p>Vamos paso a paso abstrayendo <code>prepareRecipe()</code> de cada subclase (es decir, de las clases <code>Coffee</code> y <code>Tea</code>)...</p>
+<p><strong>1</strong></p>
+<p>El primer problema que tenemos es que <code>Coffee</code> usa los métodos <code>brewCoffeeGrinds()</code> y <code>addSugarAndMilk()</code>, mientras que <code>Tea</code> usa los métodos <code>steepTeaBag()</code> y <code>addLemon()</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Tea</th>
+<th>Coffee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>void prepareRecipe() {</code><br><code>boilWater();</code><br><code>steepTeaBag();</code><br><code>pourInCup();</code><br><code>addLemon();</code><br><code>}</code></td>
+<td><code>void prepareRecipe() {</code><br><code>boilWater();</code><br><code>brewCoffeeGrinds();</code><br><code>pourInCup();</code><br><code>addSugarAndMilk();</code><br><code>}</code></td>
+</tr>
+</tbody>
+</table>
+<p>Piénsalo: infusionar el té y preparar el café no son tan distintos; son más o menos análogos. Así que vamos a inventar un nombre de método nuevo, digamos <code>brew()</code>, y usaremos el mismo nombre tanto si estamos preparando café como si estamos infusionando té.</p>
+<p>Asimismo, añadir azúcar y leche es más o menos lo mismo que añadir un limón: en ambos casos estamos añadiendo condimentos a la bebida. Vamos también a inventar un nombre nuevo, <code>addCondiments()</code>, que se encargue de esto. Así que nuestro nuevo método <code>prepareRecipe()</code> tendrá este aspecto:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">prepareRecipe</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">boilWater</span><span class="p">();</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">brew</span><span class="p">();</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">pourInCup</span><span class="p">();</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="n">addCondiments</span><span class="p">();</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Nota marginal</p>
+<p>(El código está en la página siguiente.)</p>
+</div>
+<p><strong>2</strong></p>
+<p>Ahora tenemos un nuevo método <code>prepareRecipe()</code>, pero tenemos que encajarlo en el código. Para ello empezaremos por la superclase <code>CaffeineBeverage</code>:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CaffeineBeverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">prepareRecipe</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">        </span><span class="n">boilWater</span><span class="p">();</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">        </span><span class="n">brew</span><span class="p">();</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="n">pourInCup</span><span class="p">();</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="n">addCondiments</span><span class="p">();</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">brew</span><span class="p">();</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addCondiments</span><span class="p">();</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">boilWater</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Boiling water&quot;</span><span class="p">);</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">pourInCup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Pouring into cup&quot;</span><span class="p">);</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li><code>CaffeineBeverage</code> es abstracta, igual que en el diseño de clases.</li>
+<li>Ahora, el mismo método <code>prepareRecipe()</code> se usará para preparar tanto <code>Tea</code> como <code>Coffee</code>.</li>
+<li><code>prepareRecipe()</code> se declara <code>final</code> porque no queremos que nuestras subclases puedan sobrescribir este método ¡y cambiar la receta!</li>
+<li>Hemos generalizado los pasos 2 y 4 a <code>brew()</code> (preparar la bebida) y <code>addCondiments()</code> (añadir condimentos).</li>
+<li>Como <code>Coffee</code> y <code>Tea</code> resuelven estos métodos de maneras distintas, van a tener que declararse abstractos. ¡Que las subclases se preocupen de eso!</li>
+<li>Recuerda que movimos estos métodos a la clase <code>CaffeineBeverage</code> (en nuestro diagrama de clases).</li>
+</ul>
+</div>
+<p><strong>3</strong></p>
+<p>Por fin tenemos que ocuparnos de las clases <code>Coffee</code> y <code>Tea</code>. Ahora delegan en <code>CaffeineBeverage</code> la gestión de la receta, así que solo tienen que encargarse de la preparación y de los condimentos:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Tea</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">CaffeineBeverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">brew</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Steeping the tea&quot;</span><span class="p">);</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addCondiments</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Adding Lemon&quot;</span><span class="p">);</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Coffee</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">CaffeineBeverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">brew</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Dripping Coffee through filter&quot;</span><span class="p">);</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addCondiments</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Adding Sugar and Milk&quot;</span><span class="p">);</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Como en nuestro diseño, ahora <code>Tea</code> y <code>Coffee</code> extienden de <code>CaffeineBeverage</code>.</li>
+<li><code>Tea</code> necesita definir <code>brew()</code> y <code>addCondiments()</code>: los dos métodos abstractos de <code>CaffeineBeverage</code>.</li>
+<li>Con <code>Coffee</code> igual, salvo que <code>Coffee</code> se ocupa del café, y del azúcar y la leche en lugar de la bolsita de té y el limón.</li>
+</ul>
+</div>
+<div class="admonition exercise">
+<p class="admonition-title">Tu turno</p>
+<p>Dibuja ahora el nuevo diagrama de clases, ahora que hemos movido la implementación de <code>prepareRecipe()</code> a la clase <code>CaffeineBeverage</code>. Consulta las soluciones al final del capítulo.</p>
+</div>
+<h2 id="que-hemos-hecho">¿Qué hemos hecho?<a class="headerlink" href="#que-hemos-hecho" title="Permanent link">&para;</a></h2>
+<p>Hemos reconocido que las dos recetas son esencialmente la misma, aunque algunos de los pasos requieren implementaciones distintas. Así que hemos generalizado la receta y la hemos colocado en la clase base.</p>
+<table>
+<thead>
+<tr>
+<th>Paso</th>
+<th>Tea</th>
+<th>Coffee</th>
+<th>CaffeineBeverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Hervir algo de agua</td>
+<td>Hervir algo de agua</td>
+<td>Hervir algo de agua</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Infundir la bolsita de té en el agua</td>
+<td>Preparar el café molido</td>
+<td>Preparar la bebida</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Verter el té en una taza</td>
+<td>Verter el café en una taza</td>
+<td>Verter la bebida en una taza</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Añadir limón</td>
+<td>Añadir azúcar y leche</td>
+<td>Añadir los condimentos</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart LR
+    CB["CaffeineBeverage&lt;br/&gt;1 Hervir algo de agua&lt;br/&gt;2 Preparar la bebida&lt;br/&gt;3 Verter la bebida en una taza&lt;br/&gt;4 Añadir los condimentos"]
+    TEA["Tea (subclase)&lt;br/&gt;2 Infundir la bolsita de té en el agua&lt;br/&gt;4 Añadir limón"]
+    COF["Coffee (subclase)&lt;br/&gt;2 Preparar el café molido&lt;br/&gt;4 Añadir azúcar y leche"]
+    CB --&gt;|"se apoya en la subclase para algunos pasos"| TEA
+    CB --&gt;|"se apoya en la subclase para algunos pasos"| COF</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>La clase <code>CaffeineBeverage</code> conoce y controla los pasos de la receta, y ejecuta por sí misma los pasos 1 y 3, pero se apoya en <code>Tea</code> o en <code>Coffee</code> para hacer los pasos 2 y 4.</li>
+<li>La subclase <code>Tea</code> generaliza algunos pasos de <code>CaffeineBeverage</code>.</li>
+<li>La subclase <code>Coffee</code> generaliza algunos pasos de <code>CaffeineBeverage</code>.</li>
+</ul>
+</div>
+<h2 id="conoce-el-patron-template-method">Conoce el patrón Template Method<a class="headerlink" href="#conoce-el-patron-template-method" title="Permanent link">&para;</a></h2>
+<p>Básicamente acabamos de implementar el patrón Template Method. ¿Y eso qué es? Veamos la estructura de la clase <code>CaffeineBeverage</code>; contiene el «método plantilla» real:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CaffeineBeverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">prepareRecipe</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">        </span><span class="n">boilWater</span><span class="p">();</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">        </span><span class="n">brew</span><span class="p">();</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">        </span><span class="n">pourInCup</span><span class="p">();</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">        </span><span class="n">addCondiments</span><span class="p">();</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">brew</span><span class="p">();</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addCondiments</span><span class="p">();</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">boilWater</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">        </span><span class="c1">// implementation</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">pourInCup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">        </span><span class="c1">// implementation</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li><code>prepareRecipe()</code> es nuestro método plantilla. ¿Por qué?</li>
+<li>Porque: (1) es un método, después de todo. (2) sirve de plantilla para un algoritmo, en este caso un algoritmo para preparar bebidas con cafeína. (3) nos permite que las subclases decidan cómo implementar los distintos pasos.</li>
+<li>En la plantilla, cada paso del algoritmo está representado por un método. Algunos métodos los gestiona esta clase... ...y otros los gestiona la subclase.</li>
+<li>Los métodos que tiene que aportar una subclase se declaran abstractos.</li>
+</ul>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">Definición</p>
+<p>El patrón Template Method define los pasos de un algoritmo y permite que las subclases aporten la implementación de uno o más de esos pasos.</p>
+</div>
+<h2 id="vamos-a-preparar-un-te">Vamos a preparar un té...<a class="headerlink" href="#vamos-a-preparar-un-te" title="Permanent link">&para;</a></h2>
+<p>Vamos a recorrer la preparación de un té y a seguir el rastro de cómo funciona el método plantilla. Verás que el método plantilla controla el algoritmo; en ciertos puntos del algoritmo, deja que la subclase aporte la implementación de los pasos...</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">boilWater</span><span class="p">();</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">brew</span><span class="p">();</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">pourInCup</span><span class="p">();</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">addCondiments</span><span class="p">();</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>El método <code>prepareRecipe()</code> controla el algoritmo. Nadie puede cambiarlo y cuenta con que las subclases aporten toda o parte de la implementación.</p>
+</div>
+<p><strong>1</strong></p>
+<p>Vale, primero necesitamos un objeto <code>Tea</code>...</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">Tea</span><span class="w"> </span><span class="n">myTea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Tea</span><span class="p">();</span>
+</span></code></pre></div>
+<p><strong>2</strong></p>
+<p>Y luego llamamos al método plantilla:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">myTea</span><span class="p">.</span><span class="na">prepareRecipe</span><span class="p">();</span>
+</span></code></pre></div>
+<p>lo cual sigue el algoritmo para preparar bebidas con cafeína...</p>
+<p><strong>3</strong></p>
+<p>Primero hervimos el agua:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">boilWater</span><span class="p">();</span>
+</span></code></pre></div>
+<p>y esto ocurre en <code>CaffeineBeverage</code>.</p>
+<pre class="mermaid"><code>classDiagram
+    class CaffeineBeverage {
+        +prepareRecipe()
+        +boilWater()
+        +pourInCup()
+    }
+    class Tea {
+        +brew()
+        +addCondiments()
+    }
+    CaffeineBeverage &lt;|-- Tea</code></pre>
+<p><strong>4</strong></p>
+<p>A continuación necesitamos infusionar el té, algo que solo la subclase sabe hacer:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">brew</span><span class="p">();</span>
+</span></code></pre></div>
+<p><strong>5</strong></p>
+<p>Ahora vertemos el té en la taza; esto es igual para todas las bebidas, así que ocurre en <code>CaffeineBeverage</code>:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">pourInCup</span><span class="p">();</span>
+</span></code></pre></div>
+<p><strong>6</strong></p>
+<p>Por último, añadimos los condimentos, que son específicos de cada bebida, así que los implementa la subclase:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">addCondiments</span><span class="p">();</span>
+</span></code></pre></div>
+<h2 id="que-nos-ha-dado-el-patron-template-method">¿Qué nos ha dado el patrón Template Method?<a class="headerlink" href="#que-nos-ha-dado-el-patron-template-method" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tea y Coffee capabilities limitadas</th>
+<th>Nueva y moderna implementación de CaffeineBeverage, impulsada por el patrón Template Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Coffee</code> y <code>Tea</code> llevan las riendas; controlan el algoritmo.</td>
+<td>La clase <code>CaffeineBeverage</code> lleva las riendas; tiene el algoritmo y lo protege.</td>
+</tr>
+<tr>
+<td>El código está duplicado entre <code>Coffee</code> y <code>Tea</code>.</td>
+<td>La clase <code>CaffeineBeverage</code> maximiza la reutilización entre las subclases.</td>
+</tr>
+<tr>
+<td>Los cambios en el algoritmo requieren abrir las subclases y hacer varios cambios.</td>
+<td>El algoritmo vive en un único sitio y los cambios en el código solo hay que hacerlos ahí.</td>
+</tr>
+<tr>
+<td>Las clases están organizadas en una estructura que exige mucho trabajo para añadir una nueva bebida con cafeína.</td>
+<td>El patrón Template Method ofrece un framework al que se pueden enchufar otras bebidas con cafeína. Las nuevas bebidas solo tienen que implementar un par de métodos.</td>
+</tr>
+<tr>
+<td>El conocimiento del algoritmo y de cómo implementarlo está repartido entre muchas clases.</td>
+<td>La clase <code>CaffeineBeverage</code> concentra el conocimiento sobre el algoritmo y se apoya en las subclases para que aporten implementaciones completas.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="patron-template-method-definido">Patrón Template Method definido<a class="headerlink" href="#patron-template-method-definido" title="Permanent link">&para;</a></h2>
+<p>Ya has visto cómo funciona el patrón Template Method en nuestro ejemplo del té y el café; ahora, echa un vistazo a la definición oficial y fija todos los detalles:</p>
+<div class="admonition abstract">
+<p class="admonition-title">Definición</p>
+<p>El patrón Template Method define el esqueleto de un algoritmo en un método, aplazar algunos pasos a las subclases. Template Method permite que las subclases redefinan ciertos pasos de un algoritmo sin cambiar la estructura del algoritmo.</p>
+</div>
+<p>Todo este patrón va de crear una plantilla para un algoritmo. ¿Y qué es una plantilla? Como ya has visto, es simplemente un método; más concretamente, es un método que define un algoritmo como un conjunto de pasos. Uno o varios de estos pasos se definen como abstractos y los implementa una subclase. Esto garantiza que la estructura del algoritmo se mantenga sin cambios, mientras las subclases aportan parte de la implementación.</p>
+<p>Veamos el diagrama de clases:</p>
+<pre class="mermaid"><code>classDiagram
+    class AbstractClass {
+        +templateMethod()
+        +primitiveOperation1()
+        +primitiveOperation2()
+    }
+    class ConcreteClass {
+        +primitiveOperation1()
+        +primitiveOperation2()
+    }
+    AbstractClass &lt;|-- ConcreteClass</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>El método plantilla se sirve de las operaciones primitivas para implementar un algoritmo. Está desacoplado de la implementación real de esas operaciones.</li>
+<li>La clase <code>AbstractClass</code> contiene el método plantilla... ...y versiones abstractas de las operaciones usadas en el método plantilla.</li>
+<li>Puede haber muchas <code>ConcreteClass</code>, cada una implementando el conjunto completo de operaciones que necesita el método plantilla.</li>
+<li>La clase <code>ConcreteClass</code> implementa las operaciones abstractas, que se llaman cuando el <code>templateMethod()</code> las necesita.</li>
+</ul>
+</div>
+<h2 id="el-codigo-de-cerca">El código de cerca<a class="headerlink" href="#el-codigo-de-cerca" title="Permanent link">&para;</a></h2>
+<p>Vamos a mirar de cerca cómo se define la <code>AbstractClass</code>, incluyendo el método plantilla y las operaciones primitivas.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AbstractClass</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">templateMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">        </span><span class="n">primitiveOperation1</span><span class="p">();</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">        </span><span class="n">primitiveOperation2</span><span class="p">();</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">        </span><span class="n">concreteOperation</span><span class="p">();</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">primitiveOperation1</span><span class="p">();</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">primitiveOperation2</span><span class="p">();</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">concreteOperation</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">        </span><span class="c1">// implementation here</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Aquí tenemos nuestra clase abstracta; se declara abstracta y está pensada para que la subclasen clases que aportan implementaciones de las operaciones.</li>
+<li>Este es el método plantilla. Se declara <code>final</code> para impedir que las subclases reestructurez la secuencia de pasos del algoritmo.</li>
+<li>El método plantilla define la secuencia de pasos, cada uno representado por un método.</li>
+<li>En este ejemplo, dos de las operaciones primitivas las tienen que implementar las subclases concretas.</li>
+<li>También tenemos una operación concreta definida en la clase abstracta. Esta podría ser sobrescrita por las subclases, o podríamos impedir la sobrescritura declarando <code>concreteOperation()</code> como <code>final</code>. Hablamos más de esto enseguida...</li>
+</ul>
+</div>
+<h2 id="el-codigo-bien-de-cerca">El código bien de cerca<a class="headerlink" href="#el-codigo-bien-de-cerca" title="Permanent link">&para;</a></h2>
+<p>Ahora vamos a mirar todavía más de cerca los tipos de método que pueden ir en la clase abstracta:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AbstractClass</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">templateMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">        </span><span class="n">primitiveOperation1</span><span class="p">();</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">        </span><span class="n">primitiveOperation2</span><span class="p">();</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">        </span><span class="n">concreteOperation</span><span class="p">();</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">        </span><span class="n">hook</span><span class="p">();</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">primitiveOperation1</span><span class="p">();</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">primitiveOperation2</span><span class="p">();</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">concreteOperation</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="w">        </span><span class="c1">// implementation here</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">hook</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Hemos cambiado <code>templateMethod()</code> para incluir una llamada a un método nuevo.</li>
+<li>Todavía tenemos nuestros métodos de operaciones primitivas; estos son abstractos y los implementan las subclases concretas.</li>
+<li>Una operación concreta está definida en la clase abstracta. Esta se declara <code>final</code> para que las subclases no puedan sobrescribirla. Puede usarse directamente en el método plantilla, o ser usada por las subclases.</li>
+<li>También podemos tener métodos concretos que no hacen nada por defecto; los llamamos «hooks» (ganchos). Las subclases son libres de sobrescribirlos, pero no están obligadas. Veremos en la siguiente página cuánto nos pueden servir.</li>
+</ul>
+</div>
+<h2 id="conectado-al-template-method">Conectado al Template Method...<a class="headerlink" href="#conectado-al-template-method" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Nota marginal</p>
+<p>Con un hook, puedo sobrescribir el método o no. Es cosa mía. Si no lo hago, la clase abstracta proporciona una implementación por defecto.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Nota marginal</p>
+<p>Es un método concreto, ¡pero no hace nada!</p>
+</div>
+<p>Un hook es un método que se declara en la clase abstracta, pero al que solo se le da una implementación vacía o por defecto. Esto da a las subclases la capacidad de «engancharse» al algoritmo en distintos puntos, si así lo desean; una subclase también es libre de ignorar el hook. Los hooks tienen varios usos; veamos uno ahora. Más adelante hablaremos de otros usos:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CaffeineBeverageWithHook</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">prepareRecipe</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">        </span><span class="n">boilWater</span><span class="p">();</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">        </span><span class="n">brew</span><span class="p">();</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">        </span><span class="n">pourInCup</span><span class="p">();</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">customerWantsCondiments</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">            </span><span class="n">addCondiments</span><span class="p">();</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">brew</span><span class="p">();</span>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addCondiments</span><span class="p">();</span>
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">boilWater</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Boiling water&quot;</span><span class="p">);</span>
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">pourInCup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Pouring into cup&quot;</span><span class="p">);</span>
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-20-18"><a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a><span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">customerWantsCondiments</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-19"><a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-20-20"><a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-20-21"><a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Hemos añadido una pequeña sentencia condicional que basa su resultado en un método concreto, <code>customerWantsCondiments()</code>. Si el cliente QUIERE condimentos, entonces y solo entonces llamamos a <code>addCondiments()</code>.</li>
+<li>Aquí hemos definido un método con una implementación por defecto (casi) vacía. Este método simplemente devuelve <code>true</code> y no hace nada más.</li>
+<li>Este es un hook porque la subclase puede sobrescribir este método, pero no está obligada.</li>
+</ul>
+</div>
+<h2 id="usando-el-hook">Usando el hook<a class="headerlink" href="#usando-el-hook" title="Permanent link">&para;</a></h2>
+<p>Para usar el hook, lo sobrescribimos en nuestra subclase. Aquí, el hook controla si la clase <code>CaffeineBeverage</code> evalúa una cierta parte del algoritmo, es decir, si añade un condimento a la bebida.</p>
+<p>Pero, ¿cómo sabemos si el cliente quiere el condimento? ¡Simplemente preguntándoselo!</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CoffeeWithHook</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">CaffeineBeverageWithHook</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">brew</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Dripping Coffee through filter&quot;</span><span class="p">);</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addCondiments</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Adding Sugar and Milk&quot;</span><span class="p">);</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">customerWantsCondiments</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getUserInput</span><span class="p">();</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">answer</span><span class="p">.</span><span class="na">toLowerCase</span><span class="p">().</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;y&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getUserInput</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&quot;Would you like milk and sugar with your coffee (y/n)? &quot;</span><span class="p">);</span>
+</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a><span class="w">        </span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedReader</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InputStreamReader</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">));</span>
+</span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a><span class="w">            </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">readLine</span><span class="p">();</span>
+</span><span id="__span-21-22"><a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">ioe</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-23"><a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;IO error trying to read your answer&quot;</span><span class="p">);</span>
+</span><span id="__span-21-24"><a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-21-25"><a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">answer</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-26"><a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;no&quot;</span><span class="p">;</span>
+</span><span id="__span-21-27"><a id="__codelineno-21-27" name="__codelineno-21-27" href="#__codelineno-21-27"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-21-28"><a id="__codelineno-21-28" name="__codelineno-21-28" href="#__codelineno-21-28"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">answer</span><span class="p">;</span>
+</span><span id="__span-21-29"><a id="__codelineno-21-29" name="__codelineno-21-29" href="#__codelineno-21-29"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-21-30"><a id="__codelineno-21-30" name="__codelineno-21-30" href="#__codelineno-21-30"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Aquí es donde sobrescribes el hook y aportas tu propia funcionalidad.</li>
+<li>Obtiene la entrada del usuario sobre la decisión de los condimentos y devuelve <code>true</code> o <code>false</code>, en función de lo que se haya introducido.</li>
+<li>Este código pregunta si al usuario le gustaría leche y azúcar y obtiene la respuesta por línea de comandos.</li>
+</ul>
+</div>
+<h2 id="probemoslo">Probémoslo<a class="headerlink" href="#probemoslo" title="Permanent link">&para;</a></h2>
+<p>Vale, el agua está hirviendo... Aquí tienes el código de prueba, donde creamos un té caliente y un café caliente:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BeverageTestDrive</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">        </span><span class="n">TeaWithHook</span><span class="w"> </span><span class="n">teaHook</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TeaWithHook</span><span class="p">();</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">        </span><span class="n">CoffeeWithHook</span><span class="w"> </span><span class="n">coffeeHook</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CoffeeWithHook</span><span class="p">();</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;\nMaking tea...&quot;</span><span class="p">);</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">        </span><span class="n">teaHook</span><span class="p">.</span><span class="na">prepareRecipe</span><span class="p">();</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;\nMaking coffee...&quot;</span><span class="p">);</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">        </span><span class="n">coffeeHook</span><span class="p">.</span><span class="na">prepareRecipe</span><span class="p">();</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Crea un té.</li>
+<li>Crea un café.</li>
+<li>¡Y llama a <code>prepareRecipe()</code> en los dos!</li>
+</ul>
+</div>
+<p>Y vamos a darle una vuelta...</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>File  Edit   Window  Help  send-more-honesttea
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>%java BeverageTestDrive
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>Making tea...
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>Boiling water
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>Steeping the tea
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>Pouring into cup
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>Would you like lemon with your tea (y/n)? y
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>Adding Lemon
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>Making coffee...
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>Boiling water
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>Dripping Coffee through filter
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>Pouring into cup
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>Would you like milk and sugar with your coffee (y/n)? n
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>%
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p>Una taza humeante de té y, por supuesto, ¡sí queremos ese limón!
+- Y una buena taza de café caliente, pero nos pasaremos de los condimentos que engordan la cintura.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Nota marginal</p>
+<p>Ahora, yo habría pensado que una funcionalidad como la de preguntar al cliente podría haberla usado todas las subclases, ¿no?</p>
+</div>
+<p>Sabes qué, estamos de acuerdo contigo. Pero tienes que admitir que, antes de que se te ocurriera, era un ejemplo bastante cojonudo de cómo se puede usar un hook para controlar condicionalmente el flujo del algoritmo en la clase abstracta, ¿verdad?</p>
+<p>Estamos seguros de que se te ocurren muchos otros escenarios más realistas en los que podrías usar el método plantilla y los hooks en tu propio código.</p>
+<div class="admonition question">
+<p class="admonition-title">Preguntas frecuentes</p>
+<p><strong>P: Cuando estoy creando un método plantilla, ¿cómo sé cuándo usar métodos abstractos y cuándo usar hooks?</strong></p>
+<p>R: Usa métodos abstractos cuando tu subclase DEBA aportar la implementación del método o del paso del algoritmo. Usa hooks cuando esa parte del algoritmo sea opcional. Con los hooks, una subclase puede decidir implementar ese hook, pero no está obligada.</p>
+<p><strong>P: ¿Una subclase tiene que implementar todos los métodos abstractos de la <code>AbstractClass</code>?</strong></p>
+<p>R: Sí, cada subclase concreta define el conjunto completo de métodos abstractos y aporta una implementación completa de los pasos indefinidos del algoritmo del método plantilla.</p>
+<p><strong>P: Parece que debería mantener mis métodos abstractos pequeños en número; de lo contrario, implementarlos en la subclase será un buen trabajo.</strong></p>
+<p>R: Ten en cuenta, además, que algunos pasos serán opcionales, así que puedes implementar esos como hooks en lugar de como métodos abstractos, aligerando así la carga de las subclases de tu clase abstracta.</p>
+<p><strong>P: ¿Para qué se supone que sirven realmente los hooks?</strong></p>
+<p>R: Los hooks tienen algunos usos. Como acabamos de decir, un hook puede ofrecer una forma de que una subclase implemente una parte opcional de un algoritmo o, si no es importante para la implementación de la subclase, esta puede saltárselo. Otro uso es darle a la subclase la oportunidad de reaccionar a algún paso del método plantilla que está a punto de ocurrir o acaba de ocurrir. Por ejemplo, un método hook como <code>justReorderedList()</code> permite que la subclase realice alguna actividad (como volver a mostrar una representación en pantalla) después de que una lista interna se haya reordenado. Como ya has visto, un hook también puede darle a la subclase la capacidad de tomar una decisión por la clase abstracta.</p>
+</div>
+<h2 id="el-principio-de-hollywood">El principio de Hollywood<a class="headerlink" href="#el-principio-de-hollywood" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Nota marginal</p>
+<p>Ya me has oído decir esto antes y lo repetiré: «¡No me llames, yo te llamaré!»</p>
+</div>
+<p>Tenemos otro principio de diseño para ti; se llama el principio de Hollywood:</p>
+<div class="admonition abstract">
+<p class="admonition-title">Principio de diseño</p>
+<p><strong>El principio de Hollywood</strong></p>
+<p>«No nos llames, nosotros te llamaremos a ti.»</p>
+</div>
+<p>Fácil de recordar, ¿verdad? Pero, ¿qué tiene que ver esto con el diseño OO?</p>
+<p>El principio de Hollywood nos da una forma de evitar la «podredumbre de dependencias». La podredumbre de dependencias ocurre cuando tienes componentes de alto nivel dependiendo de componentes de bajo nivel, que dependen de componentes de alto nivel, que dependen de componentes laterales, que dependen de componentes de bajo nivel, y así sucesivamente. Cuando entra la podredumbre, ya nadie puede entender con facilidad cómo está diseñado un sistema.</p>
+<p>Con el principio de Hollywood, permitimos que los componentes de bajo nivel se enganchen a sí mismos a un sistema, pero los componentes de alto nivel determinan cuándo se necesitan y cómo. En otras palabras, los componentes de alto nivel dan a los componentes de bajo nivel el tratamiento de «no nos llames, nosotros te llamaremos».</p>
+<pre class="mermaid"><code>flowchart LR
+    HLC["Componente de alto nivel"]
+    LLC["Componente de bajo nivel"]
+    ALLC["Otro componente de bajo nivel"]
+    HLC --&gt;|"...pero el componente de alto nivel controla cuándo y cómo"| LLC
+    HLC --&gt;|"...pero el componente de alto nivel controla cuándo y cómo"| ALLC</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Los componentes de bajo nivel pueden participar en el cálculo...</li>
+<li>...pero los componentes de alto nivel controlan cuándo y cómo.</li>
+<li>Un componente de bajo nivel nunca llama directamente a un componente de alto nivel.</li>
+</ul>
+</div>
+<h2 id="el-principio-de-hollywood-y-el-template-method">El principio de Hollywood y el Template Method<a class="headerlink" href="#el-principio-de-hollywood-y-el-template-method" title="Permanent link">&para;</a></h2>
+<p>La conexión entre el principio de Hollywood y el patrón Template Method probablemente es bastante evidente: cuando diseñamos con el patrón Template Method, le estamos diciendo a las subclases «no nos llames, nosotros te llamaremos». ¿Cómo? Veamos otro vistazo a nuestro diseño de <code>CaffeineBeverage</code>:</p>
+<pre class="mermaid"><code>classDiagram
+    class CaffeineBeverage {
+        +prepareRecipe()
+        +boilWater()
+        +pourInCup()
+        +brew()
+        +addCondiments()
+    }
+    class Coffee {
+        +brew()
+        +addCondiments()
+    }
+    class Tea {
+        +brew()
+        +addCondiments()
+    }
+    CaffeineBeverage &lt;|-- Coffee
+    CaffeineBeverage &lt;|-- Tea</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li><code>CaffeineBeverage</code> es nuestro componente de alto nivel. Tiene el control sobre el algoritmo de la receta, y llama a las subclases solo cuando las necesita para la implementación de un método.</li>
+<li>Los clientes de las bebidas dependerán de la abstracción <code>CaffeineBeverage</code> en lugar de un <code>Tea</code> o un <code>Coffee</code> concreto, lo que reduce las dependencias del sistema en conjunto.</li>
+<li><code>Tea</code> y <code>Coffee</code> nunca llaman a la clase abstracta directamente sin que se las haya «llamado» antes.</li>
+<li>Las subclases se usan simplemente para aportar detalles de implementación.</li>
+</ul>
+</div>
+<div class="admonition exercise">
+<p class="admonition-title">Piensa en esto</p>
+<p>¿Qué otros patrones se apoyan en el principio de Hollywood?</p>
+<p><strong>El patrón Factory Method y el patrón Observer. ¿Alguno más?</strong></p>
+</div>
+<h2 id="template-methods-en-la-vida-real">Template Methods en la vida real<a class="headerlink" href="#template-methods-en-la-vida-real" title="Permanent link">&para;</a></h2>
+<p>El patrón Template Method es un patrón muy común y vas a encontrarlo mucho por ahí. Eso sí, hay que tener buen ojo, porque hay muchas implementaciones de métodos plantilla que no se parecen demasiado al diseño de manual del patrón.</p>
+<p>Este patrón aparece tan a menudo porque es una excelente herramienta de diseño para crear frameworks, donde el framework controla cómo se hace algo, pero te deja a ti (la persona que usa el framework) especificar tus propios detalles sobre lo que realmente ocurre en cada paso del algoritmo del framework.</p>
+<p>Vamos a dar un pequeño recorrido por algunos usos en la vida real (bueno, vale, en la API de Java)...</p>
+<div class="admonition tip">
+<p class="admonition-title">Nota marginal</p>
+<p>En la formación estudiamos los patrones clásicos. Sin embargo, cuando estamos en el mundo real, tenemos que aprender a reconocer los patrones fuera de contexto. También tenemos que aprender a reconocer variaciones de los patrones, porque en el mundo real un agujero cuadrado no siempre es del todo cuadrado.</p>
+</div>
+<h2 id="ordenar-con-template-method">Ordenar con Template Method<a class="headerlink" href="#ordenar-con-template-method" title="Permanent link">&para;</a></h2>
+<p>¿Qué es algo que hacemos a menudo con los arrays? ¡Ordenarlos!</p>
+<p>Al reconocerlo, los diseñadores de la clase <code>Arrays</code> de Java nos han proporcionado un wad: un conveniente método plantilla para ordenar. Veamos cómo opera este método; hemos recortado un poco este código para que sea más fácil explicarlo. Si quieres verlo entero, ve al código fuente de Java y échale un vistazo.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">sort</span><span class="p">(</span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="n">Object</span><span class="w"> </span><span class="n">aux</span><span class="o">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Object</span><span class="o">[]</span><span class="p">)</span><span class="n">a</span><span class="p">.</span><span class="na">clone</span><span class="p">();</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="n">mergeSort</span><span class="p">(</span><span class="n">aux</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">length</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>En realidad aquí tenemos dos métodos que actúan juntos para proporcionar la funcionalidad de ordenación.</li>
+<li>El primer método, <code>sort()</code>, es solo un método auxiliar que crea una copia del array y la pasa como array de destino al método <code>mergeSort()</code>. También pasa la longitud del array y le dice a la ordenación que empiece por el primer elemento.</li>
+<li>Este es un método concreto, ya definido en la clase <code>Arrays</code>.</li>
+</ul>
+</div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">mergeSort</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">src</span><span class="o">[]</span><span class="p">,</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="n">dest</span><span class="o">[]</span><span class="p">,</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">low</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">high</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">off</span><span class="p">)</span><span class="w"> </span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="p">{</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="c1">// a lot of other code here</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">low</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">high</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">&gt;</span><span class="n">low</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">             </span><span class="p">((</span><span class="n">Comparable</span><span class="p">)</span><span class="n">dest</span><span class="o">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span><span class="p">).</span><span class="na">compareTo</span><span class="p">((</span><span class="n">Comparable</span><span class="p">)</span><span class="n">dest</span><span class="o">[</span><span class="n">j</span><span class="o">]</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">--</span><span class="p">)</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">            </span><span class="n">swap</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="w">    </span><span class="c1">// and a lot of other code here</span>
+</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>El método <code>mergeSort()</code> contiene el algoritmo de ordenación y se apoya en una implementación del método <code>compareTo()</code> para completar el algoritmo. Si te interesa el meollo de cómo se hace la ordenación, tendrás que consultar el código fuente de Java.</li>
+<li><code>compareTo()</code> es el método que tenemos que implementar para «rellenar» el método plantilla.</li>
+<li>Piensa en esto como el método plantilla.</li>
+</ul>
+</div>
+<h2 id="tengo-patos-que-ordenar">Tengo patos que ordenar...<a class="headerlink" href="#tengo-patos-que-ordenar" title="Permanent link">&para;</a></h2>
+<p>Supón que tienes un array de patos que quieres ordenar. ¿Cómo lo haces? Pues el método plantilla <code>sort()</code> de <code>Arrays</code> nos da el algoritmo, pero tienes que decirle cómo comparar los patos, y eso se hace implementando el método <code>compareTo()</code>... ¿Te cuadra?</p>
+<div class="admonition question">
+<p class="admonition-title">Nota marginal</p>
+<p>No, no me cuadra. ¿No deberíamos estar subclasando algo? Pensaba que eso era justo lo del patrón Template Method. Un array no subclasa nada, así que no entiendo cómo íbamos a usar <code>sort()</code>.</p>
+</div>
+<p>Buen punto. Aquí está el asunto: los diseñadores de <code>sort()</code> querían que fuera útil para todos los arrays, así que tuvieron que hacer de <code>sort()</code> un método estático que se pudiera usar desde cualquier sitio. Pero eso está bien, ya que funciona casi igual que si estuviera en una superclase.</p>
+<p>Ahora, aquí hay un detalle más: como <code>sort()</code> no está definido realmente en nuestra superclase, el método <code>sort()</code> necesita saber que has implementado el método <code>compareTo()</code>, o si no, no tienes la pieza necesaria para completar el algoritmo de ordenación.</p>
+<p>Para jugar esto, los diseñadores hicieron uso de la interfaz <code>Comparable</code>. Lo único que tienes que hacer es implementar esta interfaz, que tiene un método (sorpresa): <code>compareTo()</code>.</p>
+<h3 id="que-es-compareto">¿Qué es compareTo()?<a class="headerlink" href="#que-es-compareto" title="Permanent link">&para;</a></h3>
+<p>El método <code>compareTo()</code> compara dos objetos y devuelve si uno es menor, mayor o igual que el otro. <code>sort()</code> usa esto como base para su comparación de los objetos del array.</p>
+<div class="admonition question">
+<p class="admonition-title">Nota marginal</p>
+<p>Ni idea. Eso es justo lo que nos dice <code>compareTo()</code>. ¿Soy mayor que tú?</p>
+</div>
+<h2 id="comparando-patos-y-patos">Comparando patos y patos<a class="headerlink" href="#comparando-patos-y-patos" title="Permanent link">&para;</a></h2>
+<p>Vale, ya sabes que si quieres ordenar <code>Duck</code>s, vas a tener que implementar este método <code>compareTo()</code>; al hacerlo, le darás a la clase <code>Arrays</code> lo que necesita para completar el algoritmo y ordenar tus patos.</p>
+<p>Aquí tienes la implementación del pato:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Duck</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">Duck</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Duck</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; weighs &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span>
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">compareTo</span><span class="p">(</span><span class="n">Duck</span><span class="w"> </span><span class="n">otherDuck</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">weight</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">otherDuck</span><span class="p">.</span><span class="na">weight</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">weight</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">otherDuck</span><span class="p">.</span><span class="na">weight</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-26-16"><a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// this.weight &gt; otherDuck.weight</span>
+</span><span id="__span-26-17"><a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-26-18"><a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-26-19"><a id="__codelineno-26-19" name="__codelineno-26-19" href="#__codelineno-26-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-26-20"><a id="__codelineno-26-20" name="__codelineno-26-20" href="#__codelineno-26-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Recuerda que tenemos que implementar la interfaz <code>Comparable</code> ya que no estamos subclasando de verdad.</li>
+<li>Nuestros patos tienen un nombre y un peso. Lo dejamos simple; ¡todo lo que hacen los patos es imprimir su nombre y su peso!</li>
+<li>Vale, aquí está lo que necesita <code>sort()</code>...</li>
+<li><code>compareTo()</code> recibe otro pato con el que comparar ESTE pato. Aquí es donde especificamos cómo se comparan los patos. Si ESTE pato pesa menos que <code>otherDuck</code>, devolvemos <code>-1</code>; si pesan lo mismo, devolvemos <code>0</code>; y si ESTE pato pesa más, devolvemos <code>1</code>.</li>
+</ul>
+</div>
+<h2 id="vamos-a-ordenar-unos-patos">Vamos a ordenar unos patos<a class="headerlink" href="#vamos-a-ordenar-unos-patos" title="Permanent link">&para;</a></h2>
+<p>Aquí tienes la prueba de ordenación de patos...</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DuckSortTestDrive</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">        </span><span class="n">Duck</span><span class="o">[]</span><span class="w"> </span><span class="n">ducks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">                         </span><span class="k">new</span><span class="w"> </span><span class="n">Duck</span><span class="p">(</span><span class="s">&quot;Daffy&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">),</span><span class="w"> </span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">                         </span><span class="k">new</span><span class="w"> </span><span class="n">Duck</span><span class="p">(</span><span class="s">&quot;Dewey&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">                         </span><span class="k">new</span><span class="w"> </span><span class="n">Duck</span><span class="p">(</span><span class="s">&quot;Howard&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">),</span>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="w">                         </span><span class="k">new</span><span class="w"> </span><span class="n">Duck</span><span class="p">(</span><span class="s">&quot;Louie&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span>
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="w">                         </span><span class="k">new</span><span class="w"> </span><span class="n">Duck</span><span class="p">(</span><span class="s">&quot;Donald&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">),</span><span class="w"> </span>
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="w">                         </span><span class="k">new</span><span class="w"> </span><span class="n">Duck</span><span class="p">(</span><span class="s">&quot;Huey&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="w">         </span><span class="p">};</span>
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Before sorting:&quot;</span><span class="p">);</span>
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="w">        </span><span class="n">display</span><span class="p">(</span><span class="n">ducks</span><span class="p">);</span>
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a><span class="w">        </span><span class="n">Arrays</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">ducks</span><span class="p">);</span>
+</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;\nAfter sorting:&quot;</span><span class="p">);</span>
+</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a><span class="w">        </span><span class="n">display</span><span class="p">(</span><span class="n">ducks</span><span class="p">);</span>
+</span><span id="__span-27-16"><a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-27-17"><a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">(</span><span class="n">Duck</span><span class="o">[]</span><span class="w"> </span><span class="n">ducks</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Duck</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ducks</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+</span><span id="__span-27-20"><a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-27-21"><a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-27-22"><a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Necesitamos un array de patos; estos tienen buena pinta.</li>
+<li>Fíjate en que llamamos al método estático <code>sort()</code> de <code>Arrays</code> y le pasamos nuestros patos. ¡Es hora de ordenar!</li>
+<li>Vamos a imprimirlos para ver sus nombres y pesos.</li>
+</ul>
+</div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>File  Edit   Window  Help  DonaldNeedsToGoOnADiet
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>%java DuckSortTestDrive
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>Before sorting:
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>Daffy weighs 8
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>Dewey weighs 2
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>Howard weighs 7
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>Louie weighs 2
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>Donald weighs 10
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>Huey weighs 2
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>After sorting:
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>Dewey weighs 2
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>Louie weighs 2
+</span><span id="__span-28-13"><a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>Huey weighs 2
+</span><span id="__span-28-14"><a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>Howard weighs 7
+</span><span id="__span-28-15"><a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>Daffy weighs 8
+</span><span id="__span-28-16"><a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>Donald weighs 10
+</span><span id="__span-28-17"><a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a>%
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<ul>
+<li>Los patos sin ordenar.</li>
+<li>Los patos ordenados.</li>
+</ul>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Nota marginal</p>
+<p>¡Que empiece la ordenación!</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Tras las cámaras</p>
+<p>El método <code>sort()</code> controla el algoritmo; ninguna clase puede cambiarlo. <code>sort()</code> cuenta con una clase <code>Comparable</code> para que aporte la implementación de <code>compareTo()</code>. No hay herencia, al contrario que en un método plantilla típico.</p>
+</div>
+<div class="admonition exercise">
+<p class="admonition-title">Ejercicio 1</p>
+<p>Sabemos que deberíamos preferir la composición frente a la herencia, ¿verdad? Pues bien, los implementadores del método plantilla <code>sort()</code> decidieron no usar herencia y, en su lugar, implementar <code>sort()</code> como un método estático que se compone con un <code>Comparable</code> en tiempo de ejecución. ¿Cómo es esto mejor? ¿Cómo es peor? ¿Cómo abordarías tú este problema? ¿Los arrays de Java hacen que este problema sea particularmente peliagudo?</p>
+</div>
+<div class="admonition exercise">
+<p class="admonition-title">Ejercicio 2</p>
+<p>Piensa en otro patrón que sea una especialización del método plantilla. En esta especialización, las operaciones primitivas se usan para crear y devolver objetos. ¿Qué patrón es este?</p>
+</div>
+<h2 id="conversacion-junto-a-la-chimenea-template-method-y-strategy">Conversación junto a la chimenea: Template Method y Strategy<a class="headerlink" href="#conversacion-junto-a-la-chimenea-template-method-y-strategy" title="Permanent link">&para;</a></h2>
+<p><strong>Template Method:</strong></p>
+<p><strong>Strategy:</strong></p>
+<p><strong>Factory Method:</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Intervenciones</p>
+<ul>
+<li><strong>Template Method</strong>: Eh, Strategy, ¿qué haces en mi capítulo?</li>
+<li><strong>Strategy</strong>: Pensaba que me había tocado quedarme con alguien aburrido como Factory Method.</li>
+<li><strong>Template Method</strong>: ¡Eh, ¡he oído eso!</li>
+<li><strong>Strategy</strong>: No, soy yo, aunque ten cuidado: tú y Factory Method estáis relacionados, ¿verdad?</li>
+<li><strong>Template Method</strong>: ¡Solo estaba bromeando! Pero, en serio, ¿qué haces aquí? ¡No-nos hacíamos desde hace siete capítulos!</li>
+<li><strong>Strategy</strong>: Había oído que estabais en el último borrador de vuestro capítulo y pensé en pasarme a ver cómo iba todo. Tenemos mucho en común, así que pensé que quizá pueda echar una mano...</li>
+<li><strong>Template Method</strong>: Quizá quieras recordar al lector de qué te ocupas, ya que ha pasado mucho tiempo.</li>
+<li><strong>Strategy</strong>: No lo sé, desde el Capítulo 1 la gente me para en la calle diciendo: «¿No eres tú ese patrón...?». Así que creo que ya saben quién soy. Pero, por tu bien: defino una familia de algoritmos y los hago intercambiables. Como cada algoritmo está encapsulado, el cliente puede usar distintos algoritmos fácilmente.</li>
+<li><strong>Template Method</strong>: Vaya, eso sí que suena parecido a lo que hago yo. Pero mi intención es algo distinta de la tuya; mi trabajo es definir el contorno de un algoritmo, pero dejar que mis subclases hagan parte del trabajo. Así, puedo tener distintas implementaciones de los pasos individuales de un algoritmo y mantener el control sobre la estructura del algoritmo. Parece que tienes que renunciar al control de tus algoritmos.</li>
+<li><strong>Strategy</strong>: No estoy seguro de que lo diría exactamente así... y además, no estoy atado a la herencia para las implementaciones de los algoritmos. Ofrezco a los clientes una elección de implementación de algoritmo mediante composición de objetos.</li>
+<li><strong>Template Method</strong>: Me acuerdo de eso. Pero yo tengo más control sobre mi algoritmo y no duplico código. De hecho, si todas las partes de mi algoritmo son iguales salvo, digamos, una línea, entonces mis clases son mucho más eficientes que las tuyas. Todo mi código duplicado acaba en la superclase, así que todas las subclases pueden compartirlo.</li>
+<li><strong>Strategy</strong>: Puede que seas un poco más eficiente (solo un poco) y que requieras menos objetos. Y puede que también seas un poco menos complicado en comparación con mi modelo de delegación, pero yo soy más flexible porque uso composición de objetos. Conmigo, los clientes pueden cambiar sus algoritmos en tiempo de ejecución simplemente usando un objeto de estrategia distinto. Venga, ¡no me eligieron para el Capítulo 1 para nada!</li>
+<li><strong>Template Method</strong>: Sí, bueno, me alegro mucho por ti, pero no olvides que soy el patrón más usado del mundo. ¿Por qué? Porque proporciono un método fundamental de reutilización de código que permite que las subclases especifiquen su comportamiento. Estoy seguro de que ves que esto es perfecto para crear frameworks.</li>
+<li><strong>Strategy</strong>: Sí, supongo... pero, ¿qué hay de la dependencia? Tú eres mucho más dependiente que yo.</li>
+<li><strong>Template Method</strong>: ¿Cómo que eso? Mi superclase es abstracta.</li>
+<li><strong>Strategy</strong>: Pero tienes que depender de métodos implementados en tus subclases, que forman parte de tu algoritmo. ¡Yo no dependo de nadie; ¡puedo hacer yo mismo todo el algoritmo!</li>
+<li><strong>Template Method</strong>: Como te he dicho, Strategy, me alegro mucho por ti. Gracias por haber pasado, pero me queda terminar el resto de este capítulo.</li>
+<li><strong>Strategy</strong>: Vale, vale, no te pongas delicado. Te dejo trabajar, pero avísame si necesitas mis técnicas especiales de todos modos; siempre me alegra poder ayudar.</li>
+<li><strong>Template Method</strong>: Entendido. «No nos llames, nosotros te llamaremos...»</li>
+</ul>
+</div>
+<h2 id="crucigrama-de-patrones-de-diseno">Crucigrama de patrones de diseño<a class="headerlink" href="#crucigrama-de-patrones-de-diseno" title="Permanent link">&para;</a></h2>
+<p><strong><em>Volvemos al crucigrama.</em></strong> Es esa hora de nuevo... Todas las palabras de la solución son de este capítulo, salvo la definición de la entrada 16, que se ha perdido en la extracción del texto de origen.</p>
+<table>
+<thead>
+<tr>
+<th>N.º</th>
+<th>Dirección</th>
+<th>Definición</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Horizontal</td>
+<td>Huey, Louie y Dewey pesan todos __________ libras.</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Horizontal</td>
+<td>El método plantilla suele definirse en una clase ________.</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Horizontal</td>
+<td>En este capítulo te hemos dado más _________.</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Horizontal</td>
+<td>Los pasos del algoritmo que deben aportar las subclases se suelen declarar ___________.</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>Horizontal</td>
+<td>El método hook de <code>JFrame</code> que sobrescribimos para imprimir «¡Yo mando!!».</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>Horizontal</td>
+<td>___________ tiene un método plantilla <code>subList()</code>.</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td>Horizontal</td>
+<td>Tipo de ordenación usado en <code>Arrays</code>.</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>Horizontal</td>
+<td>El patrón Template Method usa _____________ para aplazar la implementación a otras clases.</td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>Horizontal</td>
+<td>«No nos llames, nosotros te llamaremos» se conoce como el principio _________.</td>
+<td></td>
+</tr>
+<tr>
+<td>16</td>
+<td>Horizontal</td>
+<td>[Pérdida en la extracción del texto de origen.]</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Vertical</td>
+<td>Café y _______.</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Vertical</td>
+<td>Factory Method es una __________ del patrón Template Method.</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Vertical</td>
+<td>Un método plantilla define los pasos de un ________.</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Vertical</td>
+<td>Patrón de cabeza grande.</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Vertical</td>
+<td>Los pasos del algoritmo ________ se implementan mediante métodos hook.</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>Vertical</td>
+<td>Nuestra cafetería favorita en Objectville.</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>Vertical</td>
+<td>La clase <code>Arrays</code> implementa su método plantilla como un método _______.</td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>Vertical</td>
+<td>Un método de la superclase abstracta que no hace nada o proporciona un comportamiento por defecto se llama un método ____________.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="herramientas-para-tu-caja-de-herramientas-de-diseno">Herramientas para tu caja de herramientas de diseño<a class="headerlink" href="#herramientas-para-tu-caja-de-herramientas-de-diseno" title="Permanent link">&para;</a></h2>
+<p><strong><em>Hemos añadido Template Method a tu caja de herramientas.</em></strong></p>
+<div class="admonition success">
+<p class="admonition-title">Un método plantilla</p>
+<ul>
+<li>Un método plantilla define los pasos de un algoritmo, y se los aplaza a las subclases para que las implementen.</li>
+<li>Con Template Method, puedes reutilizar código como un pro sin perder el control de tus algoritmos.</li>
+<li>La clase abstracta del método plantilla puede definir métodos concretos, métodos abstractos y hooks.</li>
+<li>Los métodos abstractos los implementan las subclases.</li>
+<li>Los hooks son métodos que no hacen nada, o que tienen un comportamiento por defecto en la clase abstracta, pero que pueden ser sobrescritos en la subclase.</li>
+<li>Para impedir que las subclases cambien el algoritmo del método plantilla, declara el método plantilla como <code>final</code>.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nuestro principio más nuevo</p>
+<p>¡No nos llames, nosotros te llamaremos!</p>
+<p>Este principio te recuerda que tus superclases son las que llevan las riendas, así que deja que llamen a los métodos de tus subclases cuando los necesiten, tal como hacen en Hollywood.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nuestro patrón más nuevo</p>
+<p>Y nuestro patrón más nuevo permite que las clases que implementan un algoritmo aplacen algunos pasos a las subclases.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Nota marginal</p>
+<p>El principio de Hollywood nos guía a poner la toma de decisiones en los módulos de alto nivel, que pueden decidir cómo y cuándo llamar a los módulos de bajo nivel.</p>
+<p>Verás muchos usos del patrón Template Method en código del mundo real, pero (como con cualquier patrón) no esperes que todo esté diseñado «al pie de la letra».</p>
+<p>Los patrones Strategy y Template Method ambos encapsulan algoritmos, el primero por composición y el otro por herencia.</p>
+<p>Factory Method es una especialización de Template Method.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Bases de OO</p>
+<p>Abstracción, encapsulación, polimorfismo e herencia.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Principios de OO</p>
+<ul>
+<li>Encapsula lo que varía.</li>
+<li>Prefiere la composición frente a la herencia.</li>
+<li>Programa hacia interfaces, no hacia implementaciones.</li>
+<li>Persigue diseños débilmente acoplados entre los objetos que interactúan.</li>
+<li>Las clases deben estar abiertas a la extensión pero cerradas a la modificación.</li>
+<li>Depende de las abstracciones. No dependas de clases concretas.</li>
+<li>Habla solo con tus amigos.</li>
+<li>¡No nos llames, nosotros te llamaremos!</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Patrones de OO</p>
+<ul>
+<li><strong>Strategy</strong> - Define una familia de algoritmos, encapsula cada uno y los hace intercambiables. Strategy permite que el algoritmo varíe de forma independiente de los clientes que lo usan.</li>
+<li><strong>Observer</strong> - Define una dependencia de uno a muchos entre objetos, de modo que cuando un objeto cambia de estado, todos sus dependientes son notificados y actualizados.</li>
+<li><strong>Decorator</strong> - Añade responsabilidades adicionales a un objeto dinámicamente. Los decoradores ofrecen una alternativa flexible a la subclasificación para ampliar la funcionalidad.</li>
+<li><strong>Abstract Factory</strong> - Proporciona una interfaz para crear familias de objetos relacionados o dependientes sin especificar sus clases concretas.</li>
+<li><strong>Factory Method</strong> - Define una interfaz para crear un objeto, pero deja que las subclases decidan qué clase instanciar. Factory Method permite que una clase aplace la instanciación a sus subclases.</li>
+<li><strong>Singleton</strong> - Asegura que una clase tenga una sola instancia y proporciona un punto de acceso global a ella.</li>
+<li><strong>Command</strong> - Encapsula una petición como un objeto, lo que te permite parametrizar a los clientes con distintas peticiones, encolar o registrar peticiones y soportar operaciones deshacibles.</li>
+<li><strong>Adapter</strong> - [El original repite aquí, por error de imprenta, la descripción del patrón Command.]</li>
+<li><strong>Facade</strong> - [El original repite aquí, por error de imprenta, la descripción del patrón Command.]</li>
+<li><strong>Template Method</strong> - Define el esqueleto de un algoritmo en una operación, parametriza a los clientes con distintas subclases y aplaza la implementación a otras clases.</li>
+</ul>
+</div>
+<h2 id="soluciones-de-los-ejercicios">Soluciones de los ejercicios<a class="headerlink" href="#soluciones-de-los-ejercicios" title="Permanent link">&para;</a></h2>
+<div class="admonition success">
+<p class="admonition-title">Solución: dibuja el nuevo diagrama de clases</p>
+<p>Ahora que hemos movido <code>prepareRecipe()</code> a la clase <code>CaffeineBeverage</code>, el diagrama de clases queda así:</p>
+<pre class="mermaid"><code>classDiagram
+class CaffeineBeverage {
+    +prepareRecipe()
+    +boilWater()
+    +pourInCup()
+    +brew()
+    +addCondiments()
+}
+class Coffee {
+    +brew()
+    +addCondiments()
+}
+class Tea {
+    +brew()
+    +addCondiments()
+}
+CaffeineBeverage &lt;|-- Coffee
+CaffeineBeverage &lt;|-- Tea</code></pre>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Solución: empareja cada patrón con su descripción</p>
+<table>
+<thead>
+<tr>
+<th>Patrón</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Template Method</td>
+<td>Las subclases deciden cómo implementar los pasos de un algoritmo.</td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Encapsula comportamientos intercambiables y usa delegación para decidir qué comportamiento usar.</td>
+</tr>
+<tr>
+<td>Factory Method</td>
+<td>Las subclases deciden qué clases concretas crear.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="crucigrama-de-patrones-de-diseno-solucion">Crucigrama de patrones de diseño: solución<a class="headerlink" href="#crucigrama-de-patrones-de-diseno-solucion" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>N.º</th>
+<th>Dirección</th>
+<th>Definición</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Horizontal</td>
+<td>Huey, Louie y Dewey pesan todos __________ libras.</td>
+<td><code>TWO</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Horizontal</td>
+<td>El método plantilla suele definirse en una clase ________.</td>
+<td><code>ABSTRACT</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Horizontal</td>
+<td>En este capítulo te hemos dado más _________.</td>
+<td><code>CAFFEINE</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Horizontal</td>
+<td>Los pasos del algoritmo que deben aportar las subclases se suelen declarar ___________.</td>
+<td><code>ABSTRACT</code></td>
+</tr>
+<tr>
+<td>11</td>
+<td>Horizontal</td>
+<td>El método hook de <code>JFrame</code> que sobrescribimos para imprimir «¡Yo mando!!».</td>
+<td><code>PAINT</code></td>
+</tr>
+<tr>
+<td>12</td>
+<td>Horizontal</td>
+<td>___________ tiene un método plantilla <code>subList()</code>.</td>
+<td><code>ABSTRACTLIST</code></td>
+</tr>
+<tr>
+<td>13</td>
+<td>Horizontal</td>
+<td>Tipo de ordenación usado en <code>Arrays</code>.</td>
+<td><code>MERGESORT</code></td>
+</tr>
+<tr>
+<td>14</td>
+<td>Horizontal</td>
+<td>El patrón Template Method usa _____________ para aplazar la implementación a otras clases.</td>
+<td><code>INHERITANCE</code></td>
+</tr>
+<tr>
+<td>15</td>
+<td>Horizontal</td>
+<td>«No nos llames, nosotros te llamaremos» se conoce como el principio _________.</td>
+<td><code>HOLLYWOOD</code></td>
+</tr>
+<tr>
+<td>16</td>
+<td>Horizontal</td>
+<td>[Pérdida en la extracción del texto de origen.]</td>
+<td><code>COMPOSITION</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Vertical</td>
+<td>Café y _______.</td>
+<td><code>TEA</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Vertical</td>
+<td>Factory Method es una __________ del patrón Template Method.</td>
+<td><code>SPECIALIZATION</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Vertical</td>
+<td>Un método plantilla define los pasos de un ________.</td>
+<td><code>ALGORITHM</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Vertical</td>
+<td>Patrón de cabeza grande.</td>
+<td><code>STRATEGY</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Vertical</td>
+<td>Los pasos del algoritmo ________ se implementan mediante métodos hook.</td>
+<td><code>OPTIONAL</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td>Vertical</td>
+<td>Nuestra cafetería favorita en Objectville.</td>
+<td><code>STARBUZZ</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td>Vertical</td>
+<td>La clase <code>Arrays</code> implementa su método plantilla como un método _______.</td>
+<td><code>STATIC</code></td>
+</tr>
+<tr>
+<td>15</td>
+<td>Vertical</td>
+<td>Un método de la superclase abstracta que no hace nada o proporciona un comportamiento por defecto se llama un método ____________.</td>
+<td><code>HOOK</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Nota del traductor</p>
+<p>La definición de la entrada 16 (horizontal) no se ha podido recuperar: el PDF pierde esa línea al extraer el texto de la página. La respuesta <code>COMPOSITION</code> sí se ha podido verificar, porque todas las letras de esa palabra se imprimen en la solución original. Algunas letras sueltas de la rejilla (<code>H</code> de <code>ALGORITHM</code>, <code>T</code> y <code>O</code> de <code>OPTIONAL</code>, la <code>T</code> de <code>STATIC</code> y la <code>W</code> de <code>HOLLYWOOD</code>) tampoco aparecen en la extracción, pero se deducen sin ambigüedad de las pistas y de las demás letras de la rejilla.</p>
+<p>En la página de «Herramientas para tu caja de herramientas de diseño», las descripciones de los patrones <code>Adapter</code> y <code>Facade</code> están repetidas literalmente tal cual se imprimen en el original, que contiene un error de imprenta: ambas repiten la descripción del patrón <code>Command</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../capitulo-7/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Capítulo 7: Los patrones Adapter y Facade">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 7: Los patrones Adapter y Facade
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../capitulo-9/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Capítulo 9: Los patrones Iterator y Composite">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 9: Los patrones Iterator y Composite
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copiado al portapapeles","clipboard.copy":"Copiar al portapapeles","search.result.more.one":"1 más en esta página","search.result.more.other":"# más en esta página","search.result.none":"No se encontraron documentos","search.result.one":"1 documento encontrado","search.result.other":"# documentos encontrados","search.result.placeholder":"Teclee para comenzar búsqueda","search.result.term.missing":"Falta","select.version":"Seleccionar versión"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      
+    
+  </body>
+</html>

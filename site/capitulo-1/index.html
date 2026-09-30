@@ -1,0 +1,3328 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Traducción al español de Head First Design Patterns (Freeman y Robson, 2.ª edición), con diagramas reconstruidos en Mermaid.">
+      
+      
+        <meta name="author" content="Head First Design Patterns — traducción al español">
+      
+      
+      
+        <link rel="prev" href="../introduccion/">
+      
+      
+        <link rel="next" href="../capitulo-2/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.36">
+    
+    
+      
+        <title>Capítulo 1: Introducción a los patrones de diseño - Head First Design Patterns — español</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.1e981d71.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navegación"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capitulo-1-introduccion-a-los-patrones-de-diseno" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="./.." title="Head First Design Patterns — español" class="md-header__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navegación">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Head First Design Patterns — español
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Capítulo 1: Introducción a los patrones de diseño
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Buscar">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Buscar">
+  <button type="button" class="md-search__button">
+    Buscar
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Head First Design Patterns — español" class="md-nav__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Head First Design Patterns — español
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 1: Introducción a los patrones de diseño
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 1: Introducción a los patrones de diseño
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#empezo-con-una-simple-aplicacion-simuduck" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Empezó con una simple aplicación SimUDuck
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pero-ahora-necesitamos-que-los-patos-volen" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pero ahora necesitamos que los patos VOLEN
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pero-algo-salio-muy-mal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pero algo salió muy mal...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#joe-piensa-en-la-herencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Joe piensa en la herencia...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y-si-usamos-una-interfaz" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Y si usamos una interfaz?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-harias-si-fueras-joe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué harías si fueras Joe?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-unica-constante-en-el-desarrollo-de-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La única constante en el desarrollo de software
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enfocando-el-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Enfocando el problema...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#separar-lo-que-cambia-de-lo-que-se-mantiene" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Separar lo que cambia de lo que se mantiene
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Separar lo que cambia de lo que se mantiene">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comportamientos-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comportamientos de Pato
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disenando-los-comportamientos-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Diseñando los comportamientos de Pato
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementando-los-comportamientos-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Implementando los comportamientos de Pato
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrando-los-comportamientos-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Integrando los comportamientos de Pato
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrando los comportamientos de Pato">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-anadir-las-variables-de-instancia-de-comportamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Añadir las variables de instancia de comportamiento
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-implementar-performquack" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Implementar <code>performQuack()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mas-integracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Más integración...
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Más integración...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-fijar-las-variables-de-instancia-de-comportamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Fijar las variables de instancia de comportamiento
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probando-el-codigo-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Probando el código de Pato
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probando el código de Pato">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-duckjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. <code>Duck.java</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-flybehaviorjava-flywithwingsjava-y-flynowayjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. <code>FlyBehavior.java</code>, <code>FlyWithWings.java</code> y <code>FlyNoWay.java</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-quackbehaviorjava-quackjava-mutequackjava-y-squeakjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. <code>QuackBehavior.java</code>, <code>Quack.java</code>, <code>MuteQuack.java</code> y <code>Squeak.java</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-miniducksimulatorjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. <code>MiniDuckSimulator.java</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-ejecuta-el-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. ¡Ejecuta el código!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estableciendo-el-comportamiento-dinamicamente" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Estableciendo el comportamiento dinámicamente
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Estableciendo el comportamiento dinámicamente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-anadir-dos-metodos-nuevos-a-la-clase-duck" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Añadir dos métodos nuevos a la clase <code>Duck</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-crear-un-nuevo-tipo-de-pato-modelduckjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Crear un nuevo tipo de pato: <code>ModelDuck.java</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-crear-un-nuevo-tipo-de-flybehavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Crear un nuevo tipo de <code>FlyBehavior</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-modificar-la-clase-de-prueba" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Modificar la clase de prueba
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-ejecuta-el-codigo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. ¡Ejecuta el código!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-gran-vision-sobre-el-comportamiento-encapsulado" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La gran visión sobre el comportamiento encapsulado
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#has-a-puede-ser-mejor-que-is-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HAS-A puede ser mejor que IS-A
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HAS-A puede ser mejor que IS-A">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guru-y-estudiante" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Guru y estudiante
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hablemos-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Hablemos de patrones de diseño...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rompecabezas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rompecabezas de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escuchado-en-el-restaurante-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Escuchado en el restaurante local...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escuchado-en-el-cubiculo-de-al-lado" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Escuchado en el cubículo de al lado...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-poder-de-un-vocabulario-de-patrones-compartido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El poder de un vocabulario de patrones compartido
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-se-usan-los-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Cómo se usan los patrones de diseño?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desarrollador-esceptico-guru-de-patrones-amigable" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desarrollador escéptico / Guru de patrones amigable
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-herramientas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de herramientas de diseño
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Herramientas para tu caja de herramientas de diseño">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fundamentos-de-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fundamentos de OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principios-de-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Principios de OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solucion-del-rompecabezas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución del rompecabezas de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#respuestas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Respuestas
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Respuestas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuestionario-desventajas-de-la-herencia-para-el-comportamiento-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cuestionario: desventajas de la herencia para el comportamiento de Pato
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuestionario-factores-que-impulsan-el-cambio" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cuestionario: factores que impulsan el cambio
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuestionario-implements-setweapon" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cuestionario: implements <code>setWeapon()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno-soluciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño: soluciones
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 2: El patrón Observer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 3: El patrón Decorator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 4: El patrón Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 5: El patrón Singleton
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 6: El patrón Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 7: Los patrones Adapter y Facade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 8: El patrón Template Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 9: Los patrones Iterator y Composite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 10: El patrón State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 11: El patrón Proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 12: Patrones compuestos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 13: Mejor vivir con patrones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 14: Apéndice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#empezo-con-una-simple-aplicacion-simuduck" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Empezó con una simple aplicación SimUDuck
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pero-ahora-necesitamos-que-los-patos-volen" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pero ahora necesitamos que los patos VOLEN
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pero-algo-salio-muy-mal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pero algo salió muy mal...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#joe-piensa-en-la-herencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Joe piensa en la herencia...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y-si-usamos-una-interfaz" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Y si usamos una interfaz?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-harias-si-fueras-joe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué harías si fueras Joe?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-unica-constante-en-el-desarrollo-de-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La única constante en el desarrollo de software
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enfocando-el-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Enfocando el problema...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#separar-lo-que-cambia-de-lo-que-se-mantiene" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Separar lo que cambia de lo que se mantiene
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Separar lo que cambia de lo que se mantiene">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comportamientos-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comportamientos de Pato
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disenando-los-comportamientos-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Diseñando los comportamientos de Pato
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementando-los-comportamientos-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Implementando los comportamientos de Pato
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrando-los-comportamientos-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Integrando los comportamientos de Pato
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrando los comportamientos de Pato">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-anadir-las-variables-de-instancia-de-comportamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Añadir las variables de instancia de comportamiento
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-implementar-performquack" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Implementar <code>performQuack()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mas-integracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Más integración...
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Más integración...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-fijar-las-variables-de-instancia-de-comportamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Fijar las variables de instancia de comportamiento
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probando-el-codigo-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Probando el código de Pato
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probando el código de Pato">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-duckjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. <code>Duck.java</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-flybehaviorjava-flywithwingsjava-y-flynowayjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. <code>FlyBehavior.java</code>, <code>FlyWithWings.java</code> y <code>FlyNoWay.java</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-quackbehaviorjava-quackjava-mutequackjava-y-squeakjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. <code>QuackBehavior.java</code>, <code>Quack.java</code>, <code>MuteQuack.java</code> y <code>Squeak.java</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-miniducksimulatorjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. <code>MiniDuckSimulator.java</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-ejecuta-el-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. ¡Ejecuta el código!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estableciendo-el-comportamiento-dinamicamente" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Estableciendo el comportamiento dinámicamente
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Estableciendo el comportamiento dinámicamente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-anadir-dos-metodos-nuevos-a-la-clase-duck" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Añadir dos métodos nuevos a la clase <code>Duck</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-crear-un-nuevo-tipo-de-pato-modelduckjava" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Crear un nuevo tipo de pato: <code>ModelDuck.java</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-crear-un-nuevo-tipo-de-flybehavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Crear un nuevo tipo de <code>FlyBehavior</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-modificar-la-clase-de-prueba" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Modificar la clase de prueba
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-ejecuta-el-codigo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. ¡Ejecuta el código!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-gran-vision-sobre-el-comportamiento-encapsulado" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La gran visión sobre el comportamiento encapsulado
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#has-a-puede-ser-mejor-que-is-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HAS-A puede ser mejor que IS-A
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HAS-A puede ser mejor que IS-A">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guru-y-estudiante" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Guru y estudiante
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hablemos-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Hablemos de patrones de diseño...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rompecabezas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rompecabezas de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escuchado-en-el-restaurante-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Escuchado en el restaurante local...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escuchado-en-el-cubiculo-de-al-lado" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Escuchado en el cubículo de al lado...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-poder-de-un-vocabulario-de-patrones-compartido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El poder de un vocabulario de patrones compartido
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-se-usan-los-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Cómo se usan los patrones de diseño?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desarrollador-esceptico-guru-de-patrones-amigable" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desarrollador escéptico / Guru de patrones amigable
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-herramientas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de herramientas de diseño
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Herramientas para tu caja de herramientas de diseño">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fundamentos-de-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fundamentos de OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principios-de-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Principios de OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solucion-del-rompecabezas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución del rompecabezas de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#respuestas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Respuestas
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Respuestas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuestionario-desventajas-de-la-herencia-para-el-comportamiento-de-pato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cuestionario: desventajas de la herencia para el comportamiento de Pato
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuestionario-factores-que-impulsan-el-cambio" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cuestionario: factores que impulsan el cambio
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuestionario-implements-setweapon" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cuestionario: implements <code>setWeapon()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno-soluciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño: soluciones
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="capitulo-1-introduccion-a-los-patrones-de-diseno">Capítulo 1: Introducción a los patrones de diseño<a class="headerlink" href="#capitulo-1-introduccion-a-los-patrones-de-diseno" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Bienvenido a los patrones de diseño</strong></p>
+<p>Ahora que vivimos en Objectville, tenemos que meternos en los patrones de diseño... todo el mundo está usándolos. ¡Pronto seremos el éxito del grupo de patrones de Jim y Betty los miércoles por la noche!</p>
+</blockquote>
+<p>Alguien ya resolvió tus problemas. En este capítulo aprenderás por qué (y cómo) puedes explotar la sabiduría y las lecciones aprendidas por otros desarrolladores que han recorrido el mismo camino del problema de diseño y han sobrevivido al viaje.</p>
+<p>Antes de terminar, veremos el uso y los beneficios de los patrones de diseño, algunos principios clave del diseño orientado a objetos (OO) y repasaremos un ejemplo de cómo funciona un patrón. La mejor forma de usar los patrones es cargar tu cerebro con ellos y luego reconocer lugares en tus diseños y en tus aplicaciones existentes donde puedas aplicarlos.</p>
+<p>En lugar de reutilización de código, con los patrones obtienes <strong>reutilización de experiencia</strong>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Nota de la traducción</p>
+<p>Los nombres de clases, interfaces y métodos se mantienen en inglés (<code>Duck</code>, <code>FlyBehavior</code>, <code>performFly()</code>...) para que el código siga siendo válido y comparable con el original. La prosa, los comentarios y las explicaciones sí están traducidos.</p>
+</div>
+<h2 id="empezo-con-una-simple-aplicacion-simuduck">Empezó con una simple aplicación SimUDuck<a class="headerlink" href="#empezo-con-una-simple-aplicacion-simuduck" title="Permanent link">&para;</a></h2>
+<p>Joe trabaja en una empresa que hace un juego de simulación de un estanque de patos muy exitoso, SimUDuck. El juego puede mostrar una gran variedad de especies de patos nadando y haciendo sonidos de graznido. Los diseñadores iniciales del sistema usaron técnicas OO estándar y crearon una superclase <code>Duck</code> de la que heredan todos los demás tipos de pato.</p>
+<pre class="mermaid"><code>classDiagram
+    class Duck {
+        &lt;&lt;abstract&gt;&gt;
+        +quack()
+        +swim()
+        +display()*
+    }
+    class MallardDuck {
+        +display()
+    }
+    class RedheadDuck {
+        +display()
+    }
+    Duck &lt;|-- MallardDuck
+    Duck &lt;|-- RedheadDuck</code></pre>
+<ul>
+<li>Todos los patos graznan y nadan. La superclase se encarga de <code>quack()</code> y <code>swim()</code>.</li>
+<li>El método <code>display()</code> es código de implementación abstracto, ya que todos los subtipos de pato se ven distintos.</li>
+<li>Cada subtipo de pato es responsable de implementar su propio <code>display()</code>, es decir, de saber cómo se ve en la pantalla.</li>
+<li>Muchos otros tipos de patos heredan de la clase <code>Duck</code>.</li>
+</ul>
+<p>En el último año, la empresa ha estado bajo una presión creciente de la competencia. Tras una semana de lluvia de ideas fuera de las oficinas, jugando al golf, los ejecutivos de la empresa creen que ya es hora de una gran innovación. Necesitan algo realmente impresionante que enseñar en la próxima junta de accionistas, en Maui, la semana que viene.</p>
+<h2 id="pero-ahora-necesitamos-que-los-patos-volen">Pero ahora necesitamos que los patos VOLEN<a class="headerlink" href="#pero-ahora-necesitamos-que-los-patos-volen" title="Permanent link">&para;</a></h2>
+<p>Los ejecutivos decidieron que patos volando es justo lo que el simulador necesita para arrasar con la competencia. Y, por supuesto, el jefe de Joe le dijo que no será ningún problema para Joe inventar algo en una semana. «Después de todo», dijo el jefe de Joe, «es un programador OO... ¿qué tan difícil puede ser?».</p>
+<blockquote>
+<p>Solo necesito añadir un método <code>fly()</code> en la clase <code>Duck</code> y entonces todos los patos heredarán esto. Ahora es mi momento de mostrar mi verdadero genio OO.</p>
+</blockquote>
+<pre class="mermaid"><code>classDiagram
+    class Duck {
+        &lt;&lt;abstract&gt;&gt;
+        +quack()
+        +swim()
+        +display()*
+        +fly()
+    }
+    class MallardDuck {
+        +display()
+    }
+    class RedheadDuck {
+        +display()
+    }
+    Duck &lt;|-- MallardDuck
+    Duck &lt;|-- RedheadDuck</code></pre>
+<ul>
+<li><strong>Lo que queremos:</strong> patos que naden y graznen, con la volabilidad como una característica opcional.</li>
+<li><strong>Lo que Joe añadió:</strong> <code>fly()</code> en la superclase, y todas las subclases heredan <code>fly()</code>.</li>
+</ul>
+<h2 id="pero-algo-salio-muy-mal">Pero algo salió muy mal...<a class="headerlink" href="#pero-algo-salio-muy-mal" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Joe, estoy en la junta de accionistas. Acaban de hacer una demostración y había patitos de goma volando por la pantalla. ¿Fue esta tu idea de broma?</p>
+<p>¿Qué pasó?</p>
+</blockquote>
+<p>Joe no se dio cuenta de que no todos los subtipos de <code>Duck</code> deberían volar. Cuando Joe añadió el nuevo comportamiento a la superclase <code>Duck</code>, también estaba añadiendo un comportamiento que no era apropiado para algunos subtipos de <code>Duck</code>. Ahora tiene objetos inanimados volando en el programa SimUDuck.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p><em>Una actualización localizada del código causó un efecto secundario no local (¡patos de goma volando!).</em></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Lo que Joe pensó que era un gran uso de la herencia con el fin de conseguir reutilización no salió tan bien cuando se trata del mantenimiento.</p>
+<p>Al poner <code>fly()</code> en la superclase, le dio la capacidad de volar a <strong>todos</strong> los patos, incluidos aquellos que no deberían volar.</p>
+</div>
+<p>Fíjate además en que los patos de goma no graznan, así que <code>quack()</code> se sobrescribe para hacer «Squeak».</p>
+<pre class="mermaid"><code>classDiagram
+    class Duck {
+        &lt;&lt;abstract&gt;&gt;
+        +quack()
+        +swim()
+        +display()*
+        +fly()
+    }
+    class MallardDuck {
+        +display()
+    }
+    class RedheadDuck {
+        +display()
+    }
+    class RubberDuck {
+        +display()
+        +quack()
+    }
+    Duck &lt;|-- MallardDuck
+    Duck &lt;|-- RedheadDuck
+    Duck &lt;|-- RubberDuck</code></pre>
+<h2 id="joe-piensa-en-la-herencia">Joe piensa en la herencia...<a class="headerlink" href="#joe-piensa-en-la-herencia" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Siempre podría simplemente sobrescribir el método <code>fly()</code> en el pato de goma, igual que hice con <code>quack()</code>...</p>
+<p>Pero entonces, ¿qué pasa cuando añadimos patos señuelo de madera al programa? No se supone que vuelen ni graznen...</p>
+</blockquote>
+<pre class="mermaid"><code>classDiagram
+    class Duck {
+        &lt;&lt;abstract&gt;&gt;
+        +quack()
+        +swim()
+        +display()*
+        +fly()
+    }
+    class RubberDuck {
+        +quack()
+        +display()
+        +fly()
+    }
+    class DecoyDuck {
+        +quack()
+        +display()
+        +fly()
+    }
+    Duck &lt;|-- RubberDuck
+    Duck &lt;|-- DecoyDuck</code></pre>
+<p>Aquí hay otra clase en la jerarquía; fíjate en que, igual que <code>RubberDuck</code>, no vuela, pero tampoco grazna.</p>
+<div class="admonition question">
+<p class="admonition-title">Cuestionario</p>
+<p><strong>¿Cuáles de las siguientes son desventajas de usar herencia para proporcionar el comportamiento de Pato?</strong> (Elige todas las que apliquen.)</p>
+<ul>
+<li>A. El código se duplica entre las subclases.</li>
+<li>B. Los cambios de comportamiento en tiempo de ejecución son difíciles.</li>
+<li>C. No podemos hacer que los patos bailen.</li>
+<li>D. Es difícil adquirir conocimiento de todos los comportamientos de pato.</li>
+<li>E. Los patos no pueden volar y graznar al mismo tiempo.</li>
+<li>F. Los cambios pueden afectar sin querer a otros patos.</li>
+</ul>
+</div>
+<h2 id="y-si-usamos-una-interfaz">¿Y si usamos una interfaz?<a class="headerlink" href="#y-si-usamos-una-interfaz" title="Permanent link">&para;</a></h2>
+<p>Joe se dio cuenta de que probablemente la herencia no era la respuesta, porque acaba de recibir un memo que dice que los ejecutivos ahora quieren actualizar el producto cada seis meses (de maneras que aún no han decidido). Joe sabe que la especificación seguirá cambiando y se verá obligado a revisar y posiblemente sobrescribir <code>fly()</code> y <code>quack()</code> para cada nueva subclase de <code>Duck</code> que se añada al programa... para siempre.</p>
+<p>Así que necesita una forma más limpia de tener solo algunos (pero no todos) de los tipos de pato volando o graznando.</p>
+<blockquote>
+<p>Podría sacar <code>fly()</code> de la superclase <code>Duck</code> y hacer una interfaz <code>Flyable()</code> con un método <code>fly()</code>. Así, solo los patos que deben volar implementarán esa interfaz y tendrán un método <code>fly()</code>... y podría hacer también una <code>Quackable</code>, ya que no todos los patos pueden graznar.</p>
+</blockquote>
+<pre class="mermaid"><code>classDiagram
+    class Duck {
+        &lt;&lt;abstract&gt;&gt;
+        +swim()
+        +display()*
+    }
+    class Flyable {
+        &lt;&lt;interface&gt;&gt;
+        +fly()
+    }
+    class Quackable {
+        &lt;&lt;interface&gt;&gt;
+        +quack()
+    }
+    class MallardDuck {
+        +display()
+        +fly()
+        +quack()
+    }
+    class RedheadDuck {
+        +display()
+        +fly()
+        +quack()
+    }
+    class RubberDuck {
+        +display()
+        +quack()
+    }
+    class DecoyDuck {
+        +display()
+        +quack()
+    }
+    Duck &lt;|-- MallardDuck
+    Duck &lt;|-- RedheadDuck
+    Duck &lt;|-- RubberDuck
+    Duck &lt;|-- DecoyDuck
+    Flyable &lt;|.. MallardDuck
+    Flyable &lt;|.. RedheadDuck
+    Quackable &lt;|.. MallardDuck
+    Quackable &lt;|.. RedheadDuck
+    Quackable &lt;|.. RubberDuck
+    Quackable &lt;|.. DecoyDuck</code></pre>
+<div class="admonition danger">
+<p class="admonition-title">¿QUÉ PIENSAS TÚ de este diseño?</p>
+</div>
+<h2 id="que-harias-si-fueras-joe">¿Qué harías si fueras Joe?<a class="headerlink" href="#que-harias-si-fueras-joe" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Eso es, como, la idea más tonta que se te ha ocurrido. ¿Puedes decir «código duplicado»? Si pensar que tener que sobrescribir unos cuantos métodos ya era malo, ¿cómo te vas a sentir cuando necesites hacer un pequeño cambio en el comportamiento de vuelo... en las <strong>48 subclases de pato que vuelan</strong>?!</p>
+</blockquote>
+<p>Sabemos que no todas las subclases deberían tener comportamiento de vuelo o de graznido, así que la herencia no es la respuesta correcta. Pero aunque hacer que las subclases implementen <code>Flyable</code> y/o <code>Quackable</code> resuelve parte del problema (se acabaron los patos de goma volando inapropiadamente), destruye por completo la reutilización de código para esos comportamientos, así que simplemente crea una distinta pesadilla de mantenimiento. Y, por supuesto, podría haber más de un tipo de comportamiento de vuelo incluso entre los patos que sí vuelan...</p>
+<p>En este punto quizá estés esperando a que un Patrón de Diseño venga montado en un caballo blanco y salve el día. Pero ¿qué gracia tendría eso? No: vamos a encontrar una solución a la vieja usanza, aplicando buenos principios de diseño de software OO.</p>
+<blockquote>
+<p>¿No sería divino si hubiera una forma de construir software de modo que, cuando necesitemos cambiarlo, pudiéramos hacerlo con el menor impacto posible sobre el código existente? Podríamos dedicar menos tiempo a rehacer código y más a hacer que el programa haga cosas más geniales...</p>
+</blockquote>
+<h2 id="la-unica-constante-en-el-desarrollo-de-software">La única constante en el desarrollo de software<a class="headerlink" href="#la-unica-constante-en-el-desarrollo-de-software" title="Permanent link">&para;</a></h2>
+<p>Bien, ¿cuál es esa única cosa con la que siempre puedes contar en el desarrollo de software?</p>
+<p>No importa dónde trabajes, qué estés construyendo o en qué lenguaje estés programando, ¿cuál es la única verdadera constante que siempre estará contigo?</p>
+<div class="admonition danger">
+<p class="admonition-title">CAMBIO</p>
+<p><em>(usa un espejo para ver la respuesta)</em></p>
+</div>
+<p>Por muy bien que diseñes una aplicación, con el tiempo una aplicación debe crecer y cambiar o morirá.</p>
+<p>Muchas cosas pueden impulsar el cambio. Enumera algunas razones que hayas tenido para cambiar el código de tus aplicaciones (hemos puesto un par de las nuestras para que empieces). Comprueba tus respuestas con la solución al final del capítulo antes de continuar.</p>
+<ul>
+<li>Mis clientes o usuarios deciden que quieren otra cosa, o quieren nueva funcionalidad.</li>
+<li>Mi empresa decidió que se va con otro proveedor de base de datos y además está comprando sus datos a otro proveedor que usa un formato de datos distinto. ¡Arg!</li>
+</ul>
+<h2 id="enfocando-el-problema">Enfocando el problema...<a class="headerlink" href="#enfocando-el-problema" title="Permanent link">&para;</a></h2>
+<p>Así que sabemos que usar herencia no ha funcionado muy bien, ya que el comportamiento de pato cambia constantemente entre las subclases, y no es apropiado que todas las subclases tengan esos comportamientos. Las interfaces <code>Flyable</code> y <code>Quackable</code> sonaban prometedoras al principio —solo los patos que de verdad vuelan serán <code>Flyable</code>, etc.—, salvo que las interfaces de Java normalmente no tienen código de implementación, así que no hay reutilización de código. En ambos casos, cuando necesitas modificar un comportamiento, a menudo te ves obligado a rastrearlo y cambiarlo en todas las diferentes subclases donde está definido ese comportamiento, ¡probablemente introduciendo nuevos errores por el camino!</p>
+<p>Por suerte, hay un principio de diseño justo para esta situación.</p>
+<div class="admonition tip">
+<p class="admonition-title">Nota marginal</p>
+<p><em>Toma lo que varía y «encapsúlalo» para que no afecte al resto de tu código.</em></p>
+<p><em>El resultado: menos consecuencias no deseadas por los cambios de código y más flexibilidad en tus sistemas.</em></p>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">Principio de diseño</p>
+<p><strong>Identifica los aspectos de tu aplicación que varían y sepáralos de los que se mantienen iguales.</strong></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p><em>El primero de muchos principios de diseño. Dedicaremos más tiempo a estos principios a lo largo del libro.</em></p>
+</div>
+<p>En otras palabras: si tienes algún aspecto de tu código que está cambiando, digamos con cada requisito nuevo, entonces sabes que tienes un comportamiento que necesita ser extraído y separado de todo lo demás que no cambia.</p>
+<p>Otra forma de pensar este principio: toma las partes que varían y encapsúlalas, para que más adelante puedas alterar o extender las partes que varían sin afectar a las que no varían.</p>
+<p>Por simple que parezca este concepto, es la base de casi todos los patrones de diseño. Todos los patrones ofrecen una forma de dejar que una parte de un sistema varíe independientemente de todas las demás partes.</p>
+<p>Bien, es hora de extraer el comportamiento de pato de las clases <code>Duck</code>.</p>
+<h2 id="separar-lo-que-cambia-de-lo-que-se-mantiene">Separar lo que cambia de lo que se mantiene<a class="headerlink" href="#separar-lo-que-cambia-de-lo-que-se-mantiene" title="Permanent link">&para;</a></h2>
+<p>¿Por dónde empezamos? Hasta donde sabemos, salvo por los problemas con <code>fly()</code> y <code>quack()</code>, la clase <code>Duck</code> funciona bien y no hay otras partes que parezcan variar o cambiar con frecuencia. Así que, aparte de unos pequeños cambios, vamos a dejar la clase <code>Duck</code> tal cual está.</p>
+<p>Ahora, para separar las «partes que cambian de las que se mantienen igual», vamos a crear dos conjuntos de clases (totalmente aparte de <code>Duck</code>): uno para volar y otro para graznar. Cada conjunto de clases contendrá todas las implementaciones del comportamiento respectivo. Por ejemplo, podríamos tener una clase que implemente el graznido, otra que implemente el chillido y otra que implemente el silencio.</p>
+<div class="admonition danger">
+<p class="admonition-title">Lo que sabemos</p>
+<p><code>fly()</code> y <code>quack()</code> son las partes de la clase <code>Duck</code> que varían entre patos.</p>
+<p>Para separar estos comportamientos de la clase <code>Duck</code>, vamos a extraer ambos métodos de <code>Duck</code> y crear un nuevo conjunto de clases que represente cada comportamiento.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p><em>La clase <code>Duck</code> sigue siendo la superclase de todos los patos, pero estamos extrayendo las implementaciones de vuelo y graznido, que son comportamientos, y poniéndolas en otra estructura de clases.</em></p>
+<p><em>A partir de ahora, los comportamientos de Pato vivirán en una clase separada: una clase que implemente un comportamiento concreto. De ese modo, las clases <code>Duck</code> no necesitarán conocer ningún detalle de implementación de sus propios comportamientos.</em></p>
+</div>
+<h3 id="comportamientos-de-pato">Comportamientos de Pato<a class="headerlink" href="#comportamientos-de-pato" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Comportamiento de vuelo</li>
+<li>Comportamiento de graznido</li>
+</ul>
+<h2 id="disenando-los-comportamientos-de-pato">Diseñando los comportamientos de Pato<a class="headerlink" href="#disenando-los-comportamientos-de-pato" title="Permanent link">&para;</a></h2>
+<p>¿Cómo vamos a diseñar el conjunto de clases que implementa los comportamientos de vuelo y graznido?</p>
+<p>Nos gustaría mantener las cosas flexibles; después de todo, fue la rigidez de los comportamientos de pato la que nos meteró en problemas al principio. Y sabemos que queremos asignar comportamientos a las instancias de <code>Duck</code>. Por ejemplo, quizá queramos instanciar un nuevo <code>MallardDuck</code> e inicializarlo con un tipo concreto de comportamiento de vuelo. Y ya que estamos aquí, ¿por qué no asegurarnos de poder cambiar el comportamiento de un pato dinámicamente? En otras palabras, deberíamos incluir <em>setters</em> de comportamiento en las clases <code>Duck</code> para poder cambiar el comportamiento de vuelo del <code>MallardDuck</code> en tiempo de ejecución.</p>
+<p>Dados estos objetivos, veamos nuestro segundo principio de diseño:</p>
+<div class="admonition abstract">
+<p class="admonition-title">Principio de diseño</p>
+<p><strong>Programa a una interfaz, no a una implementación.</strong></p>
+</div>
+<p>Usaremos una interfaz para representar cada comportamiento —por ejemplo, <code>FlyBehavior</code> y <code>QuackBehavior</code>— y cada implementación de un comportamiento implementará una de esas interfaces.</p>
+<p>Así que esta vez no serán las clases <code>Duck</code> las que implementen las interfaces de vuelo y graznido. En su lugar, vamos a hacer un conjunto de clases cuya única razón de existir sea representar un comportamiento (por ejemplo, «chillar»), y será la clase de comportamiento, y no la clase <code>Duck</code>, la que implemente la interfaz de comportamiento.</p>
+<p>Esto contrasta con la forma en que hacíamos las cosas antes, donde un comportamiento provenía de una implementación concreta en la superclase <code>Duck</code>, o proporcionaba una implementación especializada en la propia subclase. En ambos casos dependíamos de una implementación. Estábamos atados a usar esa implementación concreta y no había margen para cambiar el comportamiento (salvo escribiendo más código).</p>
+<pre class="mermaid"><code>classDiagram
+    class FlyBehavior {
+        &lt;&lt;interface&gt;&gt;
+        +fly()
+    }
+    class FlyWithWings {
+        +fly()
+    }
+    class FlyNoWay {
+        +fly()
+    }
+    FlyBehavior &lt;|.. FlyWithWings
+    FlyBehavior &lt;|.. FlyNoWay</code></pre>
+<p>Con nuestro nuevo diseño, las subclases de <code>Duck</code> usarán un comportamiento representado por una interfaz (<code>FlyBehavior</code> y <code>QuackBehavior</code>), de modo que la implementación real del comportamiento (es decir, el comportamiento concreto codificado en la clase que implementa <code>FlyBehavior</code> o <code>QuackBehavior</code>) no quedará atada a la subclase de <code>Duck</code>.</p>
+<blockquote>
+<p>No veo por qué tienes que usar una interfaz para <code>FlyBehavior</code>. Puedes hacer lo mismo con una superclase abstracta. ¿No es justo el polimorfismo el objetivo?</p>
+</blockquote>
+<div class="admonition danger">
+<p class="admonition-title">«Programar a una interfaz» realmente significa «programar a un supertipo».</p>
+</div>
+<p>La palabra <em>interfaz</em> está sobrecargada aquí. Existe el concepto de interfaz, pero también está la construcción <em>interface</em> de Java. Puedes programar a una interfaz sin necesidad de usar realmente una <em>interface</em> de Java. El punto es explotar el polimorfismo programando a un supertipo, de modo que el objeto real en tiempo de ejecución no quede atado al código. Y podríamos reformular «programar a un supertipo» como «el tipo declarado de las variables debería ser un supertipo, normalmente una clase abstracta o una interfaz, de modo que los objetos asignados a esas variables puedan ser cualquier implementación concreta del supertipo; lo que significa que la clase que las declara no tiene que conocer los tipos reales de objeto».</p>
+<p>Probablemente esto no sea nada nuevo para ti, pero para asegurarnos de que todos decimos lo mismo, aquí va un ejemplo simple de uso de un tipo polimórfico: imagina una clase abstracta <code>Animal</code> con dos implementaciones concretas, <code>Dog</code> y <code>Cat</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p><em>Supertipo abstracto (puede ser una clase abstracta O una interfaz). Implementaciones concretas.</em></p>
+</div>
+<p>Programar a una implementación sería:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Dog</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Dog</span><span class="p">();</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">d</span><span class="p">.</span><span class="na">bark</span><span class="p">();</span>
+</span></code></pre></div>
+<pre class="mermaid"><code>classDiagram
+    class Animal {
+        &lt;&lt;abstract&gt;&gt;
+        +makeSound()
+    }
+    class Dog {
+        +makeSound()
+        +bark()
+    }
+    class Cat {
+        +makeSound()
+        +meow()
+    }
+    Animal &lt;|-- Dog
+    Animal &lt;|-- Cat</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p><em>Declarar la variable «d» como tipo <code>Dog</code> (una implementación concreta de <code>Animal</code>) nos obliga a programar a una implementación concreta. Sabemos que es un <code>Dog</code>, pero ahora podemos usar la referencia <code>animal</code> de forma polimórfica.</em></p>
+</div>
+<p>Pero programar a una interfaz/supertipo sería:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">Animal</span><span class="w"> </span><span class="n">animal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Dog</span><span class="p">();</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">animal</span><span class="p">.</span><span class="na">makeSound</span><span class="p">();</span>
+</span></code></pre></div>
+<p>Mejor aún: en lugar de codificar la instanciación del subtipo (como <code>new Dog()</code>) en el código, asigna el objeto de implementación concreta en tiempo de ejecución:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Animal</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getAnimal</span><span class="p">();</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">a</span><span class="p">.</span><span class="na">makeSound</span><span class="p">();</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p><em>No sabemos CUÁL es el subtipo real de animal... lo único que nos importa es que sabe responder a <code>makeSound()</code>.</em></p>
+</div>
+<h2 id="implementando-los-comportamientos-de-pato">Implementando los comportamientos de Pato<a class="headerlink" href="#implementando-los-comportamientos-de-pato" title="Permanent link">&para;</a></h2>
+<p>Aquí tenemos las dos interfaces, <code>FlyBehavior</code> y <code>QuackBehavior</code>, junto con las clases correspondientes que implementan cada comportamiento concreto:</p>
+<pre class="mermaid"><code>classDiagram
+    class FlyBehavior {
+        &lt;&lt;interface&gt;&gt;
+        +fly()
+    }
+    class QuackBehavior {
+        &lt;&lt;interface&gt;&gt;
+        +quack()
+    }
+    class FlyWithWings {
+        +fly()
+    }
+    class FlyNoWay {
+        +fly()
+    }
+    class Quack {
+        +quack()
+    }
+    class Squeak {
+        +quack()
+    }
+    class MuteQuack {
+        +quack()
+    }
+    FlyBehavior &lt;|.. FlyWithWings
+    FlyBehavior &lt;|.. FlyNoWay
+    QuackBehavior &lt;|.. Quack
+    QuackBehavior &lt;|.. Squeak
+    QuackBehavior &lt;|.. MuteQuack</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em><code>FlyBehavior</code> es una interfaz que solo incluye el método <code>fly()</code> que debe implementarse. Todas las clases voladoras nuevas solo necesitan implementar el método <code>fly()</code>.</em></p>
+<p><em>Aquí está la implementación de vuelo para todos los patos que tienen alas. Y aquí está la implementación para todos los patos que no pueden volar.</em></p>
+<p><em>Lo mismo ocurre aquí con el comportamiento de graznido: tenemos una interfaz y las clases que implementan cada comportamiento concreto.</em></p>
+<p><em>Patos que de verdad graznan. Patos que chillan. Patos que no hacen ningún sonido.</em></p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Con este diseño, otros tipos de objetos pueden reutilizar nuestros comportamientos de vuelo y graznido porque estos comportamientos ya no están escondidos dentro de nuestras clases <code>Duck</code>.</p>
+<p><em>Así obtenemos el beneficio de la REUTILIZACIÓN sin toda la carga que viene con la herencia.</em></p>
+<p><em>Y podemos añadir nuevos comportamientos sin modificar ninguna de nuestras clases de comportamiento existentes ni tocar ninguna de las clases <code>Duck</code> que usan comportamientos de vuelo.</em></p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Pregunta</p>
+<p><strong>P: ¿Siempre tengo que implementar mi aplicación primero, ver dónde cambian las cosas, y luego volver a separar esas cosas y encapsularlas?</strong></p>
+<p><strong>R:</strong> No siempre; a menudo, cuando estás diseñando una aplicación, anticipas las áreas que van a variar y te adelantas y construyes la flexibilidad para lidiar con ello. Verás que los principios y patrones se pueden aplicar en cualquier etapa del ciclo de vida del desarrollo.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Pregunta</p>
+<p><strong>P: Se siente un poco raro tener una clase que es solo un comportamiento. ¿No se supone que las clases representan cosas? ¿No se supone que las clases tengan estado (variables de instancia) y métodos?</strong></p>
+<p><strong>R:</strong> En un sistema OO, sí, las clases representan cosas que normalmente tienen estado (variables de instancia) y métodos. En este caso, lo que resulta ser un comportamiento es un comportamiento. Pero incluso un comportamiento puede tener estado y métodos; un comportamiento de vuelo podría tener variables de instancia que representen los atributos del comportamiento de vuelo (latidos de ala por minuto, altitud máxima, velocidad, etc.).</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Pregunta</p>
+<p><strong>P: ¿Deberíamos hacer que <code>Duck</code> sea una interfaz también?</strong></p>
+<p><strong>R:</strong> En este caso, no. Como verás cuando tengamos todo conectado, nos beneficia que <code>Duck</code> no sea una interfaz y que, además de patos concretos como <code>MallardDuck</code>, que hereden propiedades y métodos comunes, tengamos esta estructura sin los problemas.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Cuestionario</p>
+<p><strong>1. Usando nuestro nuevo diseño, ¿qué harías si necesitaras añadir vuelo propulsado por cohete a la aplicación SimUDuck?</strong></p>
+<p><strong>2. ¿Se te ocurre alguna clase que quisiera usar el comportamiento <code>Quack</code> y que no sea un pato?</strong></p>
+</div>
+<details class="note">
+<summary>Respuestas</summary>
+<ol>
+<li>Crear una clase <code>FlyRocketPowered</code> que implemente la interfaz <code>FlyBehavior</code>.</li>
+<li>Un ejemplo: un llamada de pato (un dispositivo que emite sonidos de pato).</li>
+</ol>
+</details>
+<h2 id="integrando-los-comportamientos-de-pato">Integrando los comportamientos de Pato<a class="headerlink" href="#integrando-los-comportamientos-de-pato" title="Permanent link">&para;</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">Aquí está la clave: un <code>Duck</code> delegará ahora sus comportamientos de vuelo y graznido, en lugar de usar métodos de graznido y vuelo definidos en la clase <code>Duck</code> (o subclase).</p>
+</div>
+<p>Así es como lo hacemos.</p>
+<h3 id="1-anadir-las-variables-de-instancia-de-comportamiento">1. Añadir las variables de instancia de comportamiento<a class="headerlink" href="#1-anadir-las-variables-de-instancia-de-comportamiento" title="Permanent link">&para;</a></h3>
+<p>Primero añadiremos dos variables de instancia de tipo <code>FlyBehavior</code> y <code>QuackBehavior</code> —llamémoslas <code>flyBehavior</code> y <code>quackBehavior</code>. Cada objeto de pato concreto asignará a esas variables un comportamiento concreto en tiempo de ejecución, como <code>FlyWithWings</code> para volar y <code>Squeak</code> para graznar.</p>
+<p>También eliminaremos los métodos <code>fly()</code> y <code>quack()</code> de la clase <code>Duck</code> (y de cualquier subclase), porque hemos movido ese comportamiento a las clases <code>FlyBehavior</code> y <code>QuackBehavior</code>.</p>
+<p>Reemplazaremos <code>fly()</code> y <code>quack()</code> en la clase <code>Duck</code> con dos métodos similares, llamados <code>performFly()</code> y <code>performQuack()</code>; veremos cómo funcionan a continuación.</p>
+<pre class="mermaid"><code>classDiagram
+    class Duck {
+        &lt;&lt;abstract&gt;&gt;
+        #flyBehavior
+        #quackBehavior
+        +swim()
+        +display()*
+        +performQuack()
+        +performFly()
+    }
+    Duck *-- FlyBehavior
+    Duck *-- QuackBehavior</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em>Las variables de comportamiento se declaran como el tipo de INTERFAZ de comportamiento. Las variables de instancia mantienen una referencia a un comportamiento concreto en tiempo de ejecución.</em></p>
+<p><em>Estos métodos reemplazan a <code>fly()</code> y <code>quack()</code>.</em></p>
+<p><em>Cada <code>Duck</code> tiene una referencia a algo que implementa la interfaz <code>QuackBehavior</code>.</em></p>
+</div>
+<h3 id="2-implementar-performquack">2. Implementar <code>performQuack()</code><a class="headerlink" href="#2-implementar-performquack" title="Permanent link">&para;</a></h3>
+<p>Ahora implementamos <code>performQuack()</code>:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Duck</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">QuackBehavior</span><span class="w"> </span><span class="n">quackBehavior</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="c1">// más cosas</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">performQuack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="n">quackBehavior</span><span class="p">.</span><span class="na">quack</span><span class="p">();</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>¡Bastante sencillo, no? Para hacer el graznido, un <code>Duck</code> simplemente le pide al objeto referenciado por <code>quackBehavior</code> que grzne por él. En esta parte del código no nos importa qué clase concreta sea el pato; lo único que nos importa es que ¡sepas graznar!</p>
+<h2 id="mas-integracion">Más integración...<a class="headerlink" href="#mas-integracion" title="Permanent link">&para;</a></h2>
+<h3 id="3-fijar-las-variables-de-instancia-de-comportamiento">3. Fijar las variables de instancia de comportamiento<a class="headerlink" href="#3-fijar-las-variables-de-instancia-de-comportamiento" title="Permanent link">&para;</a></h3>
+<p>Bien, hora de preocuparse de cómo se asignan las variables de instancia <code>flyBehavior</code> y <code>quackBehavior</code>. Veamos la clase <code>MallardDuck</code>:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MallardDuck</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Duck</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">MallardDuck</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="n">quackBehavior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Quack</span><span class="p">();</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="n">flyBehavior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FlyWithWings</span><span class="p">();</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;I&#39;m a real Mallard duck&quot;</span><span class="p">);</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em>Un <code>MallardDuck</code> usa la clase <code>Quack</code> para manejar su graznido, así que cuando se llama a <code>performQuack()</code>, la responsabilidad del graznido se delega al objeto <code>Quack</code> y obtenemos un graznido real.</em></p>
+<p><em>Y usa <code>FlyWithWings</code> como su comportamiento de vuelo.</em></p>
+<p><em>Recuerda: <code>MallardDuck</code> hereda las variables de instancia <code>quackBehavior</code> y <code>flyBehavior</code> de la clase <code>Duck</code>.</em></p>
+</div>
+<p>El graznido de <code>MallardDuck</code> es un graznido de pato real y vivo, no un chillido ni un graznido mudo. Cuando se instancia un <code>MallardDuck</code>, su constructor inicializa la variable de instancia heredada <code>quackBehavior</code> con una nueva instancia de tipo <code>Quack</code> (una clase de implementación concreta de <code>QuackBehavior</code>).</p>
+<p>Y lo mismo vale para el comportamiento de vuelo del pato: el constructor de <code>MallardDuck</code> inicializa la variable de instancia heredada <code>flyBehavior</code> con una instancia de tipo <code>FlyWithWings</code> (una clase de implementación concreta de <code>FlyBehavior</code>).</p>
+<blockquote>
+<p>Un momento, ¿no dijiste que NO deberíamos programar a una implementación? ¿Pero qué estamos haciendo en ese constructor? ¡Estamos creando una nueva instancia de una clase de implementación concreta de <code>Quack</code>!</p>
+</blockquote>
+<p>Buen ojo, eso es exactamente lo que estamos haciendo... <em>por ahora</em>. Más adelante en el libro tendremos más patrones en nuestra caja de herramientas que nos ayudarán a arreglarlo.</p>
+<p>Aun así, fíjate en que, mientras asignamos los comportamientos a clases concretas (instanciando una clase de comportamiento como <code>Quack</code> o <code>FlyWithWings</code> y asignándola a nuestra variable de referencia de comportamiento), podríamos cambiarlo fácilmente en tiempo de ejecución. Así que aquí todavía tenemos mucha flexibilidad. Dicho esto, estamos haciendo un mal trabajo de inicializar las variables de instancia de forma flexible. Pero piénsalo: como la variable de instancia <code>quackBehavior</code> es un tipo de interfaz, podríamos (gracias a la magia del polimorfismo) asignar dinámicamente una clase de implementación de <code>QuackBehavior</code> distinta en tiempo de ejecución.</p>
+<p>Tómate un momento y piensa en cómo implementarías un pato de modo que su comportamiento pudiera cambiar en tiempo de ejecución. (Verás el código que hace esto unas páginas más adelante.)</p>
+<h2 id="probando-el-codigo-de-pato">Probando el código de Pato<a class="headerlink" href="#probando-el-codigo-de-pato" title="Permanent link">&para;</a></h2>
+<h3 id="1-duckjava">1. <code>Duck.java</code><a class="headerlink" href="#1-duckjava" title="Permanent link">&para;</a></h3>
+<p>Escribe y compila la clase <code>Duck</code> de abajo, y la clase <code>MallardDuck</code> de hace dos páginas.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Duck</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">FlyBehavior</span><span class="w"> </span><span class="n">flyBehavior</span><span class="p">;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">QuackBehavior</span><span class="w"> </span><span class="n">quackBehavior</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Duck</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">();</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">performFly</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">        </span><span class="n">flyBehavior</span><span class="p">.</span><span class="na">fly</span><span class="p">();</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">performQuack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">        </span><span class="n">quackBehavior</span><span class="p">.</span><span class="na">quack</span><span class="p">();</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">swim</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;All ducks float, even decoys!&quot;</span><span class="p">);</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em>Declara dos variables de referencia para los tipos de interfaz de comportamiento. Todas las subclases de pato (en el mismo paquete) heredan estas.</em></p>
+<p><em>Delega a la clase de comportamiento.</em></p>
+</div>
+<h3 id="2-flybehaviorjava-flywithwingsjava-y-flynowayjava">2. <code>FlyBehavior.java</code>, <code>FlyWithWings.java</code> y <code>FlyNoWay.java</code><a class="headerlink" href="#2-flybehaviorjava-flywithwingsjava-y-flynowayjava" title="Permanent link">&para;</a></h3>
+<p>Escribe y compila la interfaz <code>FlyBehavior</code> y las dos clases de implementación de comportamiento.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">FlyBehavior</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">fly</span><span class="p">();</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FlyWithWings</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">FlyBehavior</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">fly</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;I&#39;m flying!!&quot;</span><span class="p">);</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FlyNoWay</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">FlyBehavior</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">fly</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;I can&#39;t fly&quot;</span><span class="p">);</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em>La interfaz que implementan todas las clases de comportamiento de vuelo.</em></p>
+<p><em>Implementación del comportamiento de vuelo para patos que SÍ vuelan...</em></p>
+<p><em>...e implementación del comportamiento de vuelo para patos que NO vuelan (como los patos de goma y los patos señuelo).</em></p>
+</div>
+<h3 id="3-quackbehaviorjava-quackjava-mutequackjava-y-squeakjava">3. <code>QuackBehavior.java</code>, <code>Quack.java</code>, <code>MuteQuack.java</code> y <code>Squeak.java</code><a class="headerlink" href="#3-quackbehaviorjava-quackjava-mutequackjava-y-squeakjava" title="Permanent link">&para;</a></h3>
+<p>Escribe y compila la interfaz <code>QuackBehavior</code> y las tres clases de implementación de comportamiento.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">QuackBehavior</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">quack</span><span class="p">();</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Quack</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">QuackBehavior</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">quack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Quack&quot;</span><span class="p">);</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MuteQuack</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">QuackBehavior</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">quack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;&lt;&lt; Silence &gt;&gt;&quot;</span><span class="p">);</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Squeak</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">QuackBehavior</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">quack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Squeak&quot;</span><span class="p">);</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="4-miniducksimulatorjava">4. <code>MiniDuckSimulator.java</code><a class="headerlink" href="#4-miniducksimulatorjava" title="Permanent link">&para;</a></h3>
+<p>Escribe y compila la clase de prueba.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MiniDuckSimulator</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">        </span><span class="n">Duck</span><span class="w"> </span><span class="n">mallard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MallardDuck</span><span class="p">();</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">        </span><span class="n">mallard</span><span class="p">.</span><span class="na">performQuack</span><span class="p">();</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">        </span><span class="n">mallard</span><span class="p">.</span><span class="na">performFly</span><span class="p">();</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em>Esto llama al método heredado <code>performQuack()</code> del <code>MallardDuck</code>, que a su vez delega en el <code>QuackBehavior</code> del objeto (es decir, llama a <code>quack()</code> sobre la referencia <code>quackBehavior</code> heredada del pato).</em></p>
+<p><em>Luego hacemos lo mismo con el método heredado <code>performFly()</code> del <code>MallardDuck</code>.</em></p>
+</div>
+<h3 id="5-ejecuta-el-codigo">5. ¡Ejecuta el código!<a class="headerlink" href="#5-ejecuta-el-codigo" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>%java MiniDuckSimulator
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Quack
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>I&#39;m flying!!
+</span></code></pre></div>
+<h2 id="estableciendo-el-comportamiento-dinamicamente">Estableciendo el comportamiento dinámicamente<a class="headerlink" href="#estableciendo-el-comportamiento-dinamicamente" title="Permanent link">&para;</a></h2>
+<p>¡Qué pena tener todo ese talento dinámico integrado en nuestros patos y no usarlo! Imagina que quieres establecer el tipo de comportamiento del pato mediante un método <em>setter</em> en la clase <code>Duck</code>, en lugar de instanciarlo en el constructor del pato.</p>
+<h3 id="1-anadir-dos-metodos-nuevos-a-la-clase-duck">1. Añadir dos métodos nuevos a la clase <code>Duck</code><a class="headerlink" href="#1-anadir-dos-metodos-nuevos-a-la-clase-duck" title="Permanent link">&para;</a></h3>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setFlyBehavior</span><span class="p">(</span><span class="n">FlyBehavior</span><span class="w"> </span><span class="n">fb</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="n">flyBehavior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fb</span><span class="p">;</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">}</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setQuackBehavior</span><span class="p">(</span><span class="n">QuackBehavior</span><span class="w"> </span><span class="n">qb</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="n">quackBehavior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qb</span><span class="p">;</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<pre class="mermaid"><code>classDiagram
+    class Duck {
+        &lt;&lt;abstract&gt;&gt;
+        #flyBehavior
+        #quackBehavior
+        +swim()
+        +display()*
+        +performQuack()
+        +performFly()
+        +setFlyBehavior()
+        +setQuackBehavior()
+    }</code></pre>
+<p>Podemos llamar a estos métodos cuando queramos para cambiar el comportamiento de un pato sobre la marcha.</p>
+<h3 id="2-crear-un-nuevo-tipo-de-pato-modelduckjava">2. Crear un nuevo tipo de pato: <code>ModelDuck.java</code><a class="headerlink" href="#2-crear-un-nuevo-tipo-de-pato-modelduckjava" title="Permanent link">&para;</a></h3>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ModelDuck</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Duck</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ModelDuck</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">        </span><span class="n">flyBehavior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FlyNoWay</span><span class="p">();</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">        </span><span class="n">quackBehavior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Quack</span><span class="p">();</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;I&#39;m a model duck&quot;</span><span class="p">);</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p><em>Nuestro pato modelo empieza su vida sin una forma de volar. Está bien, porque estamos creando un comportamiento de vuelo propulsado por cohete.</em></p>
+</div>
+<h3 id="3-crear-un-nuevo-tipo-de-flybehavior">3. Crear un nuevo tipo de <code>FlyBehavior</code><a class="headerlink" href="#3-crear-un-nuevo-tipo-de-flybehavior" title="Permanent link">&para;</a></h3>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FlyRocketPowered</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">FlyBehavior</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">fly</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;I&#39;m flying with a rocket!&quot;</span><span class="p">);</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="4-modificar-la-clase-de-prueba">4. Modificar la clase de prueba<a class="headerlink" href="#4-modificar-la-clase-de-prueba" title="Permanent link">&para;</a></h3>
+<p>Cambia la clase de prueba (<code>MiniDuckSimulator.java</code>), añade el <code>ModelDuck</code> y haz que el <code>ModelDuck</code> tenga cohete.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MiniDuckSimulator</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">        </span><span class="n">Duck</span><span class="w"> </span><span class="n">mallard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MallardDuck</span><span class="p">();</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">        </span><span class="n">mallard</span><span class="p">.</span><span class="na">performQuack</span><span class="p">();</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">        </span><span class="n">mallard</span><span class="p">.</span><span class="na">performFly</span><span class="p">();</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">        </span><span class="n">Duck</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ModelDuck</span><span class="p">();</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">        </span><span class="n">model</span><span class="p">.</span><span class="na">performFly</span><span class="p">();</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">        </span><span class="n">model</span><span class="p">.</span><span class="na">setFlyBehavior</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">FlyRocketPowered</span><span class="p">());</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">        </span><span class="n">model</span><span class="p">.</span><span class="na">performFly</span><span class="p">();</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em>La primera llamada a <code>performFly()</code> delega en el objeto <code>flyBehavior</code> establecido en el constructor de <code>ModelDuck</code>, que es una instancia de <code>FlyNoWay</code>.</em></p>
+<p><em>Esto invoca el método *setter</em> de comportamiento heredado del modelo y... ¡voilà! ¡De repente el modelo tiene capacidad de vuelo propulsado por cohete!*</p>
+<p><em>Si funcionó, ¡el pato modelo cambió dinámicamente su comportamiento de vuelo! No puedes hacer ESO si la implementación vive dentro de la clase <code>Duck</code>.</em></p>
+</div>
+<h3 id="5-ejecuta-el-codigo_1">5. ¡Ejecuta el código!<a class="headerlink" href="#5-ejecuta-el-codigo_1" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>%java MiniDuckSimulator
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>Quack
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>I&#39;m flying!!
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>I can&#39;t fly
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>I&#39;m flying with a rocket!
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Antes</th>
+<th>Después</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Quack</code></td>
+<td><code>Quack</code></td>
+</tr>
+<tr>
+<td><code>I'm flying!!</code></td>
+<td><code>I'm flying!!</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>I can't fly</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>I'm flying with a rocket!</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Nota marginal</p>
+<p><em>Para cambiar el comportamiento de un pato en tiempo de ejecución, solo llama al método *setter</em> de ese comportamiento en el pato.*</p>
+</div>
+<h2 id="la-gran-vision-sobre-el-comportamiento-encapsulado">La gran visión sobre el comportamiento encapsulado<a class="headerlink" href="#la-gran-vision-sobre-el-comportamiento-encapsulado" title="Permanent link">&para;</a></h2>
+<p>Bien, ahora que hemos hecho la inmersión profunda en el diseño del simulador de patos, es hora de volver a la superficie y echarle un vistazo a la gran visión.</p>
+<p>Aquí está la estructura de clases completa rehecha. Tenemos todo lo que esperarías: patos heredando de <code>Duck</code>, comportamientos de vuelo implementando <code>FlyBehavior</code> y comportamientos de graznido implementando <code>QuackBehavior</code>.</p>
+<p>Fíjate también en que hemos empezado a describir las cosas de una forma algo distinta. En lugar de pensar en los comportamientos de pato como un conjunto de comportamientos, empezaremos a pensarlos como una familia de algoritmos. Piénsalo: en el diseño de SimUDuck, los algoritmos representan cosas que haría un pato (distintas formas de graznar o de volar), pero podríamos usar exactamente las mismas técnicas para un conjunto de clases que implementen las maneras de calcular el impuesto sobre las ventas de cada estado.</p>
+<p>Presta especial atención a las relaciones entre las clases. De hecho, coge un bolígrafo y escribe la relación apropiada (<code>IS-A</code>, <code>HAS-A</code> e <code>IMPLEMENTS</code>) en cada flecha del diagrama de clases.</p>
+<pre class="mermaid"><code>classDiagram
+    direction TB
+    class Client
+    class Duck {
+        &lt;&lt;abstract&gt;&gt;
+        #flyBehavior
+        #quackBehavior
+        +swim()
+        +display()*
+        +performQuack()
+        +performFly()
+        +setFlyBehavior()
+        +setQuackBehavior()
+    }
+    class FlyBehavior {
+        &lt;&lt;interface&gt;&gt;
+        +fly()
+    }
+    class FlyWithWings {
+        +fly()
+    }
+    class FlyNoWay {
+        +fly()
+    }
+    class QuackBehavior {
+        &lt;&lt;interface&gt;&gt;
+        +quack()
+    }
+    class Quack {
+        +quack()
+    }
+    class Squeak {
+        +quack()
+    }
+    class MuteQuack {
+        +quack()
+    }
+    class MallardDuck {
+        +display()
+    }
+    class RedheadDuck {
+        +display()
+    }
+    class RubberDuck {
+        +display()
+    }
+    class DecoyDuck {
+        +display()
+    }
+    Client ..&gt; Duck : usa
+    Duck &lt;|-- MallardDuck : IS-A
+    Duck &lt;|-- RedheadDuck : IS-A
+    Duck &lt;|-- RubberDuck : IS-A
+    Duck &lt;|-- DecoyDuck : IS-A
+    Duck *-- FlyBehavior : HAS-A
+    Duck *-- QuackBehavior : HAS-A
+    FlyBehavior &lt;|.. FlyWithWings : IMPLEMENTS
+    FlyBehavior &lt;|.. FlyNoWay : IMPLEMENTS
+    QuackBehavior &lt;|.. Quack : IMPLEMENTS
+    QuackBehavior &lt;|.. Squeak : IMPLEMENTS
+    QuackBehavior &lt;|.. MuteQuack : IMPLEMENTS</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em>El <code>Client</code> hace uso de una familia encapsulada de algoritmos para volar y graznar.</em></p>
+<p><em>Piensa en cada conjunto de comportamientos como una familia de algoritmos.</em></p>
+<p><em>Estos «algoritmos» de comportamiento son intercambiables.</em></p>
+</div>
+<h2 id="has-a-puede-ser-mejor-que-is-a">HAS-A puede ser mejor que IS-A<a class="headerlink" href="#has-a-puede-ser-mejor-que-is-a" title="Permanent link">&para;</a></h2>
+<p>La relación <code>HAS-A</code> es interesante: cada pato <strong>tiene</strong> un <code>FlyBehavior</code> y un <code>QuackBehavior</code> a los que delega el vuelo y el graznido.</p>
+<p>Cuando juntas dos clases de esta forma estás usando <strong>composición</strong>. En lugar de heredar su comportamiento, los patos obtienen su comportamiento al ser compuestos con el objeto de comportamiento correcto. Esta es una técnica importante; de hecho, es la base de nuestro tercer principio de diseño:</p>
+<div class="admonition abstract">
+<p class="admonition-title">Principio de diseño</p>
+<p><strong>Favorece la composición sobre la herencia.</strong></p>
+</div>
+<p>Como has visto, crear sistemas usando composición te da mucha más flexibilidad. No solo te permite encapsular una familia de algoritmos en su propio conjunto de clases, sino que también te permite cambiar el comportamiento en tiempo de ejecución siempre que el objeto con el que te compongas implemente la interfaz de comportamiento correcta.</p>
+<p>La composición se usa en muchos patrones de diseño yáserás mucho más sobre sus ventajas y desventajas a lo largo del libro.</p>
+<h3 id="guru-y-estudiante">Guru y estudiante<a class="headerlink" href="#guru-y-estudiante" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>Guru:</strong> Dime qué has aprendido sobre las formas orientada a objetos.</p>
+<p><strong>Estudiante:</strong> Guru, he aprendido que la promesa de la forma orientada a objetos es la reutilización.</p>
+<p><strong>Guru:</strong> Continúa...</p>
+<p><strong>Estudiante:</strong> Guru, mediante la herencia todas las cosas buenas pueden ser reutilizadas y porvenir reducimos drásticamente el tiempo de desarrollo, como cuando cortamos caña rápidamente en el bosque.</p>
+<p><strong>Guru:</strong> ¿Se gasta más tiempo en código antes o después del desarrollo?</p>
+<p><strong>Estudiante:</strong> La respuesta es después, Guru. Siempre gastamos más tiempo manteniendo y cambiando software que en el desarrollo inicial.</p>
+<p><strong>Guru:</strong> Entonces, ¿debería el esfuerzo centrarse en la reutilización por encima de la mantenibilidad y la extensibilidad?</p>
+<p><strong>Estudiante:</strong> Guru, creo que hay algo de verdad en eso.</p>
+<p><strong>Guru:</strong> Veo que todavía tienes mucho que aprender. Me gustaría que fueras a meditar más sobre la herencia y otras maneras de conseguir la reutilización.</p>
+</blockquote>
+<div class="admonition question">
+<p class="admonition-title">Cuestionario</p>
+<p>Un <strong>llamado de pato</strong> es un dispositivo que usan los cazadores para imitar los graznidos de los patos. ¿Cómo implementarías tu propio llamado de pato sin que herede de la clase <code>Duck</code>?</p>
+</div>
+<h2 id="hablemos-de-patrones-de-diseno">Hablemos de patrones de diseño...<a class="headerlink" href="#hablemos-de-patrones-de-diseno" title="Permanent link">&para;</a></h2>
+<div class="admonition success">
+<p class="admonition-title">¡Felicidades por tu primer patrón!</p>
+</div>
+<p>Acabas de aplicar tu primer patrón de diseño: el <strong>patrón STRATEGY</strong>. Así es, usaste el patrón Strategy para rehacer la aplicación SimUDuck.</p>
+<p>Gracias a este patrón, el simulador está preparado para cualquier cambio que esos ejecutivos puedan cocinar en su próximo viaje de negocios a Maui.</p>
+<p>Ahora que te hemos hecho recorrer el camino largo para aprenderlo, aquí va la definición formal del patrón:</p>
+<blockquote>
+<p><strong>El patrón Strategy define una familia de algoritmos, encapsula cada uno de ellos y los hace intercambiables. Strategy permite que el algoritmo varíe de forma independiente de los clientes que lo usan.</strong></p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p><em>Usa ESTA definición cuando necesites impresionar a tus amigos e influir en los ejecutivos clave.</em></p>
+</div>
+<h2 id="rompecabezas-de-diseno">Rompecabezas de diseño<a class="headerlink" href="#rompecabezas-de-diseno" title="Permanent link">&para;</a></h2>
+<p>Aquí abajo encontrarás un lío de clases e interfaces para un juego de acción y aventura. Encontrarás clases para personajes del juego junto con clases para comportamientos de arma que los personajes pueden usar en el juego. Cada personaje puede usar un arma a la vez, pero puede cambiar de arma en cualquier momento durante el juego. Tu trabajo es ordenarlo todo...</p>
+<p>(Las respuestas están al final del capítulo.)</p>
+<p><strong>Tu tarea:</strong></p>
+<ol>
+<li>Ordena las clases.</li>
+<li>Identifica una clase abstracta, una interfaz y ocho clases.</li>
+<li>Dibuja flechas entre las clases.
+    a. Dibuja este tipo de flecha para herencia (<code>extends</code>).
+    b. Dibuja este tipo de flecha para interfaz (<code>implements</code>).
+    c. Dibuja este tipo de flecha para <code>HAS-A</code>.</li>
+<li>Coloca el conjunto de métodos <code>setWeapon()</code> en la clase correcta.</li>
+</ol>
+<pre class="mermaid"><code>classDiagram
+    class Character {
+        +WeaponBehavior weapon
+        +fight()
+    }
+    class BowAndArrowBehavior {
+        +useWeapon()
+    }
+    class KnifeBehavior {
+        +useWeapon()
+    }
+    class Queen {
+        +fight()
+    }
+    class WeaponBehavior {
+        &lt;&lt;interface&gt;&gt;
+        +useWeapon()
+    }
+    class King {
+        +fight()
+    }
+    class AxeBehavior {
+        +useWeapon()
+    }
+    class Troll {
+        +fight()
+    }
+    class Knight {
+        +fight()
+    }
+    class SwordBehavior {
+        +useWeapon()
+    }</code></pre>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">setWeapon</span><span class="p">(</span><span class="n">WeaponBehavior</span><span class="w"> </span><span class="n">w</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">weapon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="escuchado-en-el-restaurante-local">Escuchado en el restaurante local...<a class="headerlink" href="#escuchado-en-el-restaurante-local" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Alice:</strong> Necesito un sándwich de queso crema con mermelada en pan blanco, un refresco de chocolate con helado de vainilla, un sándwich de queso a la plancha con tocino, una ensalada de atún sobre pan tostado, un banana split con helado y plátanos en rodajas, y un café con crema y dos de azúcar... ah, y ¡pon un hamburger en la parrilla!</p>
+<p><strong>Flo:</strong> Dame un C.J. White, un negro y blanco, un Jack Benny, una radio, un boat (una casa sobre el agua), un café normal, y ¡quema uno!</p>
+</blockquote>
+<p>¿Cuál es la diferencia entre estos dos pedidos? ¡Ninguna! Son el mismo pedido, salvo que Alice usa el doble de palabras y hace gala de la paciencia de un cocinero de pedidos cortos de mal genio.</p>
+<p>¿Qué tiene Flo que Alice no tiene? Un <strong>vocabulario compartido</strong> con el cocinero de pedidos cortos. No solo eso hace más fácil comunicarse con el cocinero, sino que además le da al cocinero menos cosas que recordar, porque tiene todos los patrones de la cafetería en la cabeza.</p>
+<p>Los patrones de diseño te dan un vocabulario compartido con otros desarrolladores. Una vez que tienes el vocabulario, puedes comunicarte con más facilidad con otros desarrolladores e inspirar a quienes no conocen patrones a empezar a aprenderlos. También eleva tu pensamiento sobre arquitecturas al permitirte pensar en el nivel de los patrones, y no en el nivel del objeto en sus detalles más menudos.</p>
+<h2 id="escuchado-en-el-cubiculo-de-al-lado">Escuchado en el cubículo de al lado...<a class="headerlink" href="#escuchado-en-el-cubiculo-de-al-lado" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Rick:</strong> Así que creé esta clase de difusión. Lleva el registro de todos los objetos que la escuchan, y cada vez que llega un dato nuevo envía un mensaje a cada oyente. Los oyentes pueden unirse a la difusión en cualquier momento o incluso retirarse de ella. Es realmente dinámico y poco acoplado.</p>
+</blockquote>
+<p>¿Puedes pensar en otros vocabularios compartidos que se usan más allá del diseño OO y de las conversaciones de cafetería? (Pista: ¿qué hay de los mecánicos, los carpinteros, los chefs gourmet y los controladores de tráfico aéreo?)</p>
+<p>¿Qué cualidades se comunican junto con la jerga?</p>
+<p>¿Puedes pensar en aspectos del diseño OO que se comunican junto con los nombres de los patrones? ¿Qué cualidades se comunican junto con el nombre «patrón Strategy»?</p>
+<blockquote>
+<p><strong>Rick:</strong> Exacto. Si te comunicas en patrones, entonces otros desarrolladores conocen de inmediato y con precisión el diseño que estás describiendo. lo sabrás cuando empieces a usar patrones para Hello World...</p>
+<p><strong>Desarrollador:</strong> Rick, ¿por qué no dijiste simplemente que estás usando el <strong>patrón Observer</strong>?</p>
+</blockquote>
+<h2 id="el-poder-de-un-vocabulario-de-patrones-compartido">El poder de un vocabulario de patrones compartido<a class="headerlink" href="#el-poder-de-un-vocabulario-de-patrones-compartido" title="Permanent link">&para;</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">Cuando te comunicas usando patrones, estás haciendo mucho más que compartir jerga.</p>
+</div>
+<blockquote>
+<p><em>«Estamos usando el patrón Strategy para implementar los distintos comportamientos de nuestros patos.» Esto te dice que el comportamiento de pato ha sido encapsulado en su propio conjunto de clases que pueden ampliarse y cambiarse fácilmente, incluso en tiempo de ejecución si hace falta.</em></p>
+</blockquote>
+<p><strong>Los vocabularios compartidos de patrones son PODEROSOS.</strong> Cuando te comunicas con otro desarrollador o con tu equipo usando patrones, no estás comunicando solo un nombre de patrón, sino todo un conjunto de cualidades, características y restricciones que el patrón representa.</p>
+<p><strong>Los patrones te permiten decir más con menos.</strong> Cuando usas un patrón en una descripción, otros desarrolladores saben rápidamente y con precisión qué diseño tienes en mente.</p>
+<p><strong>Hablar en el nivel de los patrones te permite mantenerte «en el diseño» más tiempo.</strong> Hablar de sistemas de software usando patrones te permite mantener la discusión en el nivel del diseño, sin tener que bajar a los detalles minuciosos de implementar objetos y clases.</p>
+<p><strong>Los vocabularios compartidos pueden turboimpulsar tu equipo de desarrollo.</strong> Un equipo VERSADO en patrones de diseño puede moverse mucho más rápido y con menos margen de malentendidos.</p>
+<p><strong>Los vocabularios compartidos alientan a que los desarrolladores junior sean más rápidos.</strong> Los desarrolladores junior miran a los desarrolladores senior. Cuando los desarrolladores senior usan patrones de diseño, los junior también se motivan para aprendirlos. Construye una comunidad de usuarios de patrones en tu organización.</p>
+<h2 id="como-se-usan-los-patrones-de-diseno">¿Cómo se usan los patrones de diseño?<a class="headerlink" href="#como-se-usan-los-patrones-de-diseno" title="Permanent link">&para;</a></h2>
+<p>Todos hemos usado bibliotecas y frameworks listos para usar. Los tomamos, escribimos algo de código contra sus APIs, los compilamos en nuestros programas y nos beneficiamos de mucho código que alguien más ha escrito. Piensa en las APIs de Java y toda la funcionalidad que te dan: red, GUI, E/S, etc. Las bibliotecas y los frameworks nos llevan muy lejos hacia un modelo de desarrollo donde podemos simplemente elegir componentes y conectarlos directamente. Pero... no nos ayudan a estructurar nuestras propias aplicaciones de maneras más fáciles de entender, más mantenibles y más flexibles. Ahí es donde entran los patrones de diseño.</p>
+<p><strong>Los patrones de diseño no van directamente a tu código, primero van a tu CEREBRO.</strong> Una vez que hayas cargado tu cerebro con un buen conocimiento práctico de los patrones, podrás empezar a aplicarlos a tus nuevos diseños y a rehacer tu código antiguo cuando descubras que se está degradando en un desastre inflexible.</p>
+<pre class="mermaid"><code>flowchart TD
+    Cerebro[[TU CEREBRO]]
+    Cerebro --&gt; Patron[["Un montón de patrones"]]
+    Cerebro --&gt; Codigo[["Tu código, ahora nuevo&lt;br/&gt;y mejorado con patrones de diseño"]]
+    Patron --&gt; Duck["Duck, Mallard Duck, Redhead Duck,&lt;br/&gt;Rubber Duck, Decoy Duck, Client"]
+    Patron --&gt; Vuelo["FlyBehavior, FlyWithWings, FlyNoWay"]
+    Patron --&gt; Graznido["QuackBehavior, Quack, Squeak, MuteQuack"]
+    Patron --&gt; MVC["MVC"]
+    MVC --&gt; Controller["Controller — Request"]
+    MVC --&gt; Model["Model — Duck Object, Cat Object, Mouse Object"]
+    MVC --&gt; View["View — Observers"]
+    MVC --&gt; Sujeto["Subject — Dependent Objects"]
+    Sujeto --&gt; Observa1["Object that holds state"]
+    Sujeto --&gt; Observa2["Automatic update/notification"]</code></pre>
+<div class="admonition question">
+<p class="admonition-title">Pregunta</p>
+<p><strong>P: Si los patrones de diseño son tan buenos, ¿por qué no puede alguien construir una biblioteca de ellos para que yo también diseñe patrones?</strong></p>
+<p><strong>R:</strong> No, pero más adelante aprenderás sobre catálogos de patrones con listas de patrones que puedes aplicar a tus aplicaciones.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Pregunta</p>
+<p><strong>P: ¿No es todo esto simplemente buen diseño orientado a objetos?</strong></p>
+<p><strong>R:</strong> No, pero es más sutil que eso. Hay mucho que aprender.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Pregunta</p>
+<p><strong>P: ¿No es que las bibliotecas y los frameworks tampoco tienen que seguir patrones de diseño?</strong></p>
+<p><strong>R:</strong> Las bibliotecas y los frameworks no <em>son</em> patrones de diseño; proporcionan implementaciones concretas que vinculamos a nuestro código. A veces, sin embargo, bibliotecas y frameworks hacen uso de patrones de diseño en sus implementaciones. Eso es genial, porque una vez que entiendes los patrones de diseño, entenderás las APIs mucho más rápido, ya que están estructuradas en torno a patrones de diseño.</p>
+</div>
+<h2 id="desarrollador-esceptico-guru-de-patrones-amigable">Desarrollador escéptico / Guru de patrones amigable<a class="headerlink" href="#desarrollador-esceptico-guru-de-patrones-amigable" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Desarrollador:</strong> Okay, mmm, pero ¿no es esto solo buen diseño orientado a objetos? Quiero decir, mientras siga la encapsulación y conozca la abstracción, la herencia y el polimorfismo, ¿de verdad necesito pensar en patrones de diseño? ¿No es bastante directo? ¿No es por eso que hice todos esos cursos de OO? Creo que los patrones de diseño son útiles para gente que no sabe hacer buen diseño OO.</p>
+<p><strong>Guru:</strong> Ah, este es uno de los verdaderos malentendidos del desarrollo orientado a objetos: que por conocer los básicos de OO vamos automáticamente a ser buenos construyendo sistemas flexibles, reutilizables y mantenibles.</p>
+<p><strong>Desarrollador:</strong> ¿No?</p>
+<p><strong>Guru:</strong> No. Resulta que construir sistemas OO que tengan esas propiedades no siempre es evidente, y se ha descubierto solo a base de trabajo duro.</p>
+<p><strong>Desarrollador:</strong> Creo que estoy empezando a entenderlo. Estas formas, a veces no obvias, de construir sistemas orientados a objetos se han recopilado...</p>
+<p><strong>Guru:</strong> ...sí, en un conjunto de patrones llamados Patrones de Diseño.</p>
+<p><strong>Desarrollador:</strong> Entonces, conociendo los patrones, ¿puedo saltarme el trabajo duro y saltar directamente a diseños que siempre funcionan?</p>
+<p><strong>Guru:</strong> Sí, hasta cierto punto, pero recuerda: el diseño es un arte. Siempre habrá compensaciones. Pero, si sigues patrones de diseño bien pensados y probados en el tiempo, irás muy por delante.</p>
+<p><strong>Desarrollador:</strong> ¿Qué hago si no encuentro un patrón?</p>
+</blockquote>
+<div class="admonition tip">
+<p class="admonition-title">Nota marginal</p>
+<p><em>Recuerda: conocer conceptos como la abstracción, la herencia y el polimorfismo no te convierte en un buen diseñador orientado a objetos. Un gurú de diseño piensa en cómo crear diseños flexibles, mantenibles y capaces de sobrevivir al cambio.</em></p>
+</div>
+<blockquote>
+<p><strong>Guru:</strong> Hay algunos principios orientados a objetos que subyacen a los patrones, y conocerlos te ayudará a salir adelante cuando no encuentres un patrón que se ajuste a tu problema.</p>
+<p><strong>Desarrollador:</strong> ¿Principios? ¿Quieres decir más allá de la abstracción, la encapsulación y...?</p>
+<p><strong>Guru:</strong> Sí, uno de los secretos para crear sistemas OO mantenibles es pensar en cómo podrían cambiar en el futuro, y estos principios abordan esos problemas.</p>
+</blockquote>
+<h2 id="herramientas-para-tu-caja-de-herramientas-de-diseno">Herramientas para tu caja de herramientas de diseño<a class="headerlink" href="#herramientas-para-tu-caja-de-herramientas-de-diseno" title="Permanent link">&para;</a></h2>
+<p>¡Ya casi has terminado el primer capítulo! Ya has puesto algunas herramientas en tu caja de herramientas OO; vamos a hacer una lista antes de pasar al capítulo 2.</p>
+<h3 id="fundamentos-de-oo">Fundamentos de OO<a class="headerlink" href="#fundamentos-de-oo" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Conocer los fundamentos de OO no te convierte en un buen diseñador OO.</li>
+<li>Los buenos diseños OO son reutilizables, extensibles y mantenibles.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em>Suponemos que conoces los fundamentos de OO como la abstracción, la encapsulación, el polimorfismo y la herencia. Si tienes un poco de óxido en ellos, saca tu libro de diseño orientado a objetos favorito, repasa y luego vuelve a leer rápidamente este capítulo.</em></p>
+<p><strong>Fundamentos de OO</strong></p>
+<ul>
+<li>Abstracción</li>
+<li>Encapsulación</li>
+<li>Polimorfismo</li>
+<li>Herencia</li>
+</ul>
+</div>
+<h3 id="principios-de-oo">Principios de OO<a class="headerlink" href="#principios-de-oo" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Los patrones te muestran cómo construir sistemas con buenas cualidades de diseño OO.</li>
+<li>Los patrones son experiencia probada de diseño orientado a objetos.</li>
+<li>Los patrones no te dan código, te dan soluciones generales a problemas de diseño. Tú los aplicas a tu aplicación concreta.</li>
+<li>La mayoría de los patrones y principios abordan problemas de cambio en el software.</li>
+<li>La mayoría de los patrones permiten que alguna parte de un sistema varíe independientemente de todas las demás partes.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em>Echaremos un vistazo más de cerca a estos más adelante y también añadiremos algunos más a la lista.</em></p>
+<p><em>A lo largo del libro, piensa en cómo se apoyan los patrones en los fundamentos de OO y en los principios.</em></p>
+<p><strong>Principios de OO</strong></p>
+<ul>
+<li>Encapsula lo que varía.</li>
+<li>Favorece la composición sobre la herencia.</li>
+<li>Programa a interfaces, no a implementaciones.</li>
+</ul>
+</div>
+<h3 id="patrones-de-diseno">Patrones de diseño<a class="headerlink" href="#patrones-de-diseno" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Intenta encapsular lo que varía en un sistema.</li>
+<li>Los patrones no se inventan, se descubren.</li>
+<li>La mayoría de los patrones se apoya en principios OO.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p><strong>Patrones de diseño</strong></p>
+<p><em>Los patrones proporcionan un lenguaje compartido que puede maximizar el valor de tu comunicación con otros desarrolladores.</em></p>
+</div>
+<ul>
+<li><strong>Strategy</strong>: define una familia de algoritmos, encapsula cada uno de ellos y los hace intercambiables. Strategy permite que el algoritmo varíe de forma independiente de los clientes que lo usan.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">¡Uno menos, muchos por venir!</p>
+</div>
+<h2 id="crucigrama-de-patrones-de-diseno">Crucigrama de patrones de diseño<a class="headerlink" href="#crucigrama-de-patrones-de-diseno" title="Permanent link">&para;</a></h2>
+<p>¡Vamos a darle algo de trabajo a tu cerebro derecho!</p>
+<p>Es el crucigrama de siempre; todas las palabras de la solución son de este capítulo.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La retícula del crucigrama original no es reproducible en Markdown, por lo que se conservan las definiciones y sus soluciones.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>N.º</th>
+<th>Dirección</th>
+<th>Definición</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Horizontal</td>
+<td>Los patrones pueden ayudarnos a construir aplicaciones ________.</td>
+<td>FLEXIBLE</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Vertical</td>
+<td>Los patrones van a tu _______.</td>
+<td>BRAIN</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Vertical</td>
+<td>Pato que no puede graznar.</td>
+<td>DECOY</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Horizontal</td>
+<td>Las estrategias se pueden ________.</td>
+<td>REUSED</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Vertical</td>
+<td>Los patos de goma hacen un _______.</td>
+<td>SQUEAK</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Vertical</td>
+<td>_________ lo que varía.</td>
+<td>ENCAPSULATE</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Horizontal</td>
+<td>Favorece esto sobre la herencia.</td>
+<td>COMPOSITION</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Horizontal</td>
+<td>Constante del desarrollo.</td>
+<td>CHANGE</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Horizontal</td>
+<td>Java E/S, Redes, Sonido.</td>
+<td>APIs</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Horizontal</td>
+<td>La mayoría de los patrones se derivan de _________ OO.</td>
+<td>PRINCIPLES</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Vertical</td>
+<td>Queso a la plancha con tocino.</td>
+<td>JACK BENNY</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Horizontal</td>
+<td>Los patrones de diseño son un _________ compartido.</td>
+<td>VOCABULARY</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Vertical</td>
+<td>A Rick le encantó este patrón.</td>
+<td>OBSERVER</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Horizontal</td>
+<td>Bibliotecas de alto nivel.</td>
+<td>FRAMEWORKS</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Horizontal</td>
+<td>Aprende del ___________ del otro.</td>
+<td>EXPERIENCE</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Vertical</td>
+<td>La demo de patos estaba aquí.</td>
+<td>MAUI</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Vertical</td>
+<td>Patrón que arregló el simulador.</td>
+<td>STRATEGY</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Horizontal</td>
+<td>Programa a esto, no a una implementación.</td>
+<td>INTERFACE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="solucion-del-rompecabezas-de-diseno">Solución del rompecabezas de diseño<a class="headerlink" href="#solucion-del-rompecabezas-de-diseno" title="Permanent link">&para;</a></h2>
+<p><code>Character</code> es la clase abstracta de todos los demás personajes (<code>King</code>, <code>Queen</code>, <code>Knight</code> y <code>Troll</code>), mientras que <code>WeaponBehavior</code> es una interfaz que implementan todos los comportamientos de arma. Así que todos los personajes y armas reales son clases concretas.</p>
+<p>Para cambiar de arma, cada personaje llama al método <code>setWeapon()</code>, que está definido en la superclase <code>Character</code>. Durante un combate se llama al método <code>useWeapon()</code> sobre el arma actual establecida para un personaje dado, para infligir un gran daño corporal a otro personaje.</p>
+<pre class="mermaid"><code>classDiagram
+    direction TB
+    class Character {
+        &lt;&lt;abstract&gt;&gt;
+        #weapon
+        +fight()
+        +setWeapon()
+    }
+    class WeaponBehavior {
+        &lt;&lt;interface&gt;&gt;
+        +useWeapon()
+    }
+    class King {
+        +fight()
+    }
+    class Queen {
+        +fight()
+    }
+    class Knight {
+        +fight()
+    }
+    class Troll {
+        +fight()
+    }
+    class SwordBehavior {
+        +useWeapon()
+    }
+    class BowAndArrowBehavior {
+        +useWeapon()
+    }
+    class KnifeBehavior {
+        +useWeapon()
+    }
+    class AxeBehavior {
+        +useWeapon()
+    }
+    Character &lt;|-- King : IS-A
+    Character &lt;|-- Queen : IS-A
+    Character &lt;|-- Knight : IS-A
+    Character &lt;|-- Troll : IS-A
+    Character *-- WeaponBehavior : HAS-A
+    WeaponBehavior &lt;|.. SwordBehavior : IMPLEMENTS
+    WeaponBehavior &lt;|.. BowAndArrowBehavior : IMPLEMENTS
+    WeaponBehavior &lt;|.. KnifeBehavior : IMPLEMENTS
+    WeaponBehavior &lt;|.. AxeBehavior : IMPLEMENTS</code></pre>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">setWeapon</span><span class="p">(</span><span class="n">WeaponBehavior</span><span class="w"> </span><span class="n">w</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">weapon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas marginales</p>
+<p><em>Un <code>Character</code> tiene-un (<code>HAS-A</code>) <code>WeaponBehavior</code>.</em></p>
+<p><em>Fíjate en que CUALQUIER objeto podría implementar la interfaz <code>WeaponBehavior</code>: digamos, un clip, un tubo de pasta de dientes o una lubina mutada.</em></p>
+</div>
+<h2 id="respuestas">Respuestas<a class="headerlink" href="#respuestas" title="Permanent link">&para;</a></h2>
+<h3 id="cuestionario-desventajas-de-la-herencia-para-el-comportamiento-de-pato">Cuestionario: desventajas de la herencia para el comportamiento de Pato<a class="headerlink" href="#cuestionario-desventajas-de-la-herencia-para-el-comportamiento-de-pato" title="Permanent link">&para;</a></h3>
+<p><strong>¿Cuáles de las siguientes son desventajas de usar la subclasificación para proporcionar el comportamiento específico de Pato?</strong> (Elige todas las que apliquen.) Aquí está nuestra solución.</p>
+<ul>
+<li>A. El código se duplica entre las subclases.</li>
+<li>B. Los cambios de comportamiento en tiempo de ejecución son difíciles.</li>
+<li>D. Es difícil adquirir conocimiento de todos los comportamientos de pato.</li>
+<li>F. Los cambios pueden afectar sin querer a otros patos.</li>
+</ul>
+<h3 id="cuestionario-factores-que-impulsan-el-cambio">Cuestionario: factores que impulsan el cambio<a class="headerlink" href="#cuestionario-factores-que-impulsan-el-cambio" title="Permanent link">&para;</a></h3>
+<p>Es posible que tu lista sea muy distinta, pero aquí van algunas de las nuestras. ¿Te suenan? Aquí está nuestra solución.</p>
+<ul>
+<li>Mis clientes o usuarios deciden que quieren otra cosa, o quieren nueva funcionalidad.</li>
+<li>Mi empresa decidió que se va con otro proveedor de base de datos y además está comprando sus datos a otro proveedor que usa un formato de datos distinto. ¡Arg!</li>
+<li>Bueno, la tecnología cambia y tenemos que actualizar nuestro código para aprovechar los protocolos.</li>
+<li>Hemos aprendido lo suficiente al construir nuestro sistema como para volver atrás y hacer las cosas un poco mejor.</li>
+</ul>
+<h3 id="cuestionario-implements-setweapon">Cuestionario: implements <code>setWeapon()</code><a class="headerlink" href="#cuestionario-implements-setweapon" title="Permanent link">&para;</a></h3>
+<p>El conjunto de métodos <code>setWeapon()</code> va en la clase abstracta <code>Character</code>, porque es la superclase de todos los personajes y por lo tanto todos ellos necesitan poder cambiar de arma.</p>
+<h2 id="crucigrama-de-patrones-de-diseno-soluciones">Crucigrama de patrones de diseño: soluciones<a class="headerlink" href="#crucigrama-de-patrones-de-diseno-soluciones" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>N.º</th>
+<th>Dirección</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Horizontal</td>
+<td>FLEXIBLE</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Vertical</td>
+<td>BRAIN</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Vertical</td>
+<td>DECOY</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Horizontal</td>
+<td>REUSED</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Vertical</td>
+<td>SQUEAK</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Vertical</td>
+<td>ENCAPSULATE</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Horizontal</td>
+<td>COMPOSITION</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Horizontal</td>
+<td>CHANGE</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Horizontal</td>
+<td>APIs</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Horizontal</td>
+<td>PRINCIPLES</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Vertical</td>
+<td>JACK BENNY</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Horizontal</td>
+<td>VOCABULARY</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Vertical</td>
+<td>OBSERVER</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Horizontal</td>
+<td>FRAMEWORKS</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Horizontal</td>
+<td>EXPERIENCE</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Vertical</td>
+<td>MAUI</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Vertical</td>
+<td>STRATEGY</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Horizontal</td>
+<td>INTERFACE</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../introduccion/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Introducción">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Introducción
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../capitulo-2/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Capítulo 2: El patrón Observer">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 2: El patrón Observer
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copiado al portapapeles","clipboard.copy":"Copiar al portapapeles","search.result.more.one":"1 más en esta página","search.result.more.other":"# más en esta página","search.result.none":"No se encontraron documentos","search.result.one":"1 documento encontrado","search.result.other":"# documentos encontrados","search.result.placeholder":"Teclee para comenzar búsqueda","search.result.term.missing":"Falta","select.version":"Seleccionar versión"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      
+    
+  </body>
+</html>

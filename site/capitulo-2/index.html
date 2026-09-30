@@ -1,0 +1,2867 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Traducción al español de Head First Design Patterns (Freeman y Robson, 2.ª edición), con diagramas reconstruidos en Mermaid.">
+      
+      
+        <meta name="author" content="Head First Design Patterns — traducción al español">
+      
+      
+      
+        <link rel="prev" href="../capitulo-1/">
+      
+      
+        <link rel="next" href="../capitulo-3/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.36">
+    
+    
+      
+        <title>Capítulo 2: Mantén a tus objetos al tanto - Head First Design Patterns — español</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.1e981d71.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navegación"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capitulo-2-manten-a-tus-objetos-al-tanto" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="./.." title="Head First Design Patterns — español" class="md-header__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navegación">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Head First Design Patterns — español
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Capítulo 2: Mantén a tus objetos al tanto
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Buscar">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Buscar">
+  <button type="button" class="md-search__button">
+    Buscar
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Head First Design Patterns — español" class="md-nav__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Head First Design Patterns — español
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 1: Introducción a los patrones de diseño
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 2: El patrón Observer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 2: El patrón Observer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#estacion-meteorologica-de-seguimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Estación meteorológica de seguimiento
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#una-mirada-general-a-la-aplicacion-weather-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Una mirada general a la aplicación Weather Monitoring
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desempacando-la-clase-weatherdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desempacando la clase <code>WeatherData</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nuestro-objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Nuestro objetivo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo-necesario" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Objetivo NECESARIO
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#una-primera-implementacion-fallida-de-la-estacion-meteorologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Una primera implementación Fallida de la Estación Meteorológica
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-le-pasa-a-nuestra-implementacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué le pasa a nuestra implementación?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conoce-el-patron-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conoce el patrón Observer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editores-suscriptores-patron-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Editores + Suscriptores = patrón Observer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#un-dia-en-la-vida-del-patron-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un día en la vida del patrón Observer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drama-de-cinco-minutos-un-subject-para-observar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Drama de cinco minutos: un Subject para observar
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dos-semanas-despues" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dos semanas después...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-patron-observer-definido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El patrón Observer definido
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-patron-observer-el-diagrama-de-clases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El patrón Observer: el diagrama de clases
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-poder-del-acoplamiento-debil" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El poder del acoplamiento débil
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversacion-en-el-cubiculo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conversación en el cubículo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disenando-la-estacion-meteorologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Diseñando la Estación Meteorológica
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementando-la-estacion-meteorologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Implementando la Estación Meteorológica
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementando-la-interfaz-subject-en-weatherdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Implementando la interfaz <code>Subject</code> en <code>WeatherData</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ahora-construyamos-esos-elementos-de-visualizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ahora, construyamos esos elementos de visualización
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encendiendo-la-estacion-meteorologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Encendiendo la Estación Meteorológica
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#charla-junto-a-la-chimenea-subject-y-observer-discuten-sobre-la-forma-correcta-de-llevar-la-informacion-de-estado-al-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Charla junto a la chimenea: Subject y Observer discuten sobre la forma correcta de llevar la información de estado al Observer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buscando-el-patron-observer-en-la-naturaleza" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Buscando el patrón Observer en la naturaleza
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Buscando el patrón Observer en la naturaleza">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-biblioteca-swing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La biblioteca Swing
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#una-pequena-aplicacion-que-cambia-la-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Una pequeña aplicación que cambia la vida
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programando-la-aplicacion-que-cambia-la-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Programando la aplicación que cambia la vida
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programando la aplicación que cambia la vida">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-codigo-actualizado-usando-expresiones-lambda" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El código actualizado, usando expresiones lambda
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revisando-push-y-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Revisando push y pull
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mientras-tanto-de-vuelta-en-weather-o-rama" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Mientras tanto, de vuelta en Weather-O-Rama
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imanes-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Imanes de código
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probando-el-codigo-nuevo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Probando el código nuevo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de diseño
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Herramientas para tu caja de diseño">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#principios-basicos-de-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Principios básicos de OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principios-de-diseno-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Principios de diseño OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patrones-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrones OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reto-de-principios-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reto de principios de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#respuestas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Respuestas
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Respuestas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuestionario-desventajas-de-la-primera-implementacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cuestionario: desventajas de la primera implementación
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-del-reto-de-principios-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución del reto de principios de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-de-los-imanes-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución de los imanes de código
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 3: El patrón Decorator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 4: El patrón Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 5: El patrón Singleton
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 6: El patrón Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 7: Los patrones Adapter y Facade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 8: El patrón Template Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 9: Los patrones Iterator y Composite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 10: El patrón State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 11: El patrón Proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 12: Patrones compuestos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 13: Mejor vivir con patrones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 14: Apéndice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#estacion-meteorologica-de-seguimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Estación meteorológica de seguimiento
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#una-mirada-general-a-la-aplicacion-weather-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Una mirada general a la aplicación Weather Monitoring
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desempacando-la-clase-weatherdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Desempacando la clase <code>WeatherData</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nuestro-objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Nuestro objetivo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo-necesario" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Objetivo NECESARIO
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#una-primera-implementacion-fallida-de-la-estacion-meteorologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Una primera implementación Fallida de la Estación Meteorológica
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-le-pasa-a-nuestra-implementacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué le pasa a nuestra implementación?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conoce-el-patron-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conoce el patrón Observer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editores-suscriptores-patron-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Editores + Suscriptores = patrón Observer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#un-dia-en-la-vida-del-patron-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un día en la vida del patrón Observer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drama-de-cinco-minutos-un-subject-para-observar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Drama de cinco minutos: un Subject para observar
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dos-semanas-despues" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dos semanas después...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-patron-observer-definido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El patrón Observer definido
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-patron-observer-el-diagrama-de-clases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El patrón Observer: el diagrama de clases
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-poder-del-acoplamiento-debil" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El poder del acoplamiento débil
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversacion-en-el-cubiculo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conversación en el cubículo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disenando-la-estacion-meteorologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Diseñando la Estación Meteorológica
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementando-la-estacion-meteorologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Implementando la Estación Meteorológica
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementando-la-interfaz-subject-en-weatherdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Implementando la interfaz <code>Subject</code> en <code>WeatherData</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ahora-construyamos-esos-elementos-de-visualizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ahora, construyamos esos elementos de visualización
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encendiendo-la-estacion-meteorologica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Encendiendo la Estación Meteorológica
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#charla-junto-a-la-chimenea-subject-y-observer-discuten-sobre-la-forma-correcta-de-llevar-la-informacion-de-estado-al-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Charla junto a la chimenea: Subject y Observer discuten sobre la forma correcta de llevar la información de estado al Observer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buscando-el-patron-observer-en-la-naturaleza" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Buscando el patrón Observer en la naturaleza
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Buscando el patrón Observer en la naturaleza">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-biblioteca-swing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La biblioteca Swing
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#una-pequena-aplicacion-que-cambia-la-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Una pequeña aplicación que cambia la vida
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programando-la-aplicacion-que-cambia-la-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Programando la aplicación que cambia la vida
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programando la aplicación que cambia la vida">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-codigo-actualizado-usando-expresiones-lambda" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El código actualizado, usando expresiones lambda
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revisando-push-y-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Revisando push y pull
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mientras-tanto-de-vuelta-en-weather-o-rama" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Mientras tanto, de vuelta en Weather-O-Rama
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imanes-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Imanes de código
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probando-el-codigo-nuevo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Probando el código nuevo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de diseño
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Herramientas para tu caja de diseño">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#principios-basicos-de-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Principios básicos de OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principios-de-diseno-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Principios de diseño OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patrones-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrones OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crucigrama-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Crucigrama de patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reto-de-principios-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reto de principios de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#respuestas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Respuestas
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Respuestas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuestionario-desventajas-de-la-primera-implementacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cuestionario: desventajas de la primera implementación
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-del-reto-de-principios-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución del reto de principios de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-de-los-imanes-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución de los imanes de código
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="capitulo-2-manten-a-tus-objetos-al-tanto">Capítulo 2: Mantén a tus objetos al tanto<a class="headerlink" href="#capitulo-2-manten-a-tus-objetos-al-tanto" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Ey Jerry, les estoy notificando a todos que la reunión del Grupo de Patrones se pasó al sábado por la noche. ¡Vamos a estar hablando de lo mejor de lo mejor! ¡Es lo ÚNICO, Jerry!</strong></p>
+</blockquote>
+<p>No te querrás perder lo que pasa cuando algo interesante ocurre, ¿verdad? Tenemos un patrón que mantiene a tus objetos al tanto cuando pasa algo que les importa. Es el <strong>patrón Observer</strong>. Es uno de los patrones de diseño más usados, y es increíblemente útil. Veremos todo tipo de aspectos interesantes de Observer, como sus relaciones de uno a muchos y el acoplamiento débil. Y, con esos conceptos en mente, ¿cómo evitar ser el alma de la Fiesta de Patrones?</p>
+<div class="admonition tip">
+<p class="admonition-title">Nota de la traducción</p>
+<p>Los nombres de clases, interfaces y métodos se mantienen en inglés (<code>WeatherData</code>, <code>Subject</code>, <code>Observer</code>, <code>measurementsChanged()</code>...) para que el código siga siendo válido y comparable con el original. La prosa, los comentarios y las explicaciones sí están traducidos.</p>
+</div>
+<h2 id="estacion-meteorologica-de-seguimiento">Estación meteorológica de seguimiento<a class="headerlink" href="#estacion-meteorologica-de-seguimiento" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">Weather-O-Rama, Inc.</p>
+<p>100 Main Street
+Tornado Alley, OK 45021</p>
+</div>
+<blockquote>
+<p><strong>¡Felicidades!</strong></p>
+<p>Tu equipo acaba de ganar el contrato para construir la Estación Meteorológica de Seguimiento de la próxima generación de Weather-O-Rama, Inc., basada en Internet.</p>
+</blockquote>
+<p><strong>Pliego de condiciones (Statement of Work)</strong></p>
+<p>Felicidades por ser los seleccionados para construir nuestra Estación Meteorológica de Seguimiento de la próxima generación, basada en Internet.</p>
+<p>La estación meteorológica estará basada en nuestro objeto <code>WeatherData</code> con patente pendiente, que registra las condiciones meteorológicas actuales (temperatura, humedad y presión barométrica). Querríamos que creasen una aplicación que inicialmente proporcione tres elementos de visualización: condiciones actuales, estadísticas meteorológicas y un pronóstico simple, todos ellos actualizados en tiempo real a medida que el objeto <code>WeatherData</code> adquiere las mediciones más recientes.</p>
+<p>Además, esta es una estación meteorológica ampliable. Weather-O-Rama quiere permitir que otros desarrolladores escriban sus propias pantallas meteorológicas y las conecten directamente. Así que es importante que las nuevas pantallas sean fáciles de añadir en el futuro.</p>
+<p>Weather-O-Rama cree que tenemos un gran modelo de negocio: una vez que los clientes estén enganchados, nuestra intención es cobrarles por cada pantalla que utilicen. Y ahora la mejor parte: vamos a pagarles con opciones sobre acciones.</p>
+<p>Esperamos ver su diseño y su aplicación alfa.</p>
+<p>Sinceramente,
+<strong>Johnny Hurricane, CEO</strong></p>
+<p>P.D. ¡Consulten los archivos fuente de <code>WeatherData</code> adjuntos!</p>
+<h2 id="una-mirada-general-a-la-aplicacion-weather-monitoring">Una mirada general a la aplicación Weather Monitoring<a class="headerlink" href="#una-mirada-general-a-la-aplicacion-weather-monitoring" title="Permanent link">&para;</a></h2>
+<p>Veamos la aplicación Weather Monitoring que tenemos que entregar: tanto lo que Weather-O-Rama nos da como lo que vamos a tener que construir o extender. El sistema tiene tres componentes: la estación meteorológica (el dispositivo físico que adquiere los datos meteorológicos reales), el objeto <code>WeatherData</code> (que registra los datos que llegan de la Estación Meteorológica y actualiza las pantallas) y la pantalla que muestra a los usuarios las condiciones meteorológicas actuales.</p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph SW["Estación Meteorológica"]
+        SD["Dispositivo sensor&lt;br/&gt;Temperatura, Humedad, Presión"]
+    end
+    subgraph WD["Objeto WeatherData"]
+        WD1["registra los datos"]
+    end
+    subgraph DD["Dispositivo de visualización"]
+        D1["Current Conditions&lt;br/&gt;Temp: 72°&lt;br/&gt;Humidity: 60&lt;br/&gt;Pressure:"]
+        D2["Weather Stats&lt;br/&gt;Avg/Min/Max temp"]
+        D3["Forecast"]
+    end
+    SD --&gt;|"tira de los datos"| WD
+    WD --&gt;|"actualiza"| D1
+    WD --&gt; D2
+    WD --&gt; D3</code></pre>
+<ul>
+<li><strong>Lo que nos da Weather-O-Rama:</strong> la estación meteorológica con su dispositivo sensor y el objeto <code>WeatherData</code>.</li>
+<li><strong>Lo que tenemos que implementar:</strong> las pantallas de condiciones actuales, estadísticas y pronóstico.</li>
+<li>También necesitaremos <strong>integrar el objeto <code>WeatherData</code> con las pantallas</strong>.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>El objeto <code>WeatherData</code> fue escrito por Weather-O-Rama y sabe cómo hablar con la Estación Meteorológica física para obtener datos meteorológicos actualizados. Tendremos que adaptar el objeto <code>WeatherData</code> para que sepa cómo actualizar las pantallas. Con suerte, Weather-O-Rama nos ha dado pistas de cómo hacerlo en el código fuente.</p>
+</div>
+<p>Recuerda: somos responsables de implementar tres elementos de visualización distintos: <strong>Current Conditions</strong> (muestra temperatura, humedad y presión), <strong>Weather Statistics</strong> y un <strong>Forecast</strong> simple.</p>
+<div class="admonition warning">
+<p class="admonition-title">Nuestro trabajo</p>
+<p>Crear una aplicación que use el objeto <code>WeatherData</code> para actualizar tres pantallas: condiciones actuales, estadísticas meteorológicas y pronóstico.</p>
+</div>
+<h2 id="desempacando-la-clase-weatherdata">Desempacando la clase <code>WeatherData</code><a class="headerlink" href="#desempacando-la-clase-weatherdata" title="Permanent link">&para;</a></h2>
+<p>Veamos los adjuntos de código fuente que envió Johnny Hurricane, el CEO. Empecemos por la clase <code>WeatherData</code>:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">WeatherData</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="nf">getTemperature</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="nf">getHumidity</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="nf">getPressure</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">measurementsChanged</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="c1">// Tu código va aquí</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="c1">// otros métodos</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Estos tres métodos devuelven las mediciones meteorológicas más recientes de temperatura, humedad y presión barométrica, respectivamente.</li>
+<li>Ahora mismo no nos importa <strong>cómo</strong> consigue estos datos; simplemente sabemos que el objeto <code>WeatherData</code> recibe información actualizada de la Estación Meteorológica.</li>
+<li>Fíjate en que cada vez que <code>WeatherData</code> tiene valores actualizados, se llama al método <code>measurementsChanged()</code>.</li>
+</ul>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">/*</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cm"> * Este método se llama</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cm"> * cada vez que las mediciones</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cm"> * meteorológicas han sido actualizadas</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cm"> */</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">measurementsChanged</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="c1">// Tu código va aquí</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Parece que Weather-O-Rama dejó una nota en los comentarios para que añadamos nuestro código aquí. Así que quizá sea aquí donde tenemos que actualizar la pantalla (una vez que la hayamos implementado).</p>
+<div class="admonition warning">
+<p class="admonition-title">Nuestro trabajo</p>
+<p>Alterar el método <code>measurementsChanged()</code> para que actualice las tres pantallas de condiciones actuales, estadísticas meteorológicas y pronóstico.</p>
+</div>
+<h2 id="nuestro-objetivo">Nuestro objetivo<a class="headerlink" href="#nuestro-objetivo" title="Permanent link">&para;</a></h2>
+<p>Sabemos que tenemos que implementar una pantalla y luego hacer que <code>WeatherData</code> la actualice cada vez que tenga valores nuevos o, dicho de otro modo, cada vez que se llame al método <code>measurementsChanged()</code>. Pero ¿cómo? Pensemos qué queremos lograr:</p>
+<ul>
+<li>Sabemos que la clase <code>WeatherData</code> tiene métodos getter para tres valores de medición: temperatura, humedad y presión barométrica.</li>
+<li>Sabemos que el método <code>measurementsChanged()</code> se llama cada vez que hay nuevos datos meteorológicos disponibles. (De nuevo, no sabemos ni nos importa cómo se llama este método; solo sabemos que se llama.)</li>
+<li>Tendremos que implementar tres elementos de visualización que usen los datos meteorológicos: una pantalla de condiciones actuales, una pantalla de estadísticas y una pantalla de pronóstico. Estas pantallas deben actualizarse tan a menudo como <code>WeatherData</code> tenga mediciones nuevas.</li>
+<li>Para actualizar las pantallas, añadiremos código al método <code>measurementsChanged()</code>.</li>
+</ul>
+<h2 id="objetivo-necesario">Objetivo NECESARIO<a class="headerlink" href="#objetivo-necesario" title="Permanent link">&para;</a></h2>
+<p>Pero pensemos también en el futuro; recuerda la constante en el desarrollo de software: el <strong>cambio</strong>. Si la Estación Meteorológica tiene éxito, esperamos que en el futuro haya más de tres pantallas, así que ¿por qué no crear un mercado para pantallas adicionales? Entonces, ¿qué tal si construimos esto?</p>
+<ul>
+<li><strong>Extensibilidad</strong>: otros desarrolladores querrán crear nuevas pantallas personalizadas. ¿Por qué no permitir que los usuarios añadan (o eliminen) tantos elementos de visualización como quieran a la aplicación? Actualmente conocemos los tres tipos de pantalla iniciales (condiciones actuales, estadísticas y pronóstico), pero esperamos un mercado próspero de nuevas pantallas en el futuro.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">¿Todavía no lo tienes claro?</p>
+<p>Siguiente diapositiva: implementemos esta estación meteorológica.</p>
+</div>
+<h2 id="una-primera-implementacion-fallida-de-la-estacion-meteorologica">Una primera implementación Fallida de la Estación Meteorológica<a class="headerlink" href="#una-primera-implementacion-fallida-de-la-estacion-meteorologica" title="Permanent link">&para;</a></h2>
+<p>Aquí va una primera posibilidad de implementación: como hemos discutido, vamos a añadir nuestro código al método <code>measurementsChanged()</code> de la clase <code>WeatherData</code>:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">WeatherData</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="c1">// declaraciones de variables de instancia</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">measurementsChanged</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getTemperature</span><span class="p">();</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">humidity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getHumidity</span><span class="p">();</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">pressure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getPressure</span><span class="p">();</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="n">currentConditionsDisplay</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span><span class="w"> </span><span class="n">humidity</span><span class="p">,</span><span class="w"> </span><span class="n">pressure</span><span class="p">);</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span><span class="n">statisticsDisplay</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span><span class="w"> </span><span class="n">humidity</span><span class="p">,</span><span class="w"> </span><span class="n">pressure</span><span class="p">);</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="n">forecastDisplay</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span><span class="w"> </span><span class="n">humidity</span><span class="p">,</span><span class="w"> </span><span class="n">pressure</span><span class="p">);</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="c1">// otros métodos de WeatherData aquí</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Primero, tomamos las mediciones más recientes llamando a los métodos getter de <code>WeatherData</code>. Asignamos cada valor a una variable con un nombre apropiado.</li>
+<li>A continuación vamos a <strong>actualizar cada pantalla</strong>... llamando a su método <code>update</code> y pasándole las mediciones más recientes.</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Cuestionario</p>
+<p>Basándonos en nuestra primera implementación, ¿cuáles de las siguientes aplican? (Elige todas las que apliquen.)</p>
+<ul>
+<li>A. Estamos programando a implementaciones concretas, no a interfaces.</li>
+<li>B. Para cada nueva pantalla tendremos que alterar este código.</li>
+<li>C. No tenemos forma de añadir (o quitar) elementos de visualización en tiempo de ejecución.</li>
+<li>D. Los elementos de visualización no implementan una interfaz común.</li>
+<li>E. No hemos encapsulado la parte que cambia.</li>
+<li>F. Estamos violando la encapsulación de la clase <code>WeatherData</code>.</li>
+</ul>
+</div>
+<h2 id="que-le-pasa-a-nuestra-implementacion">¿Qué le pasa a nuestra implementación?<a class="headerlink" href="#que-le-pasa-a-nuestra-implementacion" title="Permanent link">&para;</a></h2>
+<p>Recuerda todos esos conceptos y principios del Capítulo 1: ¿cuáles estamos violando y cuáles no? Piensa en particular en los efectos del cambio sobre este código. Repasemos nuestro razonamiento mientras miramos el código:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">measurementsChanged</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getTemperature</span><span class="p">();</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">humidity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getHumidity</span><span class="p">();</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">pressure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getPressure</span><span class="p">();</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">currentConditionsDisplay</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span><span class="w"> </span><span class="n">humidity</span><span class="p">,</span><span class="w"> </span><span class="n">pressure</span><span class="p">);</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="n">statisticsDisplay</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span><span class="w"> </span><span class="n">humidity</span><span class="p">,</span><span class="w"> </span><span class="n">pressure</span><span class="p">);</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="n">forecastDisplay</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span><span class="w"> </span><span class="n">humidity</span><span class="p">,</span><span class="w"> </span><span class="n">pressure</span><span class="p">);</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Al menos parece que estamos usando una interfaz común para hablar con los elementos de visualización: todos tienen un método <code>update()</code> que recibe los valores de temperatura, humedad y presión.</li>
+<li><strong>Al programar a implementaciones concretas</strong>, no tenemos forma de añadir o quitar otros elementos de visualización sin hacer cambios en el código. ¿Y si queremos añadir o quitar pantallas en tiempo de ejecución? Esto parece estar codificado a fuego.</li>
+<li>Parece un área de cambio. Necesitamos <strong>encapsular</strong> esto.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Umm, sé que soy nuevo aquí, pero dado que estamos en el capítulo del patrón Observer, ¿quizá deberíamos empezar a usarlo?</p>
+</div>
+<p>Buena idea. Veamos Observer, y luego volvemos a averiguar cómo aplicarlo a la aplicación Weather Monitoring.</p>
+<h2 id="conoce-el-patron-observer">Conoce el patrón Observer<a class="headerlink" href="#conoce-el-patron-observer" title="Permanent link">&para;</a></h2>
+<p>Ya sabes cómo funcionan las suscripciones a periódicos o revistas:</p>
+<ol>
+<li>Un editor de periódicos monta su negocio y empieza a publicar periódicos.</li>
+<li>Te suscribes a un editor concreto, y cada vez que hay una nueva edición te la entregan. Mientras seas suscriptor, recibes nuevos periódicos.</li>
+<li>Cancelas la suscripción cuando ya no quieres más periódicos, y dejan de entregártelos.</li>
+<li>Mientras el editor siga en el negocio, la gente, los hoteles, las aerolíneas y otros negocios se suscriben y se dan de baja del periódico constantemente.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>¡Por supuesto que nos suscribimos! No nos queremos perder lo que pasa en Objectville.</p>
+</div>
+<h2 id="editores-suscriptores-patron-observer">Editores + Suscriptores = patrón Observer<a class="headerlink" href="#editores-suscriptores-patron-observer" title="Permanent link">&para;</a></h2>
+<p>Si entiendes las suscripciones a periódicos, casi entiendes el patrón Observer; solo que llamamos <strong>SUBJECT</strong> al editor y <strong>OBSERVERS</strong> a los suscriptores. Veámoslo más de cerca:</p>
+<ul>
+<li>El objeto <strong>Subject</strong> gestiona unos datos importantes.</li>
+<li>Los observers se han suscrito (se han registrado) en el Subject para recibir actualizaciones cuando cambian los datos del Subject.</li>
+<li>Cuando cambian los datos en el Subject, se notifica a los observers.</li>
+<li>Los nuevos valores de datos se comunican a los observers de alguna forma cuando cambian.</li>
+<li>Este objeto no es un observer, así que no recibe notificación cuando cambian los datos del Subject.</li>
+</ul>
+<h2 id="un-dia-en-la-vida-del-patron-observer">Un día en la vida del patrón Observer<a class="headerlink" href="#un-dia-en-la-vida-del-patron-observer" title="Permanent link">&para;</a></h2>
+<p>Vamos a contar una historia con objetos Observer, un Subject y algunos <code>int</code>s. (Los <code>int</code>s son como datos meteorológicos que el Subject quiere notificar; piénsalo así.)</p>
+<ol>
+<li>
+<p><strong>Un objeto <code>Duck</code> llega y le dice al Subject</strong> que quiere convertirse en observer. Duck realmente quiere participar en la acción; esos <code>int</code>s que el Subject envía cada vez que su estado cambia parecen bastante interesantes...</p>
+<p>El objeto <code>Duck</code> se registra como observer del Subject («regístrame / suscríbete»). El objeto <code>Duck</code> <strong>implementa la interfaz <code>Observer</code></strong>, y el Subject guarda una referencia a él. Así, el objeto <code>Duck</code> es ahora un observer oficial.</p>
+</li>
+<li>
+<p><strong>Duck está eufórico.</strong> Está en la lista y espera con mucha anticipación la próxima notificación para poder obtener un <code>int</code>.</p>
+</li>
+<li>
+<p><strong>El Subject obtiene un nuevo valor de datos.</strong> Ahora <code>Duck</code> y todos los demás observers reciben una notificación de que el Subject ha cambiado.</p>
+</li>
+<li>
+<p><strong>El objeto <code>Mouse</code> pide ser eliminado como observer</strong> («quítame / cancélame la suscripción»). El objeto <code>Mouse</code> ha estado recibiendo <code>int</code>s durante siglos y está cansado de ello, así que decide que es hora de dejar de ser observer.</p>
+<p>¡<code>Mouse</code> se acabó y se fue! El Subject reconoce la petición de <code>Mouse</code> y lo elimina del conjunto de observers.</p>
+</li>
+<li>
+<p><strong>El Subject tiene otro nuevo <code>int</code>.</strong> Todos los observers reciben otra notificación, <strong>excepto <code>Mouse</code></strong>, que ya no está incluido.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>No se lo cuentes a nadie, pero <code>Mouse</code> echa de menos esos <code>int</code>s en secreto... quizá algún día vuelva a pedir ser observer.</p>
+</div>
+<h2 id="drama-de-cinco-minutos-un-subject-para-observar">Drama de cinco minutos: un Subject para observar<a class="headerlink" href="#drama-de-cinco-minutos-un-subject-para-observar" title="Permanent link">&para;</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">Lori y Jill</p>
+<p><em>Lori:</em> Esto es Lori. Busco un puesto de desarrollo Java. Llevo cinco años de experiencia y...</p>
+<p><em>Jill:</em> Hola, soy Jill. He escrito un montón de sistemas empresariales. Me interesa cualquier trabajo que tengas con desarrollo Java.</p>
+</div>
+<p><strong>Headhunter/Subject</strong></p>
+<div class="admonition quote">
+<p class="admonition-title">Headhunter/Subject</p>
+<p><em>Subject:</em> Esta es Lori. La añado a mi lista. Ah, esto es... uf, sí, tú y todos los demás, cariño. Les avisaré a todos por si acaso.</p>
+</div>
+<p><strong>Desarrollador de Software #1</strong></p>
+<h2 id="dos-semanas-despues">Dos semanas después...<a class="headerlink" href="#dos-semanas-despues" title="Permanent link">&para;</a></h2>
+<p>Jill tiene una vida banditísima, y ya no es observer. También disfruta del buen bonus de firma que recibió porque la empresa no tuvo que pagar a un cazatalentos.</p>
+<p>Pero ¿qué ha sido de nuestra dear Lori? Oímos que le está ganando al cazatalentos en su propio juego. No solo sigue siendo observer, ahora tiene su propia lista de llamadas y está notificando a sus propios observers. Lori es un Subject y un Observer todo en uno.</p>
+<h2 id="el-patron-observer-definido">El patrón Observer definido<a class="headerlink" href="#el-patron-observer-definido" title="Permanent link">&para;</a></h2>
+<p>Una suscripción a periódico, con su editor y sus suscriptores, es una buena forma de visualizar el patrón. En el mundo real, sin embargo, normalmente verás el patrón Observer definido así:</p>
+<div class="admonition quote">
+<p class="admonition-title">Definición</p>
+<p>El patrón <strong>Observer</strong> define una dependencia de uno a muchos entre objetos, de modo que cuando un objeto cambia de estado, todos sus dependientes son notificados y actualizados automáticamente.</p>
+</div>
+<p>Relacionemos esta definición con cómo hemos estado pensando en el patrón:</p>
+<ul>
+<li><strong>Relación de uno a muchos:</strong> un objeto que contiene el estado.</li>
+<li><strong>Actualización o notificación automática:</strong> objetos dependientes.</li>
+<li><strong>Notificación:</strong> cuando el estado de un objeto cambia, todos sus dependientes son notificados.</li>
+</ul>
+<p>El subject y los observers definen la relación de uno a muchos. Tenemos <strong>un subject</strong>, que notifica a <strong>muchos observers</strong> cuando algo en el subject cambia. Los observers dependen del subject: cuando el estado del subject cambia, los observers son notificados.</p>
+<p>Como descubrirás, hay varias maneras de implementar el patrón Observer, pero casi todas giran en torno a un diseño de clases que incluye las interfaces <code>Subject</code> y <code>Observer</code>.</p>
+<h2 id="el-patron-observer-el-diagrama-de-clases">El patrón Observer: el diagrama de clases<a class="headerlink" href="#el-patron-observer-el-diagrama-de-clases" title="Permanent link">&para;</a></h2>
+<p>Veamos la estructura del patrón Observer, completa con sus clases <code>Subject</code> y <code>Observer</code>. Aquí está el diagrama de clases:</p>
+<pre class="mermaid"><code>classDiagram
+    class Subject {
+        &lt;&lt;interface&gt;&gt;
+        +registerObserver()
+        +removeObserver()
+        +notifyObservers()
+    }
+    class Observer {
+        &lt;&lt;interface&gt;&gt;
+        +update()
+    }
+    class ConcreteSubject {
+        +registerObserver()
+        +removeObserver()
+        +notifyObservers()
+        +getState()
+        +setState()
+    }
+    class ConcreteObserver {
+        +update()
+        // otros métodos específicos del Observer
+    }
+    Subject &lt;|.. ConcreteSubject : implements
+    Subject &lt;|.. ConcreteObserver : implements
+    ConcreteSubject o-- ConcreteObserver : observers</code></pre>
+<ul>
+<li>Aquí está la interfaz <code>Subject</code>. Los objetos usan esta interfaz para registrarse como observers y también para eliminarse de serlo.</li>
+<li>Todos los observers potenciales necesitan implementar la interfaz <code>Observer</code>. Esta interfaz tiene un único método, <code>update()</code>, que se llama cuando cambia el estado del Subject.</li>
+<li>Un subject concreto siempre implementa la interfaz <code>Subject</code>. Además de los métodos de registro y eliminación, el subject concreto implementa un método <code>notifyObservers()</code> que se usa para actualizar todos los observers actuales cuando cambia el estado. El subject concreto también puede tener métodos para establecer y obtener su estado (veremos más sobre esto más adelante).</li>
+<li>Cada subject puede tener muchos observers.</li>
+<li>Los observers concretos pueden ser cualquier clase que implemente la interfaz <code>Observer</code>. Cada observer se registra en un subject concreto para recibir actualizaciones.</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Preguntas frecuentes</p>
+<p><strong>P: ¿Qué tiene esto que ver con las relaciones de uno a muchos?</strong></p>
+<p>R: Con el patrón Observer, el Subject es el objeto que contiene el estado y lo controla. Así que hay <strong>UN</strong> subject con muchos observers, y los observers dependen del subject para que los actualice cuando los datos cambian. Esto lleva a un diseño OO más limpio que permitir que muchos objetos controlen los mismos datos. Los observers usan el Subject para que les avise cuándo cambia su estado. Así que hay una relación entre el UNO subject y los MUCHOS observers.</p>
+<p><strong>P: ¿Cómo entra en juego la dependencia?</strong></p>
+<p>R: Porque el subject es el único propietario de esos datos, los observers dependen del subject para actualizarlos cuando los datos cambian.</p>
+<p><strong>P: También he oído hablar del patrón Publish-Subscribe. ¿Es simplemente otro nombre para el patrón Observer?</strong></p>
+<p>R: No, aunque están relacionados. El patrón Publish-Subscribe es un patrón más complejo que permite a los suscriptores expresar su interés en distintos tipos de mensajes, y separa aún más a los publicadores de los suscriptores. Se usa a menudo en sistemas de middleware.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Guru y alumno...</p>
+<p><strong>Guru:</strong> ¿Hemos hablado ya de acoplamiento débil?</p>
+<p><strong>Alumno:</strong> Guru, no recuerdo ninguna conversación así.</p>
+<p><strong>Guru:</strong> ¿Una cesta tejida apretadamente es rígida o flexible?</p>
+<p><strong>Alumno:</strong> Rígida, Guru.</p>
+<p><strong>Guru:</strong> ¿Y las cestas rígidas o flexibles se rompen menos fácilmente?</p>
+<p><strong>Alumno:</strong> Una cesta flexible tiende a romperse menos.</p>
+<p><strong>Guru:</strong> ¿Y en nuestro software, sería posible que nuestros diseños se rompieran menos si nuestros objetos estuvieran menos atados entre sí?</p>
+<p><strong>Alumno:</strong> Guru, veo la verdad de eso. Pero ¿qué significa que los objetos estén menos atados?</p>
+<p><strong>Guru:</strong> Lo llamamos acoplamiento débil.
+<strong>Guru:</strong> Decimos que un objeto está fuertemente acoplado a otro cuando depende demasiado de ese objeto.</p>
+<p><strong>Alumno:</strong> ¿Así que un objeto con acoplamiento débil no puede depender de otro objeto?</p>
+<p><strong>Guru:</strong> Piensa en la naturaleza: todas las cosas vivas dependen entre sí. Del mismo modo, todos los objetos dependen de otros objetos. Pero un objeto con acoplamiento débil no sabe ni le importa demasiado sobre los detalles de otro objeto.</p>
+<p><strong>Alumno:</strong> Pero Guru, eso no suena a una buena cualidad. Seguro que no saber es peor que saber.</p>
+<p><strong>Guru:</strong> Estás haciendo bien tus estudios, pero tienes mucho que aprender. Al no saber demasiado sobre otros objetos, podemos crear diseños que manejen el cambio mejor. Diseños con más flexibilidad, como la cesta menos tejida apretadamente.</p>
+<p><strong>Alumno:</strong> Por supuesto, estoy seguro de que tienes razón. ¿Podrías darme un ejemplo?</p>
+<p><strong>Guru:</strong> Por hoy es suficiente.</p>
+</div>
+<h2 id="el-poder-del-acoplamiento-debil">El poder del acoplamiento débil<a class="headerlink" href="#el-poder-del-acoplamiento-debil" title="Permanent link">&para;</a></h2>
+<p>Cuando dos objetos tienen acoplamiento débil, pueden interactuar, pero normalmente tienen muy poco conocimiento el uno del otro. Como veremos, los diseños con acoplamiento débil a menudo nos dan mucha flexibilidad. Y, por cierto, el patrón Observer es un gran ejemplo de acoplamiento débil. Repasemos todas las formas en que el patrón logra el acoplamiento débil:</p>
+<ul>
+<li><strong>Primero</strong>, lo único que el subject sabe de un observer es que implementa cierta interfaz (la interfaz <code>Observer</code>). No necesita conocer la clase concreta del observer, qué hace, ni nada más sobre él.</li>
+<li><strong>Podemos añadir nuevos observers en cualquier momento.</strong> Como lo único de lo que depende el subject es de una lista de objetos que implementan la interfaz <code>Observer</code>, podemos añadir nuevos observers cuando queramos. De hecho, podemos reemplazar cualquier observer en tiempo de ejecución por otro observer y el subject seguirá funcionando feliz. Asimismo, podemos quitar observers en cualquier momento. <strong>Nunca necesitamos modificar el subject para añadir nuevos tipos de observers.</strong> Supongamos que llega una nueva clase concreta que debe ser observer. No necesitamos hacer ningún cambio en el subject para acomodar el nuevo tipo de clase; todo lo que tenemos que hacer es implementar la interfaz <code>Observer</code> en la nueva clase y registrarla como observer. Al subject no le importa; entregará notificaciones a cualquier objeto que implemente la interfaz <code>Observer</code>.</li>
+<li><strong>Podemos reutilizar subjects u observers independientemente los unos de los otros.</strong> Si tenemos otro uso para un subject o un observer, podemos reutilizarlos fácilmente porque los dos no están fuertemente acoplados.</li>
+<li><strong>Los cambios en el subject o en un observer no afectarán al otro.</strong> Como los dos tienen acoplamiento débil, somos libres de hacer cambios en cualquiera de los dos, siempre que los objetos sigan cumpliendo con sus obligaciones de implementar las interfaces <code>Subject</code> u <code>Observer</code>.</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Principio de diseño</p>
+<p><strong>Aspira a diseños con acoplamiento débil</strong> entre objetos que interactúan.</p>
+<p>Los diseños con acoplamiento débil nos permiten construir sistemas OO flexibles que pueden manejar el cambio porque <strong>minimizan la interdependencia entre objetos</strong>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>¡Mira! Tenemos un nuevo principio de diseño. ¿Cuántos tipos de cambio puedes identificar aquí?</p>
+</div>
+<div class="admonition exercise">
+<p class="admonition-title">Antes de seguir adelante</p>
+<p>Prueba a esbozar las clases que necesitarás para implementar la Estación Meteorológica, incluyendo la clase <code>WeatherData</code> y sus elementos de visualización. Asegúrate de que tu diagrama muestre cómo encajan todas las piezas y también cómo otro desarrollador podría implementar su propio elemento de visualización.</p>
+<p>Si necesitas algo de ayuda, lee la página siguiente; tus compañeros ya están hablando de cómo diseñar la Estación Meteorológica.</p>
+</div>
+<h2 id="conversacion-en-el-cubiculo">Conversación en el cubículo<a class="headerlink" href="#conversacion-en-el-cubiculo" title="Permanent link">&para;</a></h2>
+<p>Volvamos al proyecto de la Estación Meteorológica. Tus compañeros ya han empezado a pensar en el problema...</p>
+<p><strong>Sue:</strong> Así que, ¿cómo vamos a construir esta cosa?</p>
+<p><strong>Mary:</strong> Bueno, ayuda saber que estamos usando el patrón Observer.</p>
+<p><strong>Sue:</strong> Exacto... pero, ¿cómo lo aplicamos?</p>
+<p><strong>Mary:</strong> Hmm. Volvamos a mirar la definición:</p>
+<blockquote>
+<p>El patrón Observer define una dependencia de uno a muchos entre objetos, de modo que cuando un objeto cambia de estado, todos sus dependientes son notificados y actualizados automáticamente.</p>
+</blockquote>
+<p><strong>Mary:</strong> En realidad, eso tiene algo de sentido si lo piensas. Nuestra clase <code>WeatherData</code> es el «uno», y nuestro «muchos» son los distintos elementos de visualización que usan las mediciones meteorológicas.</p>
+<p><strong>Sue:</strong> Eso es. La clase <code>WeatherData</code> tiene estado... ese estado es la temperatura, la humedad y la presión barométrica, y desde luego eso cambia.</p>
+<p><strong>Mary:</strong> Exacto, y cuando esas mediciones cambian, tenemos que notificar a todos los elementos de visualización para que puedan hacer lo que tengan que hacer con las mediciones.</p>
+<p><strong>Sue:</strong> Genial, ahora creo que veo cómo se puede aplicar el patrón Observer a nuestro problema de la Estación Meteorológica.</p>
+<p><strong>Mary:</strong> Todavía hay algunas cosas que considerar que no estoy segura de entender todavía.</p>
+<p><strong>Sue:</strong> ¿Como qué?</p>
+<p><strong>Mary:</strong> Para empezar, ¿cómo conseguimos que las mediciones meteorológicas lleguen a los elementos de visualización?</p>
+<p><strong>Sue:</strong> Bueno, si miramos el diagrama del patrón Observer, si hacemos que el objeto <code>WeatherData</code> sea el subject y los elementos de visualización sean los observers, entonces las pantallas se registrarán ellas mismas en el objeto <code>WeatherData</code> para obtener la información que quieren, ¿no?</p>
+<p><strong>Mary:</strong> Sí... y una vez que la Estación Meteorológica conoce un elemento de visualización, entonces simplemente puede llamar a un método para informarle de las mediciones.</p>
+<p><strong>Sue:</strong> Tenemos que recordar que cada elemento de visualización puede ser diferente... así que creo que ahí es donde entra tener una interfaz común. Aunque cada componente tiene un tipo distinto, todos deberían implementar la misma interfaz para que el objeto <code>WeatherData</code> sepa cómo enviarles las mediciones.</p>
+<p><strong>Mary:</strong> Entiendo lo que quieres decir. Así que cada visualización tendrá, digamos, un método <code>update()</code> que <code>WeatherData</code> llamará.</p>
+<p><strong>Sue:</strong> Y <code>update()</code> está definido en una interfaz común que todos los elementos implementan...</p>
+<h2 id="disenando-la-estacion-meteorologica">Diseñando la Estación Meteorológica<a class="headerlink" href="#disenando-la-estacion-meteorologica" title="Permanent link">&para;</a></h2>
+<p>¿Cómo se compara este diagrama con el tuyo?</p>
+<pre class="mermaid"><code>classDiagram
+    class Subject {
+        &lt;&lt;interface&gt;&gt;
+        +registerObserver()
+        +removeObserver()
+        +notifyObservers()
+    }
+    class Observer {
+        &lt;&lt;interface&gt;&gt;
+        +update()
+    }
+    class DisplayElement {
+        &lt;&lt;interface&gt;&gt;
+        +display()
+    }
+    class WeatherData {
+        +registerObserver()
+        +removeObserver()
+        +notifyObservers()
+        +getTemperature()
+        +getHumidity()
+        +getPressure()
+        +measurementsChanged()
+    }
+    class CurrentConditionsDisplay {
+        +update()
+        +display()
+    }
+    class StatisticsDisplay {
+        +update()
+        +display()
+    }
+    class ForecastDisplay {
+        +update()
+        +display()
+    }
+    class ThirdPartyDisplay {
+        +update()
+        +display()
+    }
+    WeatherData &lt;|.. Subject : implements
+    WeatherData o-- Observer : subject
+    CurrentConditionsDisplay &lt;|.. Observer : implements
+    CurrentConditionsDisplay &lt;|.. DisplayElement : implements
+    StatisticsDisplay &lt;|.. Observer : implements
+    StatisticsDisplay &lt;|.. DisplayElement : implements
+    ForecastDisplay &lt;|.. Observer : implements
+    ForecastDisplay &lt;|.. DisplayElement : implements
+    ThirdPartyDisplay &lt;|.. Observer : implements
+    ThirdPartyDisplay &lt;|.. DisplayElement : implements</code></pre>
+<ul>
+<li>Aquí está nuestra interfaz <code>Subject</code>. Esto debería resultarte familiar.</li>
+<li><code>WeatherData</code> ahora implementa la interfaz <code>Subject</code>.</li>
+<li>Todos nuestros componentes meteorológicos implementan la interfaz <code>Observer</code>. Esto les da al Subject una interfaz común con la que hablar cuando llegue el momento de actualizar a los observers.</li>
+<li>Este elemento de visualización muestra las mediciones actuales del objeto <code>WeatherData</code>.</li>
+<li>Este mantiene un registro de las mediciones min/avg/max y las muestra.</li>
+<li>Esta pantalla muestra el pronóstico meteorológico según el barómetro.</li>
+<li>Creemos también una interfaz para todos los elementos de visualización que deban implementar. Los elementos de visualización solo necesitan implementar un método <code>display()</code>.</li>
+<li>Los desarrolladores pueden implementar las interfaces <code>Observer</code> y <code>DisplayElement</code> para crear su propio elemento de visualización.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>Estos tres elementos de visualización deberían tener también un puntero a <code>WeatherData</code> etiquetado como «subject», pero este diagrama empezaría a parecer espagueti si lo hiciéramos.</p>
+</div>
+<h2 id="implementando-la-estacion-meteorologica">Implementando la Estación Meteorológica<a class="headerlink" href="#implementando-la-estacion-meteorologica" title="Permanent link">&para;</a></h2>
+<p>Muy bien, hemos tenido grandes Pensamientos de Mary y Sue (de hace unas páginas) y tenemos un diagrama que detalla la estructura general de nuestras clases. Así que pongamos en marcha nuestra implementación de la estación meteorológica. Empecemos con las interfaces:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">Subject</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">registerObserver</span><span class="p">(</span><span class="n">Observer</span><span class="w"> </span><span class="n">o</span><span class="p">);</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">removeObserver</span><span class="p">(</span><span class="n">Observer</span><span class="w"> </span><span class="n">o</span><span class="p">);</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">notifyObservers</span><span class="p">();</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Estos dos métodos toman un <code>Observer</code> como argumento, es decir, el observer que se va a registrar o quitar.</li>
+<li>Este método se llama para notificar a todos los observers cuando ha cambiado el estado del Subject.</li>
+</ul>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">Observer</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">temp</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">humidity</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">pressure</span><span class="p">);</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Estos son los valores de estado que los observers reciben del Subject cuando cambia una medición meteorológica.</li>
+</ul>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">DisplayElement</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">();</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>La interfaz <code>DisplayElement</code> solo incluye un método, <code>display()</code>, que llamaremos cuando el elemento de visualización necesite mostrarse.</li>
+<li>La interfaz <code>Observer</code> la implementan todos los observers, así que todos tienen que implementar el método <code>update()</code>. Aquí estamos siguiendo el camino de Mary y Sue y pasando las mediciones directamente a los observers.</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Pregunta de diseño</p>
+<p>Mary y Sue pensaron que pasar las mediciones directamente a los observers era el método más sencillo de actualizar el estado. ¿Crees que esto es sabio? Pista: ¿es esta un área de la aplicación que podría cambiar en el futuro? Si cambiara, ¿el cambio estaría bien encapsulado, o requeriría cambios en muchas partes del código?</p>
+<p>¿Puedes pensar en otras maneras de abordar el problema de pasar el estado actualizado a los observers?</p>
+<p>No te preocupes; volveremos a esta decisión de diseño después de terminar la implementación inicial.</p>
+</div>
+<h2 id="implementando-la-interfaz-subject-en-weatherdata">Implementando la interfaz <code>Subject</code> en <code>WeatherData</code><a class="headerlink" href="#implementando-la-interfaz-subject-en-weatherdata" title="Permanent link">&para;</a></h2>
+<p>Recuerda nuestro primer intento de implementar la clase <code>WeatherData</code> al principio del capítulo. Quizá quieras refrescar la memoria. Ahora es hora de volver y hacer las cosas teniendo en mente el patrón Observer:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">WeatherData</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Subject</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Observer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">observers</span><span class="p">;</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">temperature</span><span class="p">;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">humidity</span><span class="p">;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">pressure</span><span class="p">;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">WeatherData</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="n">observers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Observer</span><span class="o">&gt;</span><span class="p">();</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">registerObserver</span><span class="p">(</span><span class="n">Observer</span><span class="w"> </span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="n">observers</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">removeObserver</span><span class="p">(</span><span class="n">Observer</span><span class="w"> </span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">        </span><span class="n">observers</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">notifyObservers</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Observer</span><span class="w"> </span><span class="n">observer</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">observers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">            </span><span class="n">observer</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span><span class="w"> </span><span class="n">humidity</span><span class="p">,</span><span class="w"> </span><span class="n">pressure</span><span class="p">);</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">measurementsChanged</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="w">        </span><span class="n">notifyObservers</span><span class="p">();</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setMeasurements</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">temperature</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">humidity</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">pressure</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperature</span><span class="p">;</span>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">humidity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">humidity</span><span class="p">;</span>
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">pressure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pressure</span><span class="p">;</span>
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="w">        </span><span class="n">measurementsChanged</span><span class="p">();</span>
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a>
+</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a><span class="w">    </span><span class="c1">// otros métodos de WeatherData aquí</span>
+</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>WeatherData</code> ahora implementa la interfaz <code>Subject</code>.</li>
+<li>Hemos añadido un <code>ArrayList</code> para guardar los observers, y lo creamos en el constructor.</li>
+<li>Cuando un observer se registra, simplemente lo añadimos al final de la lista. Del mismo modo, cuando un observer quiere darse de baja, simplemente lo quitamos de la lista.</li>
+<li>Aquí está la parte divertida; aquí es donde les decimos a todos los observers sobre el estado. Como todos son observers, sabemos que todos implementan <code>update()</code>, así que sabemos cómo notificarlos. Notificamos a los observers cuando obtenemos mediciones actualizadas de la Estación Meteorológica.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Bueno, mientras queríamos incluir una bonita pequeña estación meteorológica con cada libro, la editorial no aceptaría eso. Así que, en lugar de leer los datos meteorológicos reales de un dispositivo, vamos a usar este método para probar nuestros elementos de visualización. O, por diversión, podrías escribir código para tomar mediciones de la web.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p><strong>RECUERDA:</strong> no proporcionamos sentencias <code>import</code> y <code>package</code> en los listados de código. Obtén el código fuente completo en <a href="https://wickedlysmart.com/head-first-design-patterns">https://wickedlysmart.com/head-first-design-patterns</a>.</p>
+</div>
+<h2 id="ahora-construyamos-esos-elementos-de-visualizacion">Ahora, construyamos esos elementos de visualización<a class="headerlink" href="#ahora-construyamos-esos-elementos-de-visualizacion" title="Permanent link">&para;</a></h2>
+<p>Ahora que ya tenemos encaminada nuestra clase <code>WeatherData</code>, es hora de construir los elementos de visualización. Weather-O-Rama pidió tres: la pantalla de condiciones actuales, la pantalla de estadísticas y la pantalla de pronóstico. Veamos la pantalla de condiciones actuales; cuando te familiarices con este elemento de visualización, echa un vistazo a las pantallas de estadísticas y pronóstico en el directorio de código. Verás que son muy parecidas.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CurrentConditionsDisplay</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Observer</span><span class="p">,</span><span class="w"> </span><span class="n">DisplayElement</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">temperature</span><span class="p">;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">humidity</span><span class="p">;</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">WeatherData</span><span class="w"> </span><span class="n">weatherData</span><span class="p">;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">CurrentConditionsDisplay</span><span class="p">(</span><span class="n">WeatherData</span><span class="w"> </span><span class="n">weatherData</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">weatherData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weatherData</span><span class="p">;</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">        </span><span class="n">weatherData</span><span class="p">.</span><span class="na">registerObserver</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">temperature</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">humidity</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">pressure</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperature</span><span class="p">;</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">humidity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">humidity</span><span class="p">;</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">        </span><span class="n">display</span><span class="p">();</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Current conditions: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">temperature</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;F degrees and &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">humidity</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;% humidity&quot;</span><span class="p">);</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Esta visualización implementa la interfaz <code>Observer</code> para poder recibir los cambios del objeto <code>WeatherData</code>.</li>
+<li>Al constructor se le pasa el objeto <code>weatherData</code> (el Subject) y lo usamos para registrar la visualización como observer.</li>
+<li>También implementa <code>DisplayElement</code>, porque nuestra API va a exigir que todos los elementos de visualización implementen esta interfaz.</li>
+<li>Cuando se llama a <code>update()</code>, guardamos la temperatura y la humedad y llamamos a <code>display()</code>.</li>
+<li>El método <code>display()</code> simplemente imprime la temperatura y la humedad más recientes.</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Preguntas frecuentes</p>
+<p><strong>P: ¿Es <code>update()</code> el mejor sitio para llamar a <code>display()</code>?</strong></p>
+<p>R: En este ejemplo simple tenía sentido llamar a <code>display()</code> cuando cambiaron los valores. Sin embargo, tienes razón; hay formas mucho mejores de diseñar cómo se muestran los datos. Lo veremos cuando lleguemos al patrón Model-View-Controller.</p>
+<p><strong>P: ¿Por qué guardaste una referencia al Subject <code>WeatherData</code>? No parece que la uses otra vez después del constructor.</strong></p>
+<p>R: Cierto, pero en el futuro quizá queramos darse de baja como observer, y sería útil tener ya una referencia al subject.</p>
+</div>
+<h2 id="encendiendo-la-estacion-meteorologica">Encendiendo la Estación Meteorológica<a class="headerlink" href="#encendiendo-la-estacion-meteorologica" title="Permanent link">&para;</a></h2>
+<p>Primero, vamos a crear un banco de pruebas. La Estación Meteorológica está lista. Todo lo que necesitamos es algo de código que pegue todo junto. Añadiremos unas cuantas pantallas más y generalizaremos un poco las cosas en un momento. Por ahora, aquí está nuestro primer intento:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">WeatherStation</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="n">WeatherData</span><span class="w"> </span><span class="n">weatherData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeatherData</span><span class="p">();</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">        </span><span class="n">CurrentConditionsDisplay</span><span class="w"> </span><span class="n">currentDisplay</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">CurrentConditionsDisplay</span><span class="p">(</span><span class="n">weatherData</span><span class="p">);</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">        </span><span class="n">StatisticsDisplay</span><span class="w"> </span><span class="n">statisticsDisplay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StatisticsDisplay</span><span class="p">(</span><span class="n">weatherData</span><span class="p">);</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">        </span><span class="n">ForecastDisplay</span><span class="w"> </span><span class="n">forecastDisplay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ForecastDisplay</span><span class="p">(</span><span class="n">weatherData</span><span class="p">);</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">        </span><span class="n">weatherData</span><span class="p">.</span><span class="na">setMeasurements</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span><span class="w"> </span><span class="mi">65</span><span class="p">,</span><span class="w"> </span><span class="mf">30.4f</span><span class="p">);</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">        </span><span class="n">weatherData</span><span class="p">.</span><span class="na">setMeasurements</span><span class="p">(</span><span class="mi">82</span><span class="p">,</span><span class="w"> </span><span class="mi">70</span><span class="p">,</span><span class="w"> </span><span class="mf">29.2f</span><span class="p">);</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">        </span><span class="n">weatherData</span><span class="p">.</span><span class="na">setMeasurements</span><span class="p">(</span><span class="mi">78</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="mf">29.2f</span><span class="p">);</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Primero, creamos el objeto <code>WeatherData</code>.</li>
+<li>Crea las tres pantallas y pásales el objeto <code>WeatherData</code>.</li>
+<li>Simula nuevas mediciones meteorológicas.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Si no quieres descargar el código, puedes comentar estas dos líneas y ejecutarlo.</p>
+</div>
+<p>Ahora ejecuta el código y deja que el patrón Observer haga su magia:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Current conditions: 80.0F degrees and 65.0% humidity
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Avg/Max/Min temperature = 80.0/80.0/80.0
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Forecast: Improving weather on the way!
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>Current conditions: 82.0F degrees and 70.0% humidity
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>Avg/Max/Min temperature = 81.0/82.0/80.0
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>Forecast: Watch out for cooler, rainy weather
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>Current conditions: 78.0F degrees and 90.0% humidity
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>Avg/Max/Min temperature = 80.0/82.0/78.0
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>Forecast: More of the same
+</span></code></pre></div>
+<div class="admonition exercise">
+<p class="admonition-title">Ejercicio: programa la pantalla del índice de calor</p>
+<p>Johnny Hurricane, el CEO de Weather-O-Rama, acaba de llamar y dice que no pueden enviar el producto sin un elemento de visualización de <strong>Heat Index</strong> (índice de calor). Aquí tienes los detalles.</p>
+<p>El índice de calor es un índice que combina temperatura y humedad para determinar la temperatura aparente (lo caliente que se siente realmente). Para calcularlo, tomas la temperatura <code>T</code> y la humedad relativa <code>RH</code>, y usas esta fórmula:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>heatindex = 16.923 + 1.85212 * 10-1 * T + 5.37941 * RH - 1.00254 * 10-1 * T * RH
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>+ 9.41695 * 10-3 * T2 + 7.28898 * 10-3 * RH2 + 3.45372 * 10-4 * T2 * RH
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>- 8.14971 * 10-4 * T * RH2 + 1.02102 * 10-5 * T2 * RH2 - 3.8646 * 10-5 * T3
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>+ 2.91583 * 10-5 * RH3 + 1.42721 * 10-6 * T3 * RH + 1.97483 * 10-7 * T * RH3
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>- 2.18429 * 10-8 * T3 * RH2 + 8.43296 * 10-10 * T2 * RH3
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>- 4.81975 * 10-11 * T3 * RH3
+</span></code></pre></div>
+<p>Así que ya puedes escribir. Es una broma. No te preocupes, no tendrás que escribir esa fórmula; solo crea tu propio archivo <code>HeatIndexDisplay.java</code> y copia la fórmula de <code>heatindex.txt</code> en él. Puedes conseguir <code>heatindex.txt</code> en wickedlysmart.com.</p>
+<p>¿Cómo funciona? Tendrías que consultar <em>Head First Meteorology</em>, o intentar preguntarle a alguien del National Weather Service (o hacer una búsqueda web).</p>
+<p>Cuando termines, tu salida debería ser así:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Current conditions: 80.0F degrees and 65.0% humidity
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Avg/Max/Min temperature = 80.0/80.0/80.0
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Forecast: Improving weather on the way!
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>Heat index is 82.95535
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>Current conditions: 82.0F degrees and 70.0% humidity
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>Avg/Max/Min temperature = 81.0/82.0/80.0
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>Forecast: Watch out for cooler, rainy weather
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>Heat index is 86.90124
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>Current conditions: 78.0F degrees and 90.0% humidity
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>Avg/Max/Min temperature = 80.0/82.0/78.0
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>Forecast: More of the same
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>Heat index is 83.64967
+</span></code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>Esto es lo que cambió en esta salida.</p>
+</div>
+<h2 id="charla-junto-a-la-chimenea-subject-y-observer-discuten-sobre-la-forma-correcta-de-llevar-la-informacion-de-estado-al-observer">Charla junto a la chimenea: Subject y Observer discuten sobre la forma correcta de llevar la información de estado al Observer<a class="headerlink" href="#charla-junto-a-la-chimenea-subject-y-observer-discuten-sobre-la-forma-correcta-de-llevar-la-informacion-de-estado-al-observer" title="Permanent link">&para;</a></h2>
+<p><strong>Subject:</strong></p>
+<p>Me alegra que por fin tengamos la oportunidad de hablar en persona.</p>
+<p><strong>Observer:</strong></p>
+<p>¿Ah, sí? Pensaba que no te importábamos mucho, Observers.</p>
+<p><strong>Subject:</strong></p>
+<p>Bueno, ¿no hago mi trabajo? Siempre te digo lo que está pasando... El hecho de que no sepa realmente quién eres no significa que no me importe. Y además, sí que sé lo más importante de ti: implementas la interfaz <code>Observer</code>.</p>
+<p><strong>Observer:</strong></p>
+<p>Sí, pero eso es solo una pequeña parte de lo que soy. De todas formas, sé mucho más sobre ti...</p>
+<p><strong>Subject:</strong></p>
+<p>Ah, sí, ¿como qué?</p>
+<p><strong>Observer:</strong></p>
+<p>Bueno, siempre estás pasando tu estado a nosotros los Observers para que podamos ver lo que pasa dentro de ti. Lo cual llega a ser un poco molesto a veces...</p>
+<p><strong>Subject:</strong></p>
+<p>Bueno, excu-u-u-ú-same. Tengo que enviar mi estado con mis notificaciones para que todos vosotros los perezosos Observers sepáis qué ha pasado.</p>
+<p><strong>Observer:</strong></p>
+<p>Vale, espera un minuto; primero, no somos perezosos, simplemente tenemos otras cosas que hacer entre tus importantísimas notificaciones, señor Subject, y segundo, ¿por qué no nos dejas ir a nosotros a por el estado que queremos en lugar de empujárselo a todo el mundo?</p>
+<p><strong>Subject:</strong></p>
+<p>Bueno... supongo que eso podría funcionar. Aunque tendría que abrirme mucho más, para dejar que todos vosotros los Observors entréis y cojais el estado que necesitáis. Eso podría ser un poco peligroso. No puedo dejaros entrar a husmear mirando todo lo que tengo.</p>
+<p><strong>Observer:</strong></p>
+<p>¿Por qué no escribes simplemente algunos métodos getter públicos que nos dejen extraer el estado que necesitamos?</p>
+<p><strong>Subject:</strong></p>
+<p>Sí, podría dejaros extraer mi estado. Pero, ¿no sería menos cómodo para vosotros? Si tenéis que venir a mí cada vez que queréis algo, quizá tengáis que hacer múltiples llamadas a métodos para conseguir todo el estado que queréis. Por eso prefiero el <em>push</em>... así tenéis todo lo que necesitáis en una sola notificación.</p>
+<p><strong>Observer:</strong></p>
+<p>¡No seas tan <em>pushy</em>! Hay tantos tipos distintos de nosotros los Observers que no hay forma de que anticipes todo lo que necesitamos. Simplemente deja que vayamos nosotros a por ti a por el estado que necesitamos. Así, si algunos de nosotros solo necesitamos un poco de estado, no estamos obligados a obtenerlo todo. También hace que las cosas sean más fáciles de modificar más adelante. Por ejemplo, si te expandes y añades más estado, si usas <em>pull</em> no tienes que ir cambiando las llamadas a <code>update()</code> en cada observer; solo tienes que cambiarte a ti para permitir más métodos getter que accedan a nuestro estado adicional.</p>
+<p><strong>Subject:</strong></p>
+<p>Bueno, como suelo decir, no nos llames, ¡nosotros te llamaremos! Pero le daré una vuelta.</p>
+<p><strong>Observer:</strong></p>
+<p>No cuento con ello.</p>
+<p><strong>Subject:</strong></p>
+<p>Nunca se sabe, puede que el infierno se congele.</p>
+<p><strong>Observer:</strong></p>
+<p>Ya veo, siempre el sabiondo...</p>
+<p><strong>Subject:</strong></p>
+<p>Desde luego.</p>
+<h2 id="buscando-el-patron-observer-en-la-naturaleza">Buscando el patrón Observer en la naturaleza<a class="headerlink" href="#buscando-el-patron-observer-en-la-naturaleza" title="Permanent link">&para;</a></h2>
+<p>El patrón Observer es uno de los patrones más comunes en uso, y encontrarás abundantes ejemplos del patrón usándose en muchas bibliotecas y frameworks. Si miramos, por ejemplo, el Java Development Kit (JDK), tanto las bibliotecas JavaBeans como Swing hacen uso del patrón Observer. El patrón no se limita a Java tampoco; se usa en los eventos de JavaScript y en el protocolo Key-Value Observing de Cocoa y Swift, por nombrar un par de ejemplos más. Una de las ventajas de conocer los patrones de diseño es reconocer y comprender rápidamente la motivación de diseño en tus bibliotecas favoritas. Vamos a hacer una pequeña desviación...</p>
+<h3 id="la-biblioteca-swing">La biblioteca Swing<a class="headerlink" href="#la-biblioteca-swing" title="Permanent link">&para;</a></h3>
+<p>Ya sabes probablemente que Swing es el kit de herramientas de Java para interfaces de usuario. Uno de los componentes más básicos de ese kit es la clase <code>JButton</code>. Si miras la superclase de <code>JButton</code>, <code>AbstractButton</code>, encontrarás que tiene muchos métodos <em>add/remove</em> de listener. Estos métodos te permiten añadir y quitar observers —o, como se llaman en Swing, <em>listeners</em>— para escuchar distintos tipos de eventos que ocurren en el componente Swing. Por ejemplo, un <code>ActionListener</code> te permite «escuchar» cualquier tipo de acción que pueda ocurrir en un botón, como una pulsación de botón. Encontrarás varios tipos de listeners por toda la API de Swing.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Si tienes curiosidad por el patrón Observer en JavaBeans, echa un vistazo a la interfaz <code>PropertyChangeListener</code>.</p>
+</div>
+<h3 id="una-pequena-aplicacion-que-cambia-la-vida">Una pequeña aplicación que cambia la vida<a class="headerlink" href="#una-pequena-aplicacion-que-cambia-la-vida" title="Permanent link">&para;</a></h3>
+<p>Bien, nuestra aplicación es bastante simple. Tienes un botón que dice «¿Debería hacerlo?» y cuando haces clic en ese botón, los listeners (observers) responden a la pregunta como quieran. Estamos implementando dos de esos listeners, llamados <code>AngelListener</code> y <code>DevilListener</code>. Así se comporta la aplicación:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Devil answer: Come on, do it!
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>Angel answer: Don&#39;t do it, you might regret it!
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Ahí tienes nuestra interfaz elegante. Y aquí está la salida cuando hacemos clic en el botón.
+</code></pre></div>
+<h2 id="programando-la-aplicacion-que-cambia-la-vida">Programando la aplicación que cambia la vida<a class="headerlink" href="#programando-la-aplicacion-que-cambia-la-vida" title="Permanent link">&para;</a></h2>
+<p>Esta aplicación que cambia la vida requiere muy poco código. Todo lo que tenemos que hacer es crear un objeto <code>JButton</code>, añadirlo a un <code>JFrame</code> y configurar nuestros listeners. Vamos a usar clases internas para los listeners, que es una técnica común en programación Swing.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SwingObserverExample</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="n">JFrame</span><span class="w"> </span><span class="n">frame</span><span class="p">;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">        </span><span class="n">SwingObserverExample</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SwingObserverExample</span><span class="p">();</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">        </span><span class="n">example</span><span class="p">.</span><span class="na">go</span><span class="p">();</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">go</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">        </span><span class="n">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JFrame</span><span class="p">();</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">        </span><span class="n">JButton</span><span class="w"> </span><span class="n">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JButton</span><span class="p">(</span><span class="s">&quot;Should I do it?&quot;</span><span class="p">);</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">        </span><span class="n">button</span><span class="p">.</span><span class="na">addActionListener</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">AngelListener</span><span class="p">());</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">        </span><span class="n">button</span><span class="p">.</span><span class="na">addActionListener</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">DevilListener</span><span class="p">());</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">        </span><span class="c1">// Código para configurar el frame aquí</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="w">    </span><span class="kd">class</span> <span class="nc">AngelListener</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">ActionListener</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">actionPerformed</span><span class="p">(</span><span class="n">ActionEvent</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Don&#39;t do it, you might regret it!&quot;</span><span class="p">);</span>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="w">    </span><span class="kd">class</span> <span class="nc">DevilListener</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">ActionListener</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">actionPerformed</span><span class="p">(</span><span class="n">ActionEvent</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Come on, do it!&quot;</span><span class="p">);</span>
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Aplicación Swing sencilla que solo crea un frame y le lanza un botón.</li>
+<li>Convierte los objetos devil y angel en listeners (observers) del botón.</li>
+<li>El código para configurar el frame va aquí.</li>
+<li>Aquí están las definiciones de clase de los observers, definidas como clases internas (pero no tienen que serlo).</li>
+<li>En lugar de <code>update()</code>, se llama al método <code>actionPerformed()</code> cuando cambia el estado en el subject (en este caso, el botón).</li>
+</ul>
+<h3 id="el-codigo-actualizado-usando-expresiones-lambda">El código actualizado, usando expresiones lambda<a class="headerlink" href="#el-codigo-actualizado-usando-expresiones-lambda" title="Permanent link">&para;</a></h3>
+<p>¿Y si llevas tu uso del patrón Observer un paso más allá? Usando una expresión lambda en lugar de una clase interna, puedes saltarte el paso de crear un objeto <code>ActionListener</code>. Con una expresión lambda, creamos un objeto función en su lugar, y el objeto función es el observer. Y, cuando pasas ese objeto función a <code>addActionListener()</code>, Java se asegura de que su firma coincida con <code>actionPerformed()</code>, el único método de la interfaz <code>ActionListener</code>. Más tarde, cuando se hace clic en el botón, el objeto botón notifica a sus observers —incluidos los objetos función creados por las expresiones lambda— de que se ha hecho clic, y llama al método <code>actionPerformed()</code> de cada listener.</p>
+<p>Veamos cómo usarías expresiones lambda como observers para simplificar nuestro código anterior:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SwingObserverExample</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="n">JFrame</span><span class="w"> </span><span class="n">frame</span><span class="p">;</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">        </span><span class="n">SwingObserverExample</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SwingObserverExample</span><span class="p">();</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">        </span><span class="n">example</span><span class="p">.</span><span class="na">go</span><span class="p">();</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">go</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">        </span><span class="n">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JFrame</span><span class="p">();</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">        </span><span class="n">JButton</span><span class="w"> </span><span class="n">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JButton</span><span class="p">(</span><span class="s">&quot;Should I do it?&quot;</span><span class="p">);</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">        </span><span class="n">button</span><span class="p">.</span><span class="na">addActionListener</span><span class="p">(</span><span class="n">event</span><span class="w"> </span><span class="o">-&gt;</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">             </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Don&#39;t do it, you might regret it!&quot;</span><span class="p">));</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">        </span><span class="n">button</span><span class="p">.</span><span class="na">addActionListener</span><span class="p">(</span><span class="n">event</span><span class="w"> </span><span class="o">-&gt;</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">             </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Come on, do it!&quot;</span><span class="p">));</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">        </span><span class="c1">// Código para configurar el frame aquí</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Hemos sustituido los objetos <code>AngelListener</code> y <code>DevilListener</code> por expresiones lambda que implementan la misma funcionalidad que teníamos antes.</li>
+<li>Hemos eliminado por completo las dos clases <code>ActionListener</code> (<code>DevilListener</code> y <code>AngelListener</code>). Usar expresiones lambda hace este código mucho más conciso.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>Cuando haces clic en el botón, los objetos función creados por las expresiones lambda son notificados y se ejecuta el método que implementan.</p>
+<p>Las expresiones lambda se añadieron en Java 8. Si no estás familiarizado con ellas, no te preocupes; puedes seguir usando clases internas para tus observers de Swing.</p>
+</div>
+<h2 id="revisando-push-y-pull">Revisando push y pull<a class="headerlink" href="#revisando-push-y-pull" title="Permanent link">&para;</a></h2>
+<div class="admonition question">
+<p class="admonition-title">Preguntas frecuentes</p>
+<p><strong>P: ¿Pensaba que Java tenía clases <code>Observer</code> y <code>Observable</code>?</strong></p>
+<p>R: Buen ojo. Java solía proporcionar una clase <code>Observable</code> (el Subject) y una interfaz <code>Observer</code> que podías usar para integrar el patrón Observer en tu código. La clase <code>Observable</code> proporcionaba métodos para añadir, borrar y notificar observers, de modo que no tenías que escribir ese código. Y la interfaz <code>Observer</code> proporcionaba una interfaz exactamente como la nuestra, con un solo método <code>update()</code>. Estas clases quedaron obsoletas en Java 9.</p>
+<p><strong>P: ¿Ofrece Java otro soporte integrado para Observer que reemplace esas clases?</strong></p>
+<p>R: JavaBeans ofrece soporte integrado a través de <code>PropertyChangeEvents</code> que se generan cuando un Bean cambia un tipo particular de propiedad, y envía notificaciones a los <code>PropertyChangeListeners</code>. También hay componentes relacionados publisher/subscriber en la Flow API para manejar flujos asíncronos. A la gente le resulta más fácil soportar el patrón Observer básico en su propio código, o quiere algo más robusto, así que las clases <code>Observer</code>/<code>Observable</code> están siendo retiradas.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Estaba pensando en la discusión de push/pull que tuvimos antes. ¿Generalizaría un poco más el código si permitiéramos que las pantallas extrajeran sus datos del objeto <code>WeatherData</code> según los necesiten? Eso podría hacer más fácil añadir nuevas pantallas en el futuro.</p>
+</div>
+<p>Eso es una buena idea. En nuestro diseño actual de la Estación Meteorológica, estamos haciendo <em>push</em> de los tres datos al método <code>update()</code> de las pantallas, incluso si las pantallas no necesitan todos esos valores. Eso está bien, pero ¿qué pasa si Weather-O-Rama añade otro valor de datos más adelante, como la velocidad del viento? Entonces tendremos que cambiar todos los métodos <code>update()</code> de todas las pantallas, incluso si la mayoría no necesitan ni quieren los datos de velocidad del viento.</p>
+<div class="language-text highlight"><pre><span></span><code>Ahora, si extraemos o empujamos los datos hacia el Observer es un detalle de implementación, pero en muchos casos tiene sentido dejar que los Observers recuperen los datos que necesitan en lugar de pasarles cada vez más datos a través del método `update()`. Después de todo, con el tiempo, esta es un área que puede cambiar y volverse inmanejable. Y sabemos que el CEO Johnny Hurricane querrá expandir la Estación Meteorológica y vender más pantallas, así que demos otra vuelta al diseño y veamos si podemos hacerlo aún más fácil de expandir en el futuro.
+</code></pre></div>
+<p>Actualizar el código de la Estación Meteorológica para permitir que los Observers extraigan los datos que necesitan es un ejercicio bastante directo. Todo lo que tenemos que hacer es asegurarnos de que el Subject tenga métodos getter para sus datos, y luego cambiar nuestros Observers para que los usen y extraigan los datos apropiados para sus necesidades. Vamos a hacerlo.</p>
+<h2 id="mientras-tanto-de-vuelta-en-weather-o-rama">Mientras tanto, de vuelta en Weather-O-Rama<a class="headerlink" href="#mientras-tanto-de-vuelta-en-weather-o-rama" title="Permanent link">&para;</a></h2>
+<p>Hay otra forma de manejar los datos en el Subject: podemos confiar en que los Observers los extraigan del Subject según los necesiten. Ahora mismo, cuando cambian los datos del Subject, empujamos los nuevos valores de temperatura, humedad y presión hacia los Observers, pasando esos datos en la llamada a <code>update()</code>.</p>
+<p>Vamos a configurar las cosas para que, cuando un Observer sea notificado de un cambio, llame a métodos getter del Subject para extraer los valores que necesita.</p>
+<p>Para cambiar al uso de <em>pull</em>, necesitamos hacer algunos pequeños cambios en nuestro código existente.</p>
+<p><strong>Para que el Subject envíe notificaciones...</strong></p>
+<p>Modificaremos el método <code>notifyObservers()</code> en <code>WeatherData</code> para que llame al método <code>update()</code> de los Observers sin argumentos:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">notifyObservers</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Observer</span><span class="w"> </span><span class="n">observer</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">observers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">        </span><span class="n">observer</span><span class="p">.</span><span class="na">update</span><span class="p">();</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Para que un Observer reciba notificaciones...</strong></p>
+<p>Luego modificaremos la interfaz <code>Observer</code>, cambiando la firma del método <code>update()</code> para que no tenga parámetros:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">Observer</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">();</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Y finalmente, modificamos cada Observer concreto para cambiar la firma de su respectivo método <code>update()</code> y obtener los datos meteorológicos del Subject usando los métodos getter de <code>WeatherData</code>. Aquí está el nuevo código para la clase <code>CurrentConditionsDisplay</code>:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weatherData</span><span class="p">.</span><span class="na">getTemperature</span><span class="p">();</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">humidity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weatherData</span><span class="p">.</span><span class="na">getHumidity</span><span class="p">();</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="n">display</span><span class="p">();</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>Aquí estamos usando los métodos getter del Subject que venían incluidos en el código de <code>WeatherData</code> de Weather-O-Rama.</p>
+</div>
+<h2 id="imanes-de-codigo">Imanes de código<a class="headerlink" href="#imanes-de-codigo" title="Permanent link">&para;</a></h2>
+<p>La clase <code>ForecastDisplay</code> está todo desordenada en la nevera. ¿Puedes reconstruir los fragmentos de código para que funcione? Algunas de las llaves se cayeron al suelo y eran demasiado pequeñas para recogerlas, así que siéntete libre de añadir tantas como necesites.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ForecastDisplay</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Observer</span><span class="p">,</span><span class="w"> </span><span class="n">DisplayElement</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">currentPressure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">29.92f</span><span class="p">;</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">lastPressure</span><span class="p">;</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">WeatherData</span><span class="w"> </span><span class="n">weatherData</span><span class="p">;</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ForecastDisplay</span><span class="p">(</span><span class="n">WeatherData</span><span class="w"> </span><span class="n">weatherData</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">weatherData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weatherData</span><span class="p">;</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">        </span><span class="n">weatherData</span><span class="p">.</span><span class="na">registerObserver</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="w">        </span><span class="n">lastPressure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currentPressure</span><span class="p">;</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="w">        </span><span class="n">currentPressure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weatherData</span><span class="p">.</span><span class="na">getPressure</span><span class="p">();</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="w">        </span><span class="n">display</span><span class="p">();</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a><span class="w">        </span><span class="c1">// display code here</span>
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="probando-el-codigo-nuevo">Probando el código nuevo<a class="headerlink" href="#probando-el-codigo-nuevo" title="Permanent link">&para;</a></h2>
+<p>Vale, tienes una pantalla más que actualizar, la de Avg/Min/Max. ¡Adelante, hazlo ahora!</p>
+<p>Para estar seguros, ejecutemos el código nuevo:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Current conditions: 80.0F degrees and 65.0% humidity
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Avg/Max/Min temperature = 80.0/80.0/80.0
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>Forecast: Improving weather on the way!
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>Current conditions: 82.0F degrees and 70.0% humidity
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>Avg/Max/Min temperature = 81.0/82.0/80.0
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>Forecast: Watch out for cooler, rainy weather
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>Current conditions: 78.0F degrees and 90.0% humidity
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>Avg/Max/Min temperature = 80.0/82.0/78.0
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>Forecast: More of the same
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>¡Mira! Esto acaba de llegar.</p>
+</div>
+<div class="admonition quote">
+<p class="admonition-title">Weather-O-Rama, Inc.</p>
+<p>100 Main Street
+Tornado Alley, OK 45021</p>
+</div>
+<blockquote>
+<p><strong>¡Vaya!</strong></p>
+<p>Tu diseño es fantástico. No solo creaste rápidamente las tres pantallas que te pedimos, sino que además creaste un diseño general que permite que cualquiera cree nuevas pantallas, e incluso permite que los usuarios añadan y quiten pantallas en tiempo de ejecución.</p>
+<p>¡Ingenioso!</p>
+<p>Hasta nuestro próximo encargo.</p>
+</blockquote>
+<h2 id="herramientas-para-tu-caja-de-diseno">Herramientas para tu caja de diseño<a class="headerlink" href="#herramientas-para-tu-caja-de-diseno" title="Permanent link">&para;</a></h2>
+<p>Bienvenido al final del Capítulo 2. Has añadido algunas cosas nuevas a tu caja de herramientas OO...</p>
+<h3 id="principios-basicos-de-oo">Principios básicos de OO<a class="headerlink" href="#principios-basicos-de-oo" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Abstracción</li>
+<li>Encapsulación</li>
+<li>Polimorfismo</li>
+<li>Herencia</li>
+</ul>
+<h3 id="principios-de-diseno-oo">Principios de diseño OO<a class="headerlink" href="#principios-de-diseno-oo" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Encapsula lo que varía.</strong></li>
+<li><strong>Favorece la composición sobre la herencia.</strong></li>
+<li><strong>Programa a interfaces, no a implementaciones.</strong></li>
+<li><strong>Aspira a diseños con acoplamiento débil</strong> entre objetos que interactúan.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Aquí está tu nuevo principio</p>
+<p>Recuerda, los diseños con acoplamiento débil son mucho más flexibles y resistentes al cambio.</p>
+</div>
+<h3 id="patrones-oo">Patrones OO<a class="headerlink" href="#patrones-oo" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Strategy</strong>: define una familia de algoritmos, encapsula cada uno y los hace intercambiables. Strategy permite que el algoritmo varíe independientemente de los clientes que lo usan.</li>
+<li><strong>Observer</strong>: define una dependencia de uno a muchos entre objetos, de modo que cuando un objeto cambia de estado, todos sus dependientes son notificados y actualizados automáticamente.</li>
+</ul>
+<h2 id="crucigrama-de-patrones-de-diseno">Crucigrama de patrones de diseño<a class="headerlink" href="#crucigrama-de-patrones-de-diseno" title="Permanent link">&para;</a></h2>
+<p>¡Es hora de darle algo que hacer a tu cerebro derecho otra vez! Todas las palabras de la solución son de los Capítulos 1 y 2.</p>
+<table>
+<thead>
+<tr>
+<th>N.º</th>
+<th>Dirección</th>
+<th>Definición</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Horizontal</td>
+<td>A un Subject le gusta hablar con _______ observers.</td>
+<td>MANY</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Horizontal</td>
+<td>El Subject inicialmente quería _________ todos los datos al Observer.</td>
+<td>PUSH</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Horizontal</td>
+<td>El CEO casi olvidó la pantalla del índice de ________.</td>
+<td>HEAT</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Horizontal</td>
+<td><code>CurrentConditionsDisplay</code> implementa esta interfaz.</td>
+<td>OBSERVER</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Horizontal</td>
+<td>Framework de Java con muchos Observers.</td>
+<td>SWING</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Horizontal</td>
+<td>Un Subject es similar a un __________.</td>
+<td>PUBLISHER</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Horizontal</td>
+<td>A los Observers les gusta ser ___________ cuando algo nuevo sucede.</td>
+<td>NOTIFIED</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Horizontal</td>
+<td>Cómo salir de la lista de Observers.</td>
+<td>REMOVEOBSERVER</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Horizontal</td>
+<td>Lori era a la vez un Observer y una _________.</td>
+<td>SUBJECT</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Horizontal</td>
+<td>El Subject es una ______.</td>
+<td>INTERFACE</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Horizontal</td>
+<td>Quieres mantener tu acoplamiento ________.</td>
+<td>LOOSE</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Horizontal</td>
+<td>Programa a una __________, no a una implementación.</td>
+<td>INTERFACE</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Horizontal</td>
+<td>Devil y Angel son _________ al botón.</td>
+<td>LISTENING</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Vertical</td>
+<td>Ya no quería más ints, así que se eliminó a sí mismo.</td>
+<td>MOUSE</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Vertical</td>
+<td>Temperatura, humedad y __________.</td>
+<td>PRESSURE</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Vertical</td>
+<td>El CEO de Weather-O-Rama lleva el nombre de este tipo de tormenta.</td>
+<td>HURRICANE</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Vertical</td>
+<td>Dice que deberías intentarlo.</td>
+<td>DEVILLISTENER</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Vertical</td>
+<td>El Subject no tiene que saber mucho del _____.</td>
+<td>OBSERVERS</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Vertical</td>
+<td>La clase <code>WeatherData</code> __________ la interfaz <code>Subject</code>.</td>
+<td>IMPLEMENTS</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Vertical</td>
+<td>No cuentes con esto para la notificación.</td>
+<td>ORDER</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Vertical</td>
+<td>Los Observers son ______ del Subject.</td>
+<td>DEPENDENT</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Vertical</td>
+<td>Implementa este método para ser notificado.</td>
+<td>UPDATE</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Vertical</td>
+<td>Jill consiguió uno propio.</td>
+<td>JOB</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reto-de-principios-de-diseno">Reto de principios de diseño<a class="headerlink" href="#reto-de-principios-de-diseno" title="Permanent link">&para;</a></h2>
+<p>Para cada principio de diseño, describe cómo hace uso el patrón Observer de ese principio.</p>
+<div class="admonition question">
+<p class="admonition-title">Reto de principios de diseño</p>
+<p><strong>Identifica los aspectos de tu aplicación que varían y sepáralos de los que se mantienen iguales.</strong></p>
+<p><strong>Programa a una interfaz, no a una implementación.</strong></p>
+<p><strong>Favorece la composición sobre la herencia.</strong></p>
+</div>
+<h2 id="respuestas">Respuestas<a class="headerlink" href="#respuestas" title="Permanent link">&para;</a></h2>
+<h3 id="cuestionario-desventajas-de-la-primera-implementacion">Cuestionario: desventajas de la primera implementación<a class="headerlink" href="#cuestionario-desventajas-de-la-primera-implementacion" title="Permanent link">&para;</a></h3>
+<p>Basándonos en nuestra primera implementación, ¿cuáles de las siguientes aplican? (Elige todas las que apliquen.)</p>
+<ul>
+<li>A. Estamos programando a implementaciones concretas, no a interfaces.</li>
+<li>B. Para cada nuevo elemento de visualización necesitamos alterar el código.</li>
+<li>C. No tenemos forma de añadir elementos de visualización en tiempo de ejecución.</li>
+<li>D. Los elementos de visualización no implementan una interfaz común.</li>
+<li>E. No hemos encapsulado lo que cambia.</li>
+<li>F. Estamos violando la encapsulación de la clase <code>WeatherData</code>.</li>
+</ul>
+<h3 id="solucion-del-reto-de-principios-de-diseno">Solución del reto de principios de diseño<a class="headerlink" href="#solucion-del-reto-de-principios-de-diseno" title="Permanent link">&para;</a></h3>
+<div class="admonition question">
+<p class="admonition-title">Solución</p>
+<p><strong>Identifica los aspectos de tu aplicación que varían y sepáralos de los que se mantienen iguales.</strong></p>
+<p>Lo que varía en el patrón Observer es el estado del Subject y el número y los tipos de Observers. Con este patrón, puedes hacer variar los objetos que dependen del estado del Subject sin tener que cambiar ese Subject. ¡Eso es planificar con antelación!</p>
+<p><strong>Programa a una interfaz, no a una implementación.</strong></p>
+<p>Tanto el Subject como los Observers usan interfaces. El Subject lleva la cuenta de los objetos que implementan la interfaz <code>Observer</code>, mientras que los Observers se registran en la interfaz <code>Subject</code> y son notificados por ella. Como hemos visto, esto mantiene las cosas bien y con acoplamiento débil.</p>
+<p><strong>Favorece la composición sobre la herencia.</strong></p>
+<p>El patrón Observer usa composición para componer cualquier número de Observers con su Subject. Estas relaciones no se establecen mediante algún tipo de jerarquía de herencia. No, ¡se establecen en tiempo de ejecución por composición!</p>
+</div>
+<h3 id="solucion-de-los-imanes-de-codigo">Solución de los imanes de código<a class="headerlink" href="#solucion-de-los-imanes-de-codigo" title="Permanent link">&para;</a></h3>
+<p>La clase <code>ForecastDisplay</code> está todo desordenada en la nevera. ¿Puedes reconstruir los fragmentos de código para que funcione? Aquí está nuestra solución:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ForecastDisplay</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Observer</span><span class="p">,</span><span class="w"> </span><span class="n">DisplayElement</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">currentPressure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">29.92f</span><span class="p">;</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">lastPressure</span><span class="p">;</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">WeatherData</span><span class="w"> </span><span class="n">weatherData</span><span class="p">;</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ForecastDisplay</span><span class="p">(</span><span class="n">WeatherData</span><span class="w"> </span><span class="n">weatherData</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">weatherData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weatherData</span><span class="p">;</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w">        </span><span class="n">weatherData</span><span class="p">.</span><span class="na">registerObserver</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="w">        </span><span class="n">lastPressure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currentPressure</span><span class="p">;</span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="w">        </span><span class="n">currentPressure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weatherData</span><span class="p">.</span><span class="na">getPressure</span><span class="p">();</span>
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="w">        </span><span class="n">display</span><span class="p">();</span>
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>
+</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a><span class="w">        </span><span class="c1">// display code here</span>
+</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a><span class="p">}</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../capitulo-1/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Capítulo 1: Introducción a los patrones de diseño">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 1: Introducción a los patrones de diseño
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../capitulo-3/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Capítulo 3: El patrón Decorator">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 3: El patrón Decorator
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copiado al portapapeles","clipboard.copy":"Copiar al portapapeles","search.result.more.one":"1 más en esta página","search.result.more.other":"# más en esta página","search.result.none":"No se encontraron documentos","search.result.one":"1 documento encontrado","search.result.other":"# documentos encontrados","search.result.placeholder":"Teclee para comenzar búsqueda","search.result.term.missing":"Falta","select.version":"Seleccionar versión"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      
+    
+  </body>
+</html>

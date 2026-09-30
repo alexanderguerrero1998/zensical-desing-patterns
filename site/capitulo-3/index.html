@@ -1,0 +1,2154 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Traducción al español de Head First Design Patterns (Freeman y Robson, 2.ª edición), con diagramas reconstruidos en Mermaid.">
+      
+      
+        <meta name="author" content="Head First Design Patterns — traducción al español">
+      
+      
+      
+        <link rel="prev" href="../capitulo-2/">
+      
+      
+        <link rel="next" href="../capitulo-4/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.36">
+    
+    
+      
+        <title>Capítulo 3: Decorando objetos - Head First Design Patterns — español</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.1e981d71.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navegación"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capitulo-3-decorando-objetos" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="./.." title="Head First Design Patterns — español" class="md-header__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navegación">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Head First Design Patterns — español
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Capítulo 3: Decorando objetos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Buscar">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Buscar">
+  <button type="button" class="md-search__button">
+    Buscar
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Head First Design Patterns — español" class="md-nav__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Head First Design Patterns — español
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 1: Introducción a los patrones de diseño
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 2: El patrón Observer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 3: El patrón Decorator
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 3: El patrón Decorator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bienvenido-a-starbuzz-coffee" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bienvenido a Starbuzz Coffee
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guru-y-alumno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Guru y alumno...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-principio-open-closed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El principio Open-Closed
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conoce-el-patron-decorator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conoce el patrón Decorator
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#construir-un-pedido-con-decorators" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Construir un pedido con Decorators
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-patron-decorator-definido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El patrón Decorator definido
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decorando-nuestras-bebidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Decorando nuestras bebidas
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversacion-de-cubiculo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conversación de cubículo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formacion-de-nuevos-baristas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formación de nuevos baristas
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escribir-el-codigo-de-starbuzz" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Escribir el código de Starbuzz
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codificar-las-bebidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Codificar las bebidas
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codificar-los-condimentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Codificar los condimentos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servir-algunos-cafes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Servir algunos cafés
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decoradores-del-mundo-real-java-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Decoradores del mundo real: Java I/O
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decorar-las-clases-de-javaio" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Decorar las clases de java.io
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escribe-tu-propio-decorador-de-es-de-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Escribe tu propio decorador de E/S de Java
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prueba-tu-nuevo-decorador-de-es-de-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Prueba tu nuevo decorador de E/S de Java
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patrones-al-descubierto" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrones al descubierto
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soluciones-de-los-ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Soluciones de los ejercicios
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 4: El patrón Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 5: El patrón Singleton
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 6: El patrón Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 7: Los patrones Adapter y Facade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 8: El patrón Template Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 9: Los patrones Iterator y Composite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 10: El patrón State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 11: El patrón Proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 12: Patrones compuestos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 13: Mejor vivir con patrones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 14: Apéndice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bienvenido-a-starbuzz-coffee" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bienvenido a Starbuzz Coffee
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guru-y-alumno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Guru y alumno...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-principio-open-closed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El principio Open-Closed
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conoce-el-patron-decorator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conoce el patrón Decorator
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#construir-un-pedido-con-decorators" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Construir un pedido con Decorators
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-patron-decorator-definido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El patrón Decorator definido
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decorando-nuestras-bebidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Decorando nuestras bebidas
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversacion-de-cubiculo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conversación de cubículo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formacion-de-nuevos-baristas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formación de nuevos baristas
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escribir-el-codigo-de-starbuzz" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Escribir el código de Starbuzz
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codificar-las-bebidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Codificar las bebidas
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codificar-los-condimentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Codificar los condimentos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servir-algunos-cafes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Servir algunos cafés
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decoradores-del-mundo-real-java-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Decoradores del mundo real: Java I/O
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decorar-las-clases-de-javaio" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Decorar las clases de java.io
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escribe-tu-propio-decorador-de-es-de-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Escribe tu propio decorador de E/S de Java
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prueba-tu-nuevo-decorador-de-es-de-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Prueba tu nuevo decorador de E/S de Java
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patrones-al-descubierto" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrones al descubierto
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soluciones-de-los-ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Soluciones de los ejercicios
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="capitulo-3-decorando-objetos">Capítulo 3: Decorando objetos<a class="headerlink" href="#capitulo-3-decorando-objetos" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Antes creía que los hombres de verdad subclaseaban todo. Eso fue hasta que aprendí el poder de la extensión en tiempo de ejecución, en lugar de en tiempo de compilación. ¡Ahora mírenme!</p>
+</blockquote>
+<p>Llama a este capítulo «Ojo de diseño para el de la herencia». Volveremos a examinar el uso excesivo típico de la herencia y aprenderás a decorar tus clases en tiempo de ejecución usando una forma de composición de objetos. ¿Por qué? En cuanto conozcas las técnicas de decoración, podrás dar a tus objetos (o a los de alguien más) nuevas responsabilidades sin hacer ningún cambio en el código de las clases subyacentes.</p>
+<div class="admonition tip">
+<p class="admonition-title">Nota de la traducción</p>
+<p>Los nombres de clases, interfaces y métodos se mantienen en inglés (<code>Beverage</code>, <code>cost()</code>, <code>DarkRoast</code>...) para que el código siga siendo válido y comparable con el original. La prosa, los comentarios y las explicaciones sí están traducidos.</p>
+</div>
+<h2 id="bienvenido-a-starbuzz-coffee">Bienvenido a Starbuzz Coffee<a class="headerlink" href="#bienvenido-a-starbuzz-coffee" title="Permanent link">&para;</a></h2>
+<p>Starbuzz Coffee se ha ganado a pulso el nombre de la cafetería de crecimiento más rápido del mundo. Si has visto una en tu barrio, mira a la calle de enfrente; verás otra.</p>
+<p>Como han crecido tan rápido, se han volcado en actualizar sus sistemas de pedidos para que coincidan con su oferta de bebidas. Cuando empezaron el negocio diseñaron sus clases así...</p>
+<pre class="mermaid"><code>classDiagram
+    class Beverage {
+        &lt;&lt;abstract&gt;&gt;
+        -description
+        +getDescription()
+        +cost()*
+    }
+    class HouseBlend {
+        +cost()
+    }
+    class DarkRoast {
+        +cost()
+    }
+    class Decaf {
+        +cost()
+    }
+    class Espresso {
+        +cost()
+    }
+    Beverage &lt;|-- HouseBlend
+    Beverage &lt;|-- DarkRoast
+    Beverage &lt;|-- Decaf
+    Beverage &lt;|-- Espresso</code></pre>
+<ul>
+<li><code>Beverage</code> es una clase abstracta, subclaseada por todas las bebidas que se ofrecen en la cafetería.</li>
+<li>La variable de instancia <code>description</code> se establece en cada subclase y contiene una descripción de la bebida, como «Most Excellent Dark Roast».</li>
+<li>El método <code>getDescription()</code> devuelve la descripción.</li>
+<li>El método <code>cost()</code> es abstracto; las subclases necesitan definir su propia implementación.</li>
+<li>Cada subclase implementa <code>cost()</code> para devolver el coste de la bebida.</li>
+</ul>
+<p>Además de tu café, también puedes pedir varios condimentos como leche vaporizada, soja y mocha (también conocido como chocolate), y que todo se termine coronado con nata montada. Starbuzz cobra un poco por cada condimento, así que realmente necesitan incorporarlos a su sistema de pedidos. Aquí va su primer intento...</p>
+<div class="admonition note">
+<p class="admonition-title">Explosión de clases</p>
+<p>Cada subclase <code>cost()</code> calcula el coste del café junto con los demás condimentos del pedido.</p>
+<p>¿Se puede decir «explosión de clases»?</p>
+</div>
+<p>Es bastante obvio que Starbuzz se ha creado una pesadilla de mantenimiento. ¿Qué pasa cuando sube el precio de la leche? ¿Qué hacen cuando añaden un nuevo topping de caramelo?</p>
+<p>Yendo más allá del problema de mantenimiento: ¿cuáles de los principios de diseño que hemos visto hasta ahora están violando?</p>
+<div class="admonition tip">
+<p class="admonition-title">Pista</p>
+<p>¡Están violando dos de ellos de forma brutal!</p>
+</div>
+<blockquote>
+<p>Esto es estúpido; ¿por qué necesitamos todas estas clases? ¿No podemos usar variables de instancia y herencia en la superclase para llevar el control de los condimentos?</p>
+</blockquote>
+<p>Bueno, vamos a intentarlo. Empecemos con la clase base <code>Beverage</code> y añadamos variables de instancia para representar si cada bebida tiene leche, soja, mocha y nata...</p>
+<pre class="mermaid"><code>classDiagram
+    class Beverage {
+        -description
+        -milk
+        -soy
+        -mocha
+        -whip
+        +getDescription()
+        +cost()
+        +hasMilk()
+        +setMilk()
+        +hasSoy()
+        +setSoy()
+        +hasMocha()
+        +setMocha()
+        +hasWhip()
+        +setWhip()
+    }</code></pre>
+<ul>
+<li>Nuevos valores booleanos para cada condimento.</li>
+<li>Estos métodos obtienen y establecen los valores booleanos de los condimentos.</li>
+<li>Ahora implementaremos <code>cost()</code> en <code>Beverage</code> (en lugar de mantenerlo abstracto), de modo que pueda calcular los costes asociados a los condimentos de una instancia de bebida concreta. Las subclases seguirán sobrescribiendo <code>cost()</code>, pero también invoquen la versión super para poder calcular el coste total de la bebida básica más los costes de los condimentos añadidos.</li>
+</ul>
+<p>Ahora añadamos las subclases, una por cada bebida del menú:</p>
+<pre class="mermaid"><code>classDiagram
+    class Beverage {
+        -description
+        -milk
+        -soy
+        -mocha
+        -whip
+        +getDescription()
+        +cost()
+        +hasMilk()
+        +hasSoy()
+        +hasMocha()
+        +hasWhip()
+    }
+    class HouseBlend {
+        +cost()
+    }
+    class DarkRoast {
+        +cost()
+    }
+    class Decaf {
+        +cost()
+    }
+    class Espresso {
+        +cost()
+    }
+    Beverage &lt;|-- HouseBlend
+    Beverage &lt;|-- DarkRoast
+    Beverage &lt;|-- Decaf
+    Beverage &lt;|-- Espresso</code></pre>
+<ul>
+<li>El <code>cost()</code> de la superclase calculará los costes de todos los condimentos, mientras que el <code>cost()</code> sobrescrito en las subclases extenderá esa funcionalidad para incluir los costes de ese tipo de bebida concreto.</li>
+<li>Cada método <code>cost()</code> necesita calcular el coste de la bebida y luego añadir los condimentos llamando a la implementación de <code>cost()</code> de la superclase.</li>
+</ul>
+<div class="admonition exercise">
+<p class="admonition-title">Tu turno</p>
+<p>Escribe los métodos <code>cost()</code> para las siguientes clases (puede ser pseudo-Java):</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Beverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cost</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DarkRoast</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Beverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">DarkRoast</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Most Excellent Dark Roast&quot;</span><span class="p">;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cost</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Cuestionario</p>
+<p>¿Qué requisitos u otros factores podrían cambiar y afectar a este diseño?</p>
+</div>
+<ul>
+<li>Los cambios de precio de los condimentos nos obligarán a alterar el código existente.</li>
+<li>Los condimentos nuevos nos obligarán a añadir métodos nuevos y alterar el método <code>cost()</code> de la superclase.
+-Puede que tengamos nuevas bebidas. Para algunas de estas bebidas (¿té helado?), los condimentos no serían apropiados, y sin embargo la subclase <code>Tea</code> heredará igualmente métodos como <code>hasWhip()</code>.</li>
+<li>¿Y si un cliente quiere un mocha doble?</li>
+</ul>
+<blockquote>
+<p>Mira, cinco clases en total. Definitivamente, este es el camino.</p>
+<p>No estoy tan seguro; veo algunos problemas potenciales en este enfoque si pienso en cómo podría necesitar cambiar el diseño en el futuro.</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Nota marginal</p>
+<p>Como vimos en el Capítulo 1, ¡esto es una muy mala idea!</p>
+</div>
+<h2 id="guru-y-alumno">Guru y alumno...<a class="headerlink" href="#guru-y-alumno" title="Permanent link">&para;</a></h2>
+<p><strong>Guru:</strong> Ha pasado algún tiempo desde nuestra última reunión. ¿Has estado meditando profundamente sobre la herencia?</p>
+<p><strong>Alumno:</strong> Sí, Guru. Aunque la herencia es poderosa, he aprendido que no siempre lleva a los diseños más flexibles o mantenibles.</p>
+<p><strong>Guru:</strong> Ah, sí, has avanzado algo. Así que dime, alumno mío, ¿cómo lograrás la reutilización si no es mediante herencia?</p>
+<p><strong>Alumno:</strong> Guru, he aprendido que hay formas de «heredar» comportamiento en tiempo de ejecución mediante composición y delegación.</p>
+<p><strong>Guru:</strong> Por favor, continúa...</p>
+<p><strong>Alumno:</strong> Cuando heredo comportamiento subclaseando, ese comportamiento se fija estáticamente en tiempo de compilación. Además, todas las subclases deben heredar el mismo comportamiento. Sin embargo, si puedo extender el comportamiento de un objeto mediante composición, entonces puedo hacerlo dinámicamente en tiempo de ejecución.</p>
+<p><strong>Guru:</strong> Muy bien; estás empezando a ver el poder de la composición.</p>
+<p><strong>Alumno:</strong> Sí, es posible que añada múltiples responsabilidades nuevas a los objetos mediante esta técnica, incluidas responsabilidades que el diseñador de la superclase ni siquiera había contemplado. ¡Y no tengo que tocar su código!</p>
+<p><strong>Guru:</strong> ¿Qué has aprendido sobre el efecto de la composición en el mantenimiento de tu código?</p>
+<p><strong>Alumno:</strong> Pues bien, eso es justo a lo que iba. Al componer objetos dinámicamente, puedo añadir nueva funcionalidad escribiendo código nuevo en lugar de alterar el código existente. Como no estoy cambiando código existente, las probabilidades de introducir errores o causar efectos secundarios no deseados en el código preexistente se reducen mucho.</p>
+<p><strong>Guru:</strong> Muy bien. Suficiente por hoy. Me gustaría que fueses a meditar más sobre este tema... Recuerda, el código debería estar cerrado (al cambio) como la flor de loto por la tarde, pero abierto (a la extensión) como la flor de loto por la mañana.</p>
+<h2 id="el-principio-open-closed">El principio Open-Closed<a class="headerlink" href="#el-principio-open-closed" title="Permanent link">&para;</a></h2>
+<p>Vamos con uno de los principios de diseño más importantes.</p>
+<div class="admonition question">
+<p class="admonition-title">Principio de diseño</p>
+<p><strong>Las entidades de software (clases, módulos, funciones, etc.) deberían estar abiertas a la extensión, pero cerradas a la modificación.</strong></p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Preguntas frecuentes</p>
+<p><strong>P: ¿Abierto a la extensión y cerrado a la modificación? Suena muy flexible y abierto a la extensión sin contradicción. ¿Cómo puede un diseño ser ambas cosas?</strong></p>
+<p>R: Esa es una pregunta muy buena. Ciertamente suena contradictorio al principio. Después de todo, cuanto menos modificable es algo, más difícil es extenderlo, ¿verdad?</p>
+<p>Resulta, sin embargo, que hay algunas técnicas OO ingeniosas que permiten que los sistemas se extiendan, incluso si no podemos cambiar el código subyacente. Piensa en el patrón Observer (del Capítulo 2)... <strong>añadiendo nuevos Observers podemos extender el Subject en cualquier momento, sin añadir código al Subject</strong>. Verás bastantes más formas de extender el comportamiento con otras técnicas de diseño OO.</p>
+<p><strong>P: ¿Cómo sé qué áreas de cambio son más importantes?</strong></p>
+<p>R: Eso es en parte cuestión de experiencia en el diseño de sistemas OO y también de conocer el dominio en el que trabajas. Mirar otros ejemplos te ayudará a aprender a identificar áreas de cambio en tus propios diseños.</p>
+<p>Quieres concentrarte en esas áreas que tienen más probabilidades de cambiar en tus diseños y aplicar ahí los principios. <strong>Seguir el principio Open-Closed suele introducir nuevos niveles de abstracción, lo que añade complejidad a nuestro código.</strong></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ten cuidado al elegir las áreas de código que necesitan ser extendidas; <strong>aplicar el principio Open-Closed EN TODAS PARTES es un desperdicio e innecesario</strong>, y puede llevar a un código complejo y difícil de entender.</p>
+</div>
+<p><strong>P: Vale, entiendo Observer, pero ¿cómo diseño en general algo que sea extensible y, a la vez, cerrado a la modificación?</strong></p>
+<p>R: Muchos de los patrones nos dan <strong>diseños probados en el tiempo que protegen tu código de ser modificado, ofreciéndote un medio de extensión</strong>. En este capítulo verás un buen ejemplo de cómo usar el patrón Decorator para seguir el principio Open-Closed.</p>
+<p><strong>P: ¿Cómo puedo hacer que todas las partes de mi diseño sigan el principio Open-Closed?</strong></p>
+<p>R: Por lo general no puedes. Hacer que un diseño OO sea flexible y abierto a la extensión sin modificar el código existente lleva tiempo y esfuerzo. En general, no tenemos el lujo de atar cada parte de nuestros diseños (y probablemente sería un desperdicio).</p>
+</div>
+<h2 id="conoce-el-patron-decorator">Conoce el patrón Decorator<a class="headerlink" href="#conoce-el-patron-decorator" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Vale, ya basta de «Club de Diseño Orientado a Objetos». ¡Aquí tenemos problemas reales! ¿Nos recuerdas? ¿Starbuzz Coffee? ¿Crees que podrías usar algunos de esos principios de diseño para ayudarnos de verdad?</p>
+</blockquote>
+<p>Vale, hemos visto que representar nuestras bebidas y condimentos con herencia no ha salido muy bien: obtenemos explosiones de clases y diseños rígidos, o añadimos funcionalidad a la clase base que no es apropiada para algunas subclases.</p>
+<p>Así que esto es lo que haremos en su lugar: partiremos de una bebida y la «decoraremos» con los condimentos en tiempo de ejecución. Por ejemplo, si el cliente quiere un Dark Roast con Mocha y Whip, entonces:</p>
+<ol>
+<li>Empezamos con un objeto <code>DarkRoast</code>.</li>
+<li>Lo decoramos con un objeto <code>Mocha</code>.</li>
+<li>Lo decoramos con un objeto <code>Whip</code>.</li>
+<li>Llamamos al método <code>cost()</code> y confiamos en la delegación para sumar los costes de los condimentos.</li>
+</ol>
+<p>Vale, pero ¿cómo se «decora» un objeto y cómo entra aquí la delegación? Una pista: piensa en los objetos decorador como «envoltorios». Veamos cómo funciona...</p>
+<h2 id="construir-un-pedido-con-decorators">Construir un pedido con Decorators<a class="headerlink" href="#construir-un-pedido-con-decorators" title="Permanent link">&para;</a></h2>
+<p>Empecemos con nuestro objeto <code>DarkRoast</code>.</p>
+<blockquote>
+<p>Recuerda que <code>DarkRoast</code> hereda de <code>Beverage</code> y tiene un método <code>cost()</code> que calcula el coste de la bebida.</p>
+</blockquote>
+<p>El cliente quiere Mocha, así que creamos un objeto <code>Mocha</code> y envolvemos con él el <code>DarkRoast</code>.</p>
+<blockquote>
+<p>El objeto <code>Mocha</code> es un decorador. Su tipo refleja el objeto que está decorando; en este caso, un <code>Beverage</code>. (Por «refleja» queremos decir que es del mismo tipo.)</p>
+<p>Así que <code>Mocha</code> también tiene un método <code>cost()</code>, y mediante polimorfismo podemos tratar cualquier <code>Beverage</code> envuelto en <code>Mocha</code> como un <code>Beverage</code> también (porque <code>Mocha</code> es un subtipo de <code>Beverage</code>).</p>
+</blockquote>
+<p>El cliente también quiere Whip, así que creamos un decorador <code>Whip</code> y envolvemos con él el <code>Mocha</code>.</p>
+<blockquote>
+<p><code>Whip</code> es un decorador, así que también refleja el tipo de <code>DarkRoast</code> e incluye un método <code>cost()</code>.</p>
+</blockquote>
+<p>Así que un <code>DarkRoast</code> envuelto en <code>Mocha</code> y <code>Whip</code> sigue siendo un <code>Beverage</code> y podemos hacer con él cualquier cosa que haríamos con un <code>DarkRoast</code>, incluida llamar a su método <code>cost()</code>.</p>
+<pre class="mermaid"><code>flowchart LR
+    W["Whip&lt;br/&gt;(decorator)"] --&gt; M["Mocha&lt;br/&gt;(decorator)"]
+    M --&gt; D["DarkRoast&lt;br/&gt;(component)"]</code></pre>
+<div class="admonition note">
+<p class="admonition-title">El cálculo del coste</p>
+<p>Ahora toca calcular el coste para el cliente. Lo hacemos llamando a <code>cost()</code> en el decorador más externo, <code>Whip</code>, y <code>Whip</code> delegará el cálculo del coste en los objetos que decora. Y así sucesivamente:</p>
+<ol>
+<li>Primero, llamamos a <code>cost()</code> en el decorador más externo, <code>Whip</code>.</li>
+<li><code>Whip</code> llama a <code>cost()</code> en <code>Mocha</code>.</li>
+<li><code>Mocha</code> llama a <code>cost()</code> en <code>DarkRoast</code>.</li>
+<li><code>DarkRoast</code> devuelve su coste, 99 céntimos.</li>
+<li><code>Mocha</code> añade su coste, 20 céntimos, al resultado de <code>DarkRoast</code>, y devuelve el nuevo total, 1,19 $.</li>
+<li><code>Whip</code> añade su total, 10 céntimos, al resultado de <code>Mocha</code>, y devuelve el resultado final: 1,29 $.</li>
+</ol>
+</div>
+<p>Vale, esto es lo que sabemos hasta ahora sobre los Decorators...</p>
+<ul>
+<li>Los decoradores tienen el mismo supertipo que los objetos que decoran.</li>
+<li>Puedes usar uno o más decoradores para envolver un objeto.</li>
+<li>Dado que el decorador tiene el mismo supertipo que el objeto que decora, podemos pasar un objeto decorado en lugar del objeto original (envuelto). <strong>¡Punto clave!</strong></li>
+<li>El decorador añade su propio comportamiento antes y/o después de delegar en el objeto que decora para hacer el resto del trabajo.</li>
+<li>Los objetos se pueden decorar en cualquier momento, así que podemos decorar objetos dinámicamente en tiempo de ejecución con tantos decoradores como queramos.</li>
+</ul>
+<p>Ahora veamos cómo funciona esto de verdad, viendo la definición del patrón Decorator y escribiendo algo de código.</p>
+<h2 id="el-patron-decorator-definido">El patrón Decorator definido<a class="headerlink" href="#el-patron-decorator-definido" title="Permanent link">&para;</a></h2>
+<p>Primero echemos un vistazo a la descripción del patrón Decorator:</p>
+<div class="admonition question">
+<p class="admonition-title">El patrón Decorator</p>
+<p><strong>El patrón Decorator adjunta responsabilidades adicionales a un objeto de forma dinámica. Los decoradores proporcionan una alternativa flexible a la subclase para extender la funcionalidad.</strong></p>
+</div>
+<p>Aunque eso describe el papel del patrón Decorator, no nos da mucha idea de cómo aplicaríamos el patrón a nuestra propia implementación. Veamos el diagrama de clases, que es un poco más revelador (en la página siguiente veremos la misma estructura aplicada al problema de las bebidas).</p>
+<pre class="mermaid"><code>classDiagram
+    class Component {
+        &lt;&lt;abstract&gt;&gt;
+        +methodA()
+        +methodB()
+    }
+    class ConcreteComponent {
+        +methodA()
+        +methodB()
+    }
+    class Decorator {
+        &lt;&lt;abstract&gt;&gt;
+        -Component wrappedObj
+        +methodA()
+        +methodB()
+    }
+    class ConcreteDecoratorA {
+        +methodA()
+        +methodB()
+        +newBehavior()
+    }
+    class ConcreteDecoratorB {
+        -Object newState
+        +methodA()
+        +methodB()
+    }
+    Component &lt;|-- ConcreteComponent
+    Component &lt;|-- Decorator
+    Decorator &lt;|-- ConcreteDecoratorA
+    Decorator &lt;|-- ConcreteDecoratorB
+    Decorator o-- Component : wrappedObj</code></pre>
+<ul>
+<li>Cada componente se puede usar por sí solo o envuelto por un decorador.</li>
+<li>El <code>ConcreteComponent</code> es el objeto al que vamos a añadir nuevo comportamiento de forma dinámica. Extiende <code>Component</code>.</li>
+<li>Cada decorador <strong>TIENE-UN</strong> (envuelve) un componente, lo que significa que el decorador tiene una variable de instancia que guarda una referencia a un componente.</li>
+<li>Los decoradores implementan la misma interfaz o clase abstracta que el componente que van a decorar.</li>
+<li>Los decoradores pueden extender el estado del componente.</li>
+<li>El <code>ConcreteDecorator</code> hereda (de la clase <code>Decorator</code>) una variable de instancia para la cosa que decora (el <code>Component</code> que envuelve el <code>Decorator</code>).</li>
+<li>Los decoradores pueden añadir métodos nuevos; sin embargo, el nuevo comportamiento normalmente se añade haciendo cálculos antes o después de un método existente en el componente.</li>
+</ul>
+<h2 id="decorando-nuestras-bebidas">Decorando nuestras bebidas<a class="headerlink" href="#decorando-nuestras-bebidas" title="Permanent link">&para;</a></h2>
+<p>Rehagamos nuestras bebidas de Starbuzz usando el patrón Decorator...</p>
+<pre class="mermaid"><code>classDiagram
+    class Beverage {
+        &lt;&lt;abstract&gt;&gt;
+        -description
+        +getDescription()
+        +cost()
+    }
+    class HouseBlend {
+        +cost()
+    }
+    class DarkRoast {
+        +cost()
+    }
+    class Decaf {
+        +cost()
+    }
+    class Espresso {
+        +cost()
+    }
+    class CondimentDecorator {
+        &lt;&lt;abstract&gt;&gt;
+        -Beverage beverage
+        +getDescription()
+    }
+    class Milk {
+        +cost()
+        +getDescription()
+    }
+    class Mocha {
+        +cost()
+        +getDescription()
+    }
+    class Soy {
+        +cost()
+        +getDescription()
+    }
+    class Whip {
+        +cost()
+        +getDescription()
+    }
+    Beverage &lt;|-- HouseBlend
+    Beverage &lt;|-- DarkRoast
+    Beverage &lt;|-- Decaf
+    Beverage &lt;|-- Espresso
+    Beverage &lt;|-- CondimentDecorator
+    CondimentDecorator &lt;|-- Milk
+    CondimentDecorator &lt;|-- Mocha
+    CondimentDecorator &lt;|-- Soy
+    CondimentDecorator &lt;|-- Whip</code></pre>
+<ul>
+<li><code>Beverage</code> actúa como nuestra clase componente abstracta.</li>
+<li>Aquí está la referencia al <code>Beverage</code> que los decoradores van a envolver.</li>
+<li>Los cuatro componentes concretos, uno por tipo de café.</li>
+<li>Y aquí están nuestros decoradores de condimentos; fíjate en que necesitan implementar no solo <code>cost()</code>, sino también <code>getDescription()</code>. Veremos por qué en un momento...</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Tu turno</p>
+<p>Antes de seguir, piensa en cómo implementarías el método <code>cost()</code> de los cafés y de los condimentos. Piensa también en cómo implementarías el método <code>getDescription()</code> de los condimentos.</p>
+</div>
+<h2 id="conversacion-de-cubiculo">Conversación de cubículo<a class="headerlink" href="#conversacion-de-cubiculo" title="Permanent link">&para;</a></h2>
+<p>Algo de confusión entre herencia y composición.</p>
+<p><strong>Mary:</strong> Vale, estoy un poco confundida... Pensé que no íbamos a usar herencia en este patrón. Creía que íbamos a apoyarnos en la composición.</p>
+<p><strong>Sue:</strong> ¿A qué te refieres?</p>
+<p><strong>Mary:</strong> Mira el diagrama de clases. El <code>CondimentDecorator</code> está extendiendo la clase <code>Beverage</code>. Eso es herencia, ¿no?</p>
+<p><strong>Sue:</strong> Es verdad. Creo que la clave es que es vital que los decoradores tengan el mismo tipo que los objetos que van a decorar. Así que aquí estamos usando la herencia para conseguir la coincidencia de tipos, pero no estamos usando la herencia para obtener comportamiento.</p>
+<p><strong>Mary:</strong> Vale, veo cómo los decoradores necesitan la misma «interfaz» que los componentes que envuelven, porque necesitan ocupar el lugar del componente. Pero, ¿dónde entra el comportamiento?</p>
+<p><strong>Sue:</strong> Cuando componemos un decorador con un componente, estamos añadiendo nuevo comportamiento. Adquirimos nuevo comportamiento no heredándolo de una superclase, sino componiendo objetos entre sí.</p>
+<p><strong>Mary:</strong> Vale, así que estamos subclaseando la clase abstracta <code>Beverage</code> para tener el tipo correcto, no para heredar su comportamiento. El comportamiento llega a través de la composición de decoradores con los componentes base, así como con otros decoradores.</p>
+<p><strong>Sue:</strong> Eso es.</p>
+<p><strong>Mary:</strong> ¡Ah, ya lo pillo! Y como estamos usando composición de objetos, obtenemos muchísima más flexibilidad para mezclar y combinar condimentos y bebidas. Muy elegante.</p>
+<p><strong>Sue:</strong> Sí, si nos apoyamos en la herencia, entonces nuestro comportamiento solo puede determinarse estáticamente en tiempo de compilación. En otras palabras, solo obtenemos el comportamiento que nos da la superclase o el que sobrescribimos. Con la composición, podemos mezclar y combinar decoradores como queramos... en tiempo de ejecución.</p>
+<p><strong>Mary:</strong> Ya entiendo: podemos implementar nuevos decoradores en cualquier momento para añadir nuevo comportamiento. Si nos apoyáramos en la herencia, tendríamos que entrar a cambiar el código existente cada vez que quisiéramos un comportamiento nuevo.</p>
+<p><strong>Sue:</strong> Exacto.</p>
+<p><strong>Mary:</strong> Solo tengo una pregunta más: si lo único que necesitamos heredar es el tipo del componente, ¿por qué no usamos una interfaz en lugar de una clase abstracta para la clase <code>Beverage</code>?</p>
+<p><strong>Sue:</strong> Bueno, recuerda que, cuando recibimos este código, Starbuzz ya tenía una clase abstracta <code>Beverage</code>. Tradicionalmente el patrón Decorator especifica un componente abstracto, pero en Java, obviamente, podríamos usar una interfaz. Pero siempre intentamos evitar alterar el código existente, así que no lo «arregles» si la clase abstracta funciona bien.</p>
+<h2 id="formacion-de-nuevos-baristas">Formación de nuevos baristas<a class="headerlink" href="#formacion-de-nuevos-baristas" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Vamos, necesito que me hagas un doble mocha soy latte con whip.</p>
+</blockquote>
+<p>Haz un dibujo de lo que ocurre cuando el pedido es una bebida «doble mocha soy latte con whip». Usa el menú para obtener los precios correctos y dibuja tu esquema usando el mismo formato que usamos antes (unas páginas atrás):</p>
+<div class="admonition info">
+<p class="admonition-title">Starbuzz Coffee — menú</p>
+<table>
+<thead>
+<tr>
+<th>Cafés</th>
+<th>Precio</th>
+<th>Condimentos</th>
+<th>Precio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>House Blend</td>
+<td>0,89 $</td>
+<td>Steamed Milk</td>
+<td>0,10 $</td>
+</tr>
+<tr>
+<td>Dark Roast</td>
+<td>0,99 $</td>
+<td>Mocha</td>
+<td>0,20 $</td>
+</tr>
+<tr>
+<td>Decaf</td>
+<td>1,05 $</td>
+<td>Soy</td>
+<td>0,15 $</td>
+</tr>
+<tr>
+<td>Espresso</td>
+<td>1,99 $</td>
+<td>Whip</td>
+<td>0,10 $</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Pista</p>
+<p>Puedes construir «doble mocha soy latte con whip» combinando <code>HouseBlend</code>, <code>Soy</code>, dos <code>Mocha</code> y <code>Whip</code>.</p>
+</div>
+<h2 id="escribir-el-codigo-de-starbuzz">Escribir el código de Starbuzz<a class="headerlink" href="#escribir-el-codigo-de-starbuzz" title="Permanent link">&para;</a></h2>
+<p>Es hora de convertir este diseño en código real. Empecemos con la clase <code>Beverage</code>, que no necesita cambiar respecto del diseño original de Starbuzz. Echemos un vistazo:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Beverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Unknown Beverage&quot;</span><span class="p">;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getDescription</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">description</span><span class="p">;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cost</span><span class="p">();</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>Beverage</code> es una clase abstracta con los dos métodos <code>getDescription()</code> y <code>cost()</code>.</li>
+<li><code>getDescription()</code> ya está implementado por nosotros, pero necesitamos implementar <code>cost()</code> en las subclases.</li>
+</ul>
+<p><code>Beverage</code> es bastante sencilla. Implementemos también la clase abstracta de los condimentos (el Decorator):</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CondimentDecorator</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Beverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">Beverage</span><span class="w"> </span><span class="n">beverage</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getDescription</span><span class="p">();</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Primero, necesitamos ser intercambiables con un <code>Beverage</code>, así que extendemos la clase <code>Beverage</code>.</li>
+<li>Aquí está el <code>Beverage</code> que cada Decorator va a envolver. Fíjate en que usamos el supertipo <code>Beverage</code> para referirnos al <code>Beverage</code>, de modo que el Decorator pueda envolver cualquier bebida.</li>
+<li>También vamos a exigir que todos los decoradores de condimentos reimplementen el método <code>getDescription()</code>. De nuevo, veremos por qué en un segundo...</li>
+</ul>
+<h2 id="codificar-las-bebidas">Codificar las bebidas<a class="headerlink" href="#codificar-las-bebidas" title="Permanent link">&para;</a></h2>
+<p>Ahora que hemos quitado de en medio las clases base, implementemos algunas bebidas. Empezaremos con <code>Espresso</code>. Recuerda que necesitamos establecer una descripción para la bebida concreta y también implementar el método <code>cost()</code>.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Espresso</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Beverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Espresso</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Espresso&quot;</span><span class="p">;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cost</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mf">1.99</span><span class="p">;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Primero extendemos la clase <code>Beverage</code>, ya que esto es una bebida.</li>
+<li>Para encargarnos de la descripción, la establecemos en el constructor de la clase. Recuerda que la variable de instancia <code>description</code> se hereda de <code>Beverage</code>.</li>
+<li>Finalmente, necesitamos calcular el coste de un Espresso. No tenemos que preocuparnos por añadir condimentos en esta clase, solo devolver el precio de un Espresso: 1,99 $.</li>
+</ul>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">HouseBlend</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Beverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">HouseBlend</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;House Blend Coffee&quot;</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cost</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mf">.89</span><span class="p">;</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<blockquote>
+<p>Vale, aquí tienes otra bebida. Todo lo que hacemos es establecer la descripción apropiada, «House Blend Coffee», y devolver el coste correcto: 89 ¢.</p>
+</blockquote>
+<p>Puedes crear las otras dos clases de bebida (<code>DarkRoast</code> y <code>Decaf</code>) exactamente de la misma manera.</p>
+<h2 id="codificar-los-condimentos">Codificar los condimentos<a class="headerlink" href="#codificar-los-condimentos" title="Permanent link">&para;</a></h2>
+<p>Si vuelves a mirar el diagrama de clases del patrón Decorator, verás que ya hemos escrito nuestro componente abstracto (<code>Beverage</code>), tenemos nuestros componentes concretos (<code>HouseBlend</code>) y tenemos nuestro decorador abstracto (<code>CondimentDecorator</code>). Ahora toca implementar los decoradores concretos. Aquí está <code>Mocha</code>:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Mocha</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">CondimentDecorator</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Mocha</span><span class="p">(</span><span class="n">Beverage</span><span class="w"> </span><span class="n">beverage</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">beverage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beverage</span><span class="p">;</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getDescription</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">beverage</span><span class="p">.</span><span class="na">getDescription</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;, Mocha&quot;</span><span class="p">;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cost</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">beverage</span><span class="p">.</span><span class="na">cost</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">.20</span><span class="p">;</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Recuerda que <code>CondimentDecorator</code> extiende <code>Beverage</code>.</li>
+<li><code>Mocha</code> es un decorador, así que extendemos <code>CondimentDecorator</code>.</li>
+<li>Vamos a instanciar <code>Mocha</code> con una referencia a un <code>Beverage</code>. Recuerda que esta clase hereda la variable de instancia <code>Beverage</code> para guardar la bebida que estamos envolviendo.</li>
+<li>Establecemos esta variable de instancia en el objeto que estamos envolviendo. Aquí estamos pasando la bebida que envolvemos al constructor del decorador.</li>
+<li>Queremos que nuestra descripción incluya no solo la bebida —digamos «Dark Roast»—, sino también cada elemento que decora la bebida (por ejemplo, «Dark Roast, Mocha»). Así que primero delegamos en el objeto que decoramos para obtener su descripción, y luego añadimos «, Mocha» a esa descripción.</li>
+<li>Ahora necesitamos calcular el coste de nuestra bebida con <code>Mocha</code>. Primero, delegamos la llamada en el objeto que decoramos para que pueda calcular el coste; luego, añadimos el coste de <code>Mocha</code> al resultado.</li>
+</ul>
+<p>En la página siguiente instanciaremos de verdad la bebida y la envolveremos con todos sus condimentos (decoradores), pero antes...</p>
+<div class="admonition exercise">
+<p class="admonition-title">Tu turno</p>
+<p>Escribe y compila el código de los otros condimentos, <code>Soy</code> y <code>Whip</code>. Los necesitarás para terminar y probar la aplicación.</p>
+</div>
+<h2 id="servir-algunos-cafes">Servir algunos cafés<a class="headerlink" href="#servir-algunos-cafes" title="Permanent link">&para;</a></h2>
+<p>Enhorabuena. Es hora de recostarse, pedir unos cuantos cafés y maravillarse con el diseño flexible que has creado con el patrón Decorator.</p>
+<p>Aquí tienes algo de código de prueba para hacer pedidos:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">StarbuzzCoffee</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">args</span><span class="o">[]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">        </span><span class="n">Beverage</span><span class="w"> </span><span class="n">beverage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Espresso</span><span class="p">();</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">beverage</span><span class="p">.</span><span class="na">getDescription</span><span class="p">()</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">                </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; $&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">beverage</span><span class="p">.</span><span class="na">cost</span><span class="p">());</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="n">Beverage</span><span class="w"> </span><span class="n">beverage2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DarkRoast</span><span class="p">();</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="n">beverage2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Mocha</span><span class="p">(</span><span class="n">beverage2</span><span class="p">);</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">        </span><span class="n">beverage2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Mocha</span><span class="p">(</span><span class="n">beverage2</span><span class="p">);</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">        </span><span class="n">beverage2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Whip</span><span class="p">(</span><span class="n">beverage2</span><span class="p">);</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">beverage2</span><span class="p">.</span><span class="na">getDescription</span><span class="p">()</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">                </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; $&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">beverage2</span><span class="p">.</span><span class="na">cost</span><span class="p">());</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">        </span><span class="n">Beverage</span><span class="w"> </span><span class="n">beverage3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HouseBlend</span><span class="p">();</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">        </span><span class="n">beverage3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Soy</span><span class="p">(</span><span class="n">beverage3</span><span class="p">);</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">        </span><span class="n">beverage3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Mocha</span><span class="p">(</span><span class="n">beverage3</span><span class="p">);</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">        </span><span class="n">beverage3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Whip</span><span class="p">(</span><span class="n">beverage3</span><span class="p">);</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">beverage3</span><span class="p">.</span><span class="na">getDescription</span><span class="p">()</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">                </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; $&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">beverage3</span><span class="p">.</span><span class="na">cost</span><span class="p">());</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Pide un espresso, sin condimentos, e imprime su descripción y su coste.</li>
+<li>Crea un objeto <code>DarkRoast</code>. Envuélvelo con un <code>Mocha</code>. Envuélvelo con un segundo <code>Mocha</code>. Envuélvelo con un <code>Whip</code>.</li>
+<li>Por último, danos un <code>HouseBlend</code> con <code>Soy</code>, <code>Mocha</code> y <code>Whip</code>.</li>
+<li>Veremos una forma mucho mejor de crear objetos decorados cuando cubramos los patrones Factory y Builder. Ten en cuenta que el patrón Builder se cubre en el Apéndice.</li>
+</ul>
+<p>Ahora, metamos esos pedidos:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>% java StarbuzzCoffee
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Espresso $1.99
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Dark Roast Coffee, Mocha, Mocha, Whip $1.49
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>House Blend Coffee, Soy, Mocha, Whip $1.34
+</span></code></pre></div>
+<div class="admonition question">
+<p class="admonition-title">Preguntas frecuentes</p>
+<p><strong>P: Me preocupa un poco el código que pueda comprobar un componente concreto específico —digamos <code>HouseBlend</code>— y hacer algo, como aplicar un descuento. Una vez que he envuelto el <code>HouseBlend</code> con decoradores, esto ya no va a funcionar.</strong></p>
+<p>R: Eso es exactamente así. Si tienes código que se apoya en el tipo del componente concreto, los decoradores romperán ese código. Mientras solo escribas código contra el tipo del componente abstracto, el uso de decoradores seguirá siendo transparente para tu código. Sin embargo, en cuanto empieces a escribir código contra componentes concretos, querrás replantearte el diseño de tu aplicación y tu uso de los decoradores.</p>
+<p><strong>P: ¿No sería fácil que algún cliente de una bebida acabara con un decorador que no fuera el más externo? Por ejemplo, si tuviera un <code>DarkRoast</code> con <code>Mocha</code>, <code>Soy</code> y <code>Whip</code>, sería fácil escribir código que acabara con una referencia a <code>Soy</code> en lugar de a <code>Whip</code>, lo que significa que no incluiría <code>Whip</code> en el pedido.</strong></p>
+<p>R: Se podría argumentar que con el patrón Decorator tienes que gestionar más objetos y por eso hay más posibilidades de que errores de programación introduzcan el tipo de problemas que sugieres. Sin embargo, normalmente creamos los decoradores usando otros patrones como Factory y Builder. Una vez que hayamos cubierto estos patrones, verás que la creación del componente concreto con su decorador está «bien encapsulada» y no lleva a este tipo de problemas.</p>
+<p><strong>P: ¿Pueden los decoradores conocer las otras decoraciones de la cadena? Supongamos que quiero que mi método <code>getDescription()</code> imprima «Whip, Double Mocha» en lugar de «Mocha, Whip, Mocha». Eso requeriría que mi decorador más externo conociera todos los decoradores que está envolviendo.</strong></p>
+<p>R: Los decoradores están pensados para añadir comportamiento al objeto que envuelven. Cuando necesitas asomarte a varias capas de la cadena de decoradores, empiezas a forzar el decorador más allá de su verdadera intención. Aun así, esas cosas son posibles. Imagina un decorador <code>CondimentPrettyPrint</code> que analice la descripción final y pueda imprimir «Mocha, Whip, Mocha» como «Whip, Double Mocha». Ten en cuenta que <code>getDescription()</code> podría devolver un <code>ArrayList</code> de descripciones para facilitarlo.</p>
+</div>
+<div class="admonition exercise">
+<p class="admonition-title">Tu turno: tamaños</p>
+<p>Nuestros amigos de Starbuzz han introducido tamaños en su menú. Ahora puedes pedir un café en tall, grande y venti (traducción: pequeño, mediano y grande). Starbuzz lo veía como parte intrínseca de la clase del café, así que han añadido dos métodos a la clase <code>Beverage</code>: <code>setSize()</code> y <code>getSize()</code>. También les gustaría que los condimentos se cobraran según el tamaño, de modo que, por ejemplo, <code>Soy</code> cuesta 10 ¢, 15 ¢ y 20 ¢, respectivamente, para cafés tall, grande y venti. La clase <code>Beverage</code> actualizada se muestra a continuación.</p>
+<p>¿Cómo alterarías las clases decorador para manejar este cambio de requisitos?</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Beverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">Size</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">TALL</span><span class="p">,</span><span class="w"> </span><span class="n">GRANDE</span><span class="p">,</span><span class="w"> </span><span class="n">VENTI</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="n">Size</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Size</span><span class="p">.</span><span class="na">TALL</span><span class="p">;</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Unknown Beverage&quot;</span><span class="p">;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getDescription</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">description</span><span class="p">;</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setSize</span><span class="p">(</span><span class="n">Size</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Size</span><span class="w"> </span><span class="nf">getSize</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">size</span><span class="p">;</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cost</span><span class="p">();</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<h2 id="decoradores-del-mundo-real-java-io">Decoradores del mundo real: Java I/O<a class="headerlink" href="#decoradores-del-mundo-real-java-io" title="Permanent link">&para;</a></h2>
+<p>El gran número de clases del paquete <code>java.io</code> es... abrumador. No te sientas solo si dijiste «whoa» la primera (y segunda y tercera) vez que miraste esta API. Pero ahora que conoces el patrón Decorator, las clases de E/S deberían tener más sentido, ya que el paquete <code>java.io</code> está basado en gran medida en Decorator. Aquí tienes un conjunto típico de objetos que usan decoradores para añadir funcionalidad a la lectura de datos de un archivo:</p>
+<pre class="mermaid"><code>flowchart LR
+    F["FileInputStream&lt;br/&gt;(component: text file)"] --&gt; B["BufferedInputStream&lt;br/&gt;(decorator: buffering)"]
+    B --&gt; Z["ZipInputStream&lt;br/&gt;(decorator: zip entries)"]</code></pre>
+<ul>
+<li><code>FileInputStream</code> es el componente que se está decorando. La biblioteca de E/S de Java suministra varios componentes, como <code>FileInputStream</code>, <code>StringBufferInputStream</code>, <code>ByteArrayInputStream</code> y algunos más. Todos nos dan un componente base desde el que leer bytes.</li>
+<li><code>BufferedInputStream</code> es un decorador concreto. Añade comportamiento de buffering a un <code>FileInputStream</code>: almacena la entrada en búfer para mejorar el rendimiento.</li>
+<li><code>ZipInputStream</code> también es un decorador concreto. Añade la capacidad de leer entradas de archivos zip a medida que lee datos.</li>
+</ul>
+<h2 id="decorar-las-clases-de-javaio">Decorar las clases de java.io<a class="headerlink" href="#decorar-las-clases-de-javaio" title="Permanent link">&para;</a></h2>
+<p><code>BufferedInputStream</code> y <code>ZipInputStream</code> extienden ambas <code>FilterInputStream</code>, que extiende <code>InputStream</code>. <code>InputStream</code> actúa como la clase decoradora abstracta:</p>
+<pre class="mermaid"><code>classDiagram
+    class InputStream {
+        &lt;&lt;abstract&gt;&gt;
+    }
+    class FileInputStream
+    class StringBufferInputStream
+    class ByteArrayInputStream
+    class FilterInputStream {
+        &lt;&lt;abstract&gt;&gt;
+    }
+    class PushbackInputStream
+    class BufferedInputStream
+    class DataInputStream
+    class InflaterInputStream
+    class ZipInputStream
+    InputStream &lt;|-- FileInputStream
+    InputStream &lt;|-- StringBufferInputStream
+    InputStream &lt;|-- ByteArrayInputStream
+    InputStream &lt;|-- FilterInputStream
+    FilterInputStream &lt;|-- PushbackInputStream
+    FilterInputStream &lt;|-- BufferedInputStream
+    FilterInputStream &lt;|-- DataInputStream
+    FilterInputStream &lt;|-- InflaterInputStream
+    FilterInputStream &lt;|-- ZipInputStream</code></pre>
+<ul>
+<li>Aquí está nuestro componente abstracto.</li>
+<li><code>FilterInputStream</code> es un decorador abstracto.</li>
+<li>Estos <code>InputStream</code> actúan como los componentes concretos que envolveremos con decoradores. Hay unos cuantos más que no mostramos, como <code>ObjectInputStream</code>.</li>
+<li>Y por último, aquí están todos nuestros decoradores concretos.</li>
+</ul>
+<p>Puedes ver que esto no es tan distinto del diseño de Starbuzz. Ahora deberías estar en buena posición para revisar la documentación de la API de <code>java.io</code> y componer decoradores sobre los distintos flujos de entrada.</p>
+<p>Verás que los flujos de salida tienen el mismo diseño. Y probablemente ya hayas descubierto que los flujos <code>Reader</code>/<code>Writer</code> (para datos basados en caracteres) reflejan de cerca el diseño de las clases de flujos (con algunas diferencias e inconsistencias, pero lo bastante cerca como para entender qué está pasando).</p>
+<p>Java I/O también señala uno de los inconvenientes del patrón Decorator: los diseños que usan este patrón a menudo dan como resultado un gran número de clases pequeñas que pueden abrumar a un desarrollador que intenta usar una API basada en Decorator. Pero ahora que sabes cómo funciona Decorator, puedes mantener las cosas en perspectiva y, cuando uses la API cargada de Decorators de otra persona, puedes entender cómo están organizadas sus clases para poder usar fácilmente el envolvimiento y obtener el comportamiento que buscas.</p>
+<h2 id="escribe-tu-propio-decorador-de-es-de-java">Escribe tu propio decorador de E/S de Java<a class="headerlink" href="#escribe-tu-propio-decorador-de-es-de-java" title="Permanent link">&para;</a></h2>
+<p>Vale, conoces el patrón Decorator y has visto el diagrama de clases de E/S. Deberías estar listo para escribir tu propio decorador de entrada.</p>
+<p>¿Qué tal esto?: escribe un decorador que convierta todos los caracteres en mayúsculas a minúsculas en el flujo de entrada. En otras palabras, si leemos «I know the Decorator Pattern therefore I RULE!», tu decorador lo convierte en «i know the decorator pattern therefore i rule!»</p>
+<blockquote>
+<p>No hay problema. Solo tengo que extender la clase <code>FilterInputStream</code> y sobrescribir los métodos <code>read()</code>.</p>
+</blockquote>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">LowerCaseInputStream</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">FilterInputStream</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">LowerCaseInputStream</span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="n">in</span><span class="p">);</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">read</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">read</span><span class="p">();</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Character</span><span class="p">.</span><span class="na">toLowerCase</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span><span class="n">c</span><span class="p">));</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">offset</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">offset</span><span class="o">+</span><span class="n">result</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">            </span><span class="n">b</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">byte</span><span class="p">)</span><span class="n">Character</span><span class="p">.</span><span class="na">toLowerCase</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span><span class="n">b</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Primero, extiende <code>FilterInputStream</code>, el decorador abstracto de todos los <code>InputStream</code>.</li>
+<li>No te olvides de importar <code>java.io...</code> (no se muestra).</li>
+<li>Ahora necesitamos implementar dos métodos <code>read</code>. Toman un byte (o un array de bytes) y convierten cada byte (que representa un carácter) a minúscula si es una mayúscula.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Recuerda</p>
+<p>No incluimos las sentencias <code>import</code> y <code>package</code> en los listados de código. Consigue el código fuente completo en <a href="https://wickedlysmart.com/head-first-design-patterns">https://wickedlysmart.com/head-first-design-patterns</a>.</p>
+</div>
+<h2 id="prueba-tu-nuevo-decorador-de-es-de-java">Prueba tu nuevo decorador de E/S de Java<a class="headerlink" href="#prueba-tu-nuevo-decorador-de-es-de-java" title="Permanent link">&para;</a></h2>
+<p>Escribe algo de código rápido para probar el decorador de E/S:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">InputTest</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">            </span><span class="n">InputStream</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">LowerCaseInputStream</span><span class="p">(</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">                    </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedInputStream</span><span class="p">(</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">                        </span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="s">&quot;test.txt&quot;</span><span class="p">)));</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">            </span><span class="k">while</span><span class="p">((</span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">read</span><span class="p">())</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span><span class="n">c</span><span class="p">);</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">            </span><span class="n">in</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">            </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Configura el <code>FileInputStream</code> y decóralo, primero con un <code>BufferedInputStream</code> y luego con nuestro flamante filtro <code>LowerCaseInputStream</code>.</li>
+<li>Solo usa el flujo para leer caracteres hasta el final del archivo e imprimirlos a medida que avanzas.</li>
+<li>Necesitas crear este archivo.</li>
+</ul>
+<p>Archivo <code>test.txt</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>I know the Decorator Pattern therefore I RULE!
+</span></code></pre></div>
+<p>Pruébalo:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>% java InputTest
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>i know the decorator pattern therefore i rule!
+</span></code></pre></div>
+<h2 id="patrones-al-descubierto">Patrones al descubierto<a class="headerlink" href="#patrones-al-descubierto" title="Permanent link">&para;</a></h2>
+<div class="admonition example">
+<p class="admonition-title">La entrevista de esta semana: Confesiones de un Decorator</p>
+<p><strong>Head First:</strong> Bienvenido, patrón Decorator. Hemos oído que últimamente estás un poco deprimido.</p>
+<p><strong>Decorator:</strong> Sí, sé que el mundo me ve como el patrón de diseño glamuroso, pero ya sabes, tengo mi buena ración de problemas como todo el mundo.</p>
+<p><strong>Head First:</strong> ¿Podrías contarnos algunos de tus problemas?</p>
+<p><strong>Decorator:</strong> Claro. Bueno, ya sabes que tengo el poder de añadir flexibilidad a los diseños, eso es seguro, pero también tengo un lado oscuro. Verás, a veces puedo añadir un montón de clases pequeñas a un diseño, y esto ocasionalmente da como resultado un diseño que no es del todo fácil de entender para los demás.</p>
+<p><strong>Head First:</strong> ¿Puedes darnos un ejemplo?</p>
+<p><strong>Decorator:</strong> Piensa en las bibliotecas de Java I/O. Son notoriamente difíciles de entender al principio. Pero si la gente viera las clases como un conjunto de envoltorios alrededor de un <code>InputStream</code>, la vida sería mucho más fácil.</p>
+<p><strong>Head First:</strong> Eso no suena tan mal. Sigues siendo un gran patrón, y mejorar esto es solo cuestión de educación pública, ¿no?</p>
+<p><strong>Decorator:</strong> Me temo que hay más. Tengo problemas de tipado: verás, a veces la gente toma un trozo de código cliente que se apoya en tipos específicos e introduce decoradores sin pensarlo todo bien. Una cosa buena de mí es que normalmente puedes insertar decoradores de forma transparente y el cliente nunca tiene que saber que está tratando con un decorador. Pero, como decía, algo de código depende de tipos específicos y, cuando empiezas a introducir decoradores, ¡pum! Ocurren cosas malas.</p>
+<p><strong>Head First:</strong> Bueno, creo que todo el mundo entiende que hay que tener cuidado al insertar decoradores. No creo que sea motivo para estar tan deprimido.</p>
+<p><strong>Decorator:</strong> Lo sé, intento no estarlo. También tengo el problema de que introducir decoradores puede aumentar la complejidad del código necesario para instanciar el componente. Una vez que tienes decoradores, no solo tienes que instanciar el componente, sino también envolverlo con quién sabe cuántos decoradores.</p>
+<p><strong>Head First:</strong> La semana que viene entrevistaré a los patrones Factory y Builder. Me han dicho que pueden ser muy útiles con esto...</p>
+<p><strong>Decorator:</strong> Es cierto; debería hablar con esos chicos más a menudo.</p>
+<p><strong>Head First:</strong> Bueno, todos pensamos que eres un gran patrón para crear diseños flexibles y mantenerte fiel al principio Open-Closed, así que ¡ánimo y piensa en positivo!</p>
+<p><strong>Decorator:</strong> Haré lo posible, gracias.</p>
+</div>
+<h2 id="herramientas-para-tu-caja-de-diseno">Herramientas para tu caja de diseño<a class="headerlink" href="#herramientas-para-tu-caja-de-diseno" title="Permanent link">&para;</a></h2>
+<p>Has terminado otro capítulo y tienes un nuevo principio y un nuevo patrón en tu caja de herramientas.</p>
+<div class="admonition abstract">
+<p class="admonition-title">Conceptos básicos de OO</p>
+<ul>
+<li><strong>Abstracción</strong></li>
+<li><strong>Encapsulación</strong></li>
+<li><strong>Polimorfismo</strong></li>
+<li><strong>Herencia</strong></li>
+</ul>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">Principios de OO</p>
+<ul>
+<li>Encapsula lo que varía.</li>
+<li>Favorece la composición sobre la herencia.</li>
+<li>Programa contra interfaces, no contra implementaciones.</li>
+<li>Esfuérzate por lograr diseños débilmente acoplados entre objetos que interactúan.</li>
+<li><strong>Las clases deberían estar abiertas a la extensión, pero cerradas a la modificación.</strong></li>
+</ul>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">Patrones de OO</p>
+<ul>
+<li><strong>Strategy</strong> — define una familia de algoritmos, encapsula cada uno y los hace intercambiables. Strategy permite que el algoritmo varíe independientemente de los clientes que lo usan.</li>
+<li><strong>Observer</strong> — define una dependencia de uno a muchos entre objetos, de modo que cuando un objeto cambia de estado, todos sus dependientes son notificados y actualizados automáticamente.</li>
+<li><strong>Decorator</strong> — adjunta responsabilidades adicionales a un objeto de forma dinámica. Los decoradores proporcionan una alternativa flexible a la subclase para extender la funcionalidad.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Lo que hemos aprendido sobre Decorator</p>
+<ul>
+<li>La herencia es una forma de extensión, pero no necesariamente la mejor manera de conseguir flexibilidad en nuestros diseños.</li>
+<li>En nuestros diseños deberíamos permitir que el comportamiento se extienda sin necesidad de modificar el código existente.</li>
+<li>La composición y la delegación a menudo pueden usarse para añadir nuevos comportamientos en tiempo de ejecución.</li>
+<li>El patrón Decorator proporciona una alternativa a la subclase para extender el comportamiento.</li>
+<li>El patrón Decorator implica un conjunto de clases decoradoras que se usan para envolver componentes concretos.</li>
+<li>Las clases decoradoras reflejan el tipo de los componentes que decoran. (De hecho, son del mismo tipo que los componentes que decoran, ya sea mediante herencia o implementación de interfaz.)</li>
+<li>Los decoradores cambian el comportamiento de sus componentes añadiendo nueva funcionalidad antes y/o después (o incluso en lugar) de las llamadas a métodos del componente.</li>
+<li>Puedes envolver un componente con cualquier número de decoradores.</li>
+<li>Los decoradores suelen ser transparentes para el cliente del componente, es decir, a menos que el cliente se apoye en el tipo concreto del componente.</li>
+<li>Los decoradores pueden dar lugar a muchos objetos pequeños en nuestro diseño, y el abuso puede resultar complejo.</li>
+</ul>
+<p>Tenemos ahora el principio Open-Closed para guiarnos. Vamos a esforzarnos por diseñar nuestro sistema de modo que las partes cerradas queden aisladas de nuestras nuevas extensiones.</p>
+<p>Y aquí está nuestro primer patrón para crear diseños que satisfacen el principio Open-Closed. ¿O era realmente el primero? ¿Hay otro patrón que hayamos usado que también siga este principio?</p>
+</div>
+<h2 id="soluciones-de-los-ejercicios">Soluciones de los ejercicios<a class="headerlink" href="#soluciones-de-los-ejercicios" title="Permanent link">&para;</a></h2>
+<div class="admonition success">
+<p class="admonition-title">Solución: escribe los métodos cost()</p>
+<p>Escribe los métodos <code>cost()</code> para las siguientes clases (el pseudo-Java vale). Esta es nuestra solución:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Beverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="c1">// declare instance variables for milkCost,</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="c1">// soyCost, mochaCost, and whipCost, and</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="c1">// getters and setters for milk, soy, mocha</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="c1">// and whip.</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cost</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">condimentCost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hasMilk</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">            </span><span class="n">condimentCost</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">milkCost</span><span class="p">;</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hasSoy</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">            </span><span class="n">condimentCost</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">soyCost</span><span class="p">;</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hasMocha</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">            </span><span class="n">condimentCost</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">mochaCost</span><span class="p">;</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hasWhip</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="w">            </span><span class="n">condimentCost</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">whipCost</span><span class="p">;</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">condimentCost</span><span class="p">;</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DarkRoast</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Beverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">DarkRoast</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">        </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Most Excellent Dark Roast&quot;</span><span class="p">;</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cost</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mf">1.99</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kd">super</span><span class="p">.</span><span class="na">cost</span><span class="p">();</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Solución: formación de baristas</p>
+<p>«Doble mocha soy latte con whip»:</p>
+<ol>
+<li>Primero, llamamos a <code>cost()</code> en el decorador más externo, <code>Whip</code>.</li>
+<li><code>Whip</code> llama a <code>cost()</code> en <code>Mocha</code>.</li>
+<li><code>Mocha</code> llama a <code>cost()</code> en otro <code>Mocha</code>.</li>
+<li>Después, <code>Mocha</code> llama a <code>cost()</code> en <code>Soy</code>.</li>
+<li>¡Último topping! <code>Soy</code> llama a <code>cost()</code> en <code>HouseBlend</code>.</li>
+<li>El método <code>cost()</code> de <code>HouseBlend</code> devuelve .89 y sale de la pila.</li>
+<li>El método <code>cost()</code> de <code>Soy</code> añade .15 y devuelve el resultado; luego sale de la pila.</li>
+<li>El método <code>cost()</code> del segundo <code>Mocha</code> añade .20 y devuelve el resultado; luego sale de la pila.</li>
+<li>El método <code>cost()</code> del primer <code>Mocha</code> añade .20 y devuelve el resultado; luego sale de la pila.</li>
+<li>Finalmente, el resultado vuelve al <code>cost()</code> de <code>Whip</code>, que añade .10, dándonos un coste final de 1,54 $.</li>
+</ol>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Solución: tamaños</p>
+<p>Nuestros amigos de Starbuzz han introducido tamaños en su menú. Ahora puedes pedir un café en tall, grande y venti (traducción: pequeño, mediano y grande). Starbuzz lo veía como parte intrínseca de la clase del café, así que han añadido dos métodos a la clase <code>Beverage</code>: <code>setSize()</code> y <code>getSize()</code>. También les gustaría que los condimentos se cobraran según el tamaño, de modo que, por ejemplo, <code>Soy</code> cuesta 10 ¢, 15 ¢ y 20 ¢, respectivamente, para cafés tall, grande y venti.</p>
+<p>¿Cómo alterarías las clases decorador para manejar este cambio de requisitos? Esta es nuestra solución.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CondimentDecorator</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Beverage</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Beverage</span><span class="w"> </span><span class="n">beverage</span><span class="p">;</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getDescription</span><span class="p">();</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Size</span><span class="w"> </span><span class="nf">getSize</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">beverage</span><span class="p">.</span><span class="na">getSize</span><span class="p">();</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Soy</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">CondimentDecorator</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Soy</span><span class="p">(</span><span class="n">Beverage</span><span class="w"> </span><span class="n">beverage</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">beverage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beverage</span><span class="p">;</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getDescription</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">beverage</span><span class="p">.</span><span class="na">getDescription</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;, Soy&quot;</span><span class="p">;</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cost</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beverage</span><span class="p">.</span><span class="na">cost</span><span class="p">();</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">beverage</span><span class="p">.</span><span class="na">getSize</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Size</span><span class="p">.</span><span class="na">TALL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">            </span><span class="n">cost</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">.10</span><span class="p">;</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">beverage</span><span class="p">.</span><span class="na">getSize</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Size</span><span class="p">.</span><span class="na">GRANDE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="w">            </span><span class="n">cost</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">.15</span><span class="p">;</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">beverage</span><span class="p">.</span><span class="na">getSize</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Size</span><span class="p">.</span><span class="na">VENTI</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="w">            </span><span class="n">cost</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">.20</span><span class="p">;</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">cost</span><span class="p">;</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Añadimos un método, <code>getSize()</code>, para los decoradores, que simplemente devuelve el tamaño de la bebida.</li>
+<li>Aquí obtenemos el tamaño (que se propaga hasta la bebida concreta) y luego añadimos el coste correspondiente.</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../capitulo-2/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Capítulo 2: El patrón Observer">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 2: El patrón Observer
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../capitulo-4/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Capítulo 4: El patrón Factory">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 4: El patrón Factory
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copiado al portapapeles","clipboard.copy":"Copiar al portapapeles","search.result.more.one":"1 más en esta página","search.result.more.other":"# más en esta página","search.result.none":"No se encontraron documentos","search.result.one":"1 documento encontrado","search.result.other":"# documentos encontrados","search.result.placeholder":"Teclee para comenzar búsqueda","search.result.term.missing":"Falta","select.version":"Seleccionar versión"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      
+    
+  </body>
+</html>

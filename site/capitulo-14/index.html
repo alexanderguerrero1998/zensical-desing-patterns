@@ -1,0 +1,2486 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Traducción al español de Head First Design Patterns (Freeman y Robson, 2.ª edición), con diagramas reconstruidos en Mermaid.">
+      
+      
+        <meta name="author" content="Head First Design Patterns — traducción al español">
+      
+      
+      
+        <link rel="prev" href="../capitulo-13/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.36">
+    
+    
+      
+        <title>Apéndice: Patrones restantes - Head First Design Patterns — español</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.1e981d71.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navegación"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#apendice-patrones-restantes" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="./.." title="Head First Design Patterns — español" class="md-header__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navegación">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Head First Design Patterns — español
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Apéndice: Patrones restantes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Buscar">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Buscar">
+  <button type="button" class="md-search__button">
+    Buscar
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Head First Design Patterns — español" class="md-nav__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Head First Design Patterns — español
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 1: Introducción a los patrones de diseño
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 2: El patrón Observer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 3: El patrón Decorator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 4: El patrón Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 5: El patrón Singleton
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 6: El patrón Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 7: Los patrones Adapter y Facade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 8: El patrón Template Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 9: Los patrones Iterator y Composite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 10: El patrón State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 11: El patrón Proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 12: Patrones compuestos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 13: Mejor vivir con patrones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 14: Apéndice
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 14: Apéndice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bridge
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bridge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tu-dilema" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tu dilema
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-usar-el-patron-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Por qué usar el patrón Bridge?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Builder
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Builder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#necesitas-un-diseno-flexible" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Necesitas un diseño flexible
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-usar-el-patron-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Por qué usar el patrón Builder?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chain-of-responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Chain of Responsibility
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chain of Responsibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tu-tarea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tu tarea
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-usar-el-patron-chain-of-responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cómo usar el patrón Chain of Responsibility
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flyweight" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flyweight
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flyweight">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-dilema-de-tu-gran-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El dilema de tu gran cliente
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-usar-el-patron-flyweight" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Por qué usar el patrón Flyweight?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpreter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Interpreter
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpreter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y-ahora-que" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Y ahora qué?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-implementar-un-interprete" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cómo implementar un intérprete
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mediator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Mediator
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mediator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-dilema-de-houseofthefuture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El dilema de HouseOfTheFuture
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-mediator-en-accion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El Mediator en acción
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memento" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memento
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memento">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-memento-en-funcionamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El Memento en funcionamiento
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prototype" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Prototype
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prototype">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-prototype-al-rescate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El Prototype al rescate
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Visitor
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-solucion-que-propone-lou" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La solución que propone Lou
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#las-preocupaciones-de-mel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Las preocupaciones de Mel
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-visitor-se-presenta" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El Visitor se presenta
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bridge
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bridge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tu-dilema" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tu dilema
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-usar-el-patron-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Por qué usar el patrón Bridge?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Builder
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Builder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#necesitas-un-diseno-flexible" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Necesitas un diseño flexible
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-usar-el-patron-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Por qué usar el patrón Builder?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chain-of-responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Chain of Responsibility
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chain of Responsibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tu-tarea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tu tarea
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-usar-el-patron-chain-of-responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cómo usar el patrón Chain of Responsibility
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flyweight" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flyweight
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flyweight">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-dilema-de-tu-gran-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El dilema de tu gran cliente
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-usar-el-patron-flyweight" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Por qué usar el patrón Flyweight?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpreter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Interpreter
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpreter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y-ahora-que" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Y ahora qué?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-implementar-un-interprete" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cómo implementar un intérprete
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mediator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Mediator
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mediator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-dilema-de-houseofthefuture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El dilema de HouseOfTheFuture
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-mediator-en-accion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El Mediator en acción
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memento" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memento
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memento">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-memento-en-funcionamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El Memento en funcionamiento
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prototype" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Prototype
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prototype">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-prototype-al-rescate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El Prototype al rescate
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Visitor
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#un-escenario_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un escenario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-solucion-que-propone-lou" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La solución que propone Lou
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#las-preocupaciones-de-mel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Las preocupaciones de Mel
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-visitor-se-presenta" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El Visitor se presenta
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="apendice-patrones-restantes">Apéndice: Patrones restantes<a class="headerlink" href="#apendice-patrones-restantes" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>No todo el mundo puede ser el más popular. Mucho ha cambiado en los últimos 25 años largos. Desde que <em>Design Patterns: Elements of Reusable Object-Oriented Software</em> vio la luz, los desarrolladores han aplicado estos patrones miles de veces. Los patrones que resumimos en este apéndice son patrones GoF oficiales, de pleno derecho y con credenciales, pero no se usan tan a menudo como los patrones que hemos explorado hasta ahora. Dicho esto, estos patrones son excelentes en sí mismos y, si tu situación los requiere, deberías aplicarlos con la cabeza bien alta. Nuestro objetivo en este apéndice es darte una idea de alto nivel de qué son estos patrones.</p>
+</blockquote>
+<h2 id="bridge">Bridge<a class="headerlink" href="#bridge" title="Permanent link">&para;</a></h2>
+<p><strong>Usa el patrón Bridge para variar no solo tus implementaciones, sino también tus abstracciones.</strong></p>
+<h3 id="un-escenario">Un escenario<a class="headerlink" href="#un-escenario" title="Permanent link">&para;</a></h3>
+<p>Imagina que estás escribiendo el código de un nuevo mando a distancia ergonómico y fácil de usar para el televisor. Ya sabes que tienes que usar buenas técnicas orientadas a objetos porque, aunque el mando se basa en la misma abstracción, habrá un montón de implementaciones: una por cada modelo de televisor.</p>
+<pre class="mermaid"><code>classDiagram
+    class RemoteControl {
+        &lt;&lt;abstract&gt;&gt;
+        +on()
+        +off()
+        +setChannel()
+    }
+    class RCAControl {
+        +on()
+        +off()
+        +setChannel()
+        +tuneChannel(channel)
+    }
+    class SonyControl {
+        +on()
+        +off()
+        +setChannel()
+    }
+    RemoteControl &lt;|-- RCAControl
+    RemoteControl &lt;|-- SonyControl
+    note for RemoteControl "// more methods"
+    note for RCAControl "// more methods"
+    note for SonyControl "// more methods"</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>Esta es una abstracción. Podría ser una interfaz o una clase abstracta.</li>
+<li>Todos los mandos comparten la misma abstracción.</li>
+<li>Un montón de implementaciones, una por cada televisor.</li>
+<li>Con este diseño podemos variar solo la implementación del televisor, no la interfaz de usuario.</li>
+</ul>
+</div>
+<h3 id="tu-dilema">Tu dilema<a class="headerlink" href="#tu-dilema" title="Permanent link">&para;</a></h3>
+<p>Ya sabes que la interfaz de usuario del mando no va a ser la adecuada a la primera. De hecho, esperas que el producto se refine muchas veces a medida que se recopilan datos de usabilidad sobre el mando. Así que tu dilema es que los mandos van a cambiar y los televisores también van a cambiar. Ya has abstraído la interfaz de usuario para poder variar la implementación a lo largo de los muchos televisores que tus clientes serán dueños. Pero también vas a necesitar variar la abstracción, porque va a cambiar con el tiempo a medida que el mando mejore según los comentarios de los usuarios. Entonces, ¿cómo vas a crear un diseño orientado a objetos que te permita variar la implementación y la abstracción?</p>
+<h2 id="por-que-usar-el-patron-bridge">¿Por qué usar el patrón Bridge?<a class="headerlink" href="#por-que-usar-el-patron-bridge" title="Permanent link">&para;</a></h2>
+<p>El patrón Bridge te permite variar la implementación y la abstracción colocando las dos en jerarquías de clases separadas.</p>
+<pre class="mermaid"><code>classDiagram
+    class RemoteControl {
+        &lt;&lt;abstract&gt;&gt;
+        -implementor
+        +on()
+        +off()
+        +setChannel()
+    }
+    class TV {
+        &lt;&lt;interface&gt;&gt;
+        +tuneChannel()
+    }
+    class ConcreteRemote {
+        -currentStation
+        +on()
+        +off()
+        +tuneChannel()
+        +setChannel()
+        +nextChannel()
+        +previousChannel()
+    }
+    class RCA {
+        +on()
+        +off()
+        +tuneChannel()
+    }
+    class Sony {
+        +on()
+        +off()
+        +tuneChannel()
+    }
+    RemoteControl o-- TV : Has-A
+    RemoteControl &lt;|-- ConcreteRemote
+    ConcreteRemote &lt;|-- RCA
+    ConcreteRemote &lt;|-- Sony
+    note for RemoteControl "implementor.tuneChannel(channel);&lt;br/&gt;// more methods"
+    note for TV "// more methods"
+    note for ConcreteRemote "setChannel(currentStation + 1);&lt;br/&gt;// more methods"
+    note for RCA "// more methods"
+    note for Sony "// more methods"</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>La relación entre las dos se denomina el «puente».</li>
+<li>Jerarquía de clases de la implementación.</li>
+<li>Todos los métodos de la abstracción se implementan en términos de la implementación.</li>
+<li>Las subclases concretas se implementan en términos de la abstracción, no de la implementación.</li>
+</ul>
+</div>
+<p>Ahora tienes dos jerarquías: una para los mandos y otra, separada, para las implementaciones de televisores específicas de cada plataforma. El puente te permite variar cualquiera de los dos lados de las dos jerarquías de forma independiente.</p>
+<table>
+<thead>
+<tr>
+<th>Bridge: beneficios</th>
+<th>Bridge: usos e inconvenientes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desacopla una implementación de modo que no queda ligada permanentemente a una interfaz.</td>
+<td>Útil en sistemas de gráficos y de gestión de ventanas que necesitan ejecutarse sobre varias plataformas.</td>
+</tr>
+<tr>
+<td>La abstracción y la implementación se pueden extender de forma independiente.</td>
+<td>Útil siempre que necesites variar una interfaz y una implementación de maneras distintas.</td>
+</tr>
+<tr>
+<td>Los cambios en las clases de abstracción concretas no afectan al cliente.</td>
+<td>Aumenta la complejidad.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="builder">Builder<a class="headerlink" href="#builder" title="Permanent link">&para;</a></h2>
+<p><strong>Usa el patrón Builder para encapsular la construcción de un producto y permitir que se construya por pasos.</strong></p>
+<h3 id="un-escenario_1">Un escenario<a class="headerlink" href="#un-escenario_1" title="Permanent link">&para;</a></h3>
+<p>Acabas de recibir el encargo de construir un planificador de vacaciones para Patternsland, un nuevo parque de atracciones justo a las afueras de Objectville. Los visitantes del parque pueden elegir un hotel y varios tipos de entradas de admisión, hacer reservas de restaurante e incluso apuntarse a eventos especiales. Para crear un planificador de vacaciones necesitas poder crear estructuras como esta:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>             Day #   Hotel             Lunch        Dinner        Tickets              Special Event
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  Vacation     1     Grand Facadian                                Patterns on Ice
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>               2     Grand Facadian                                Patterns on Ice
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>               3     Grand Facadian                   Dinner
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>               4     Grand Facadian
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>               5
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>               6
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>               7                                                                         Pattens park concert
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>Cada vacaciones se planifica a lo largo de cierto número de días.</li>
+<li>Cada día puede tener cualquier combinación de reservas de hotel, entradas, comidas y eventos especiales.</li>
+</ul>
+</div>
+<h3 id="necesitas-un-diseno-flexible">Necesitas un diseño flexible<a class="headerlink" href="#necesitas-un-diseno-flexible" title="Permanent link">&para;</a></h3>
+<p>El planificador de cada huésped puede variar en el número de días y en los tipos de actividades que incluye. Por ejemplo, un residente local puede que no necesite hotel, pero sí quiera hacer reservas de cena y de eventos especiales. Otro huésped puede que llegue en avión a Objectville y necesite hotel, reservas de cena y entradas de admisión.</p>
+<p>Así que necesitas una estructura de datos flexible que pueda representar los planificadores de los huéspedes y todas sus variaciones; también necesitas seguir una secuencia de pasos potencialmente complejos para crear el planificador. ¿Cómo puedes ofrecer una forma de crear la estructura compleja sin mezclarla con los pasos para crearla?</p>
+<h2 id="por-que-usar-el-patron-builder">¿Por qué usar el patrón Builder?<a class="headerlink" href="#por-que-usar-el-patron-builder" title="Permanent link">&para;</a></h2>
+<p>¿Recuerdas Iterator? Encapsulamos la iteración en un objeto aparte y ocultamos la representación interna de la colección al cliente. Aquí es la misma idea: encapsulamos la creación del planificador de viaje en un objeto (llamémosle builder) y hacemos que nuestro cliente le pida al builder que le construya la estructura del planificador de viaje.</p>
+<pre class="mermaid"><code>classDiagram
+    class Client {
+        +constructPlanner()
+    }
+    class AbstractBuilder {
+        &lt;&lt;abstract&gt;&gt;
+        +buildDay()
+        +addHotel()
+        +addReservation()
+        +addSpecialEvent()
+        +addTickets()
+        +getVacationPlanner()
+    }
+    class VacationBuilder {
+        -vacation
+        +buildDay()
+        +addHotel()
+        +addReservation()
+        +addSpecialEvent()
+        +addTickets()
+        +getVacationPlanner()
+    }
+    Client --&gt; AbstractBuilder : builder
+    AbstractBuilder &lt;|-- VacationBuilder</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>El cliente dirige al builder para que construya el planificador.</li>
+<li>El cliente usa una interfaz abstracta para construir el planificador.</li>
+<li>El builder concreto crea productos reales y los almacena en la estructura compuesta de vacaciones.</li>
+<li>El cliente dirige al builder para que cree el planificador en varios pasos y luego llama al método <code>getVacationPlanner()</code> para recuperar el objeto completo.</li>
+</ul>
+</div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">builder</span><span class="p">.</span><span class="na">buildDay</span><span class="p">(</span><span class="n">date</span><span class="p">);</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">builder</span><span class="p">.</span><span class="na">addHotel</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Grand Facadian&quot;</span><span class="p">);</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">builder</span><span class="p">.</span><span class="na">addTickets</span><span class="p">(</span><span class="s">&quot;Patterns on Ice&quot;</span><span class="p">);</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">// planifica el resto de las vacaciones</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">VacationPlanner</span><span class="w"> </span><span class="n">yourPlanner</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="n">builder</span><span class="p">.</span><span class="na">getVacationPlanner</span><span class="p">();</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Builder: beneficios</th>
+<th>Builder: usos e inconvenientes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encapsula la forma en que se construye un objeto complejo.</td>
+<td>Se usa a menudo para construir estructuras compuestas.</td>
+</tr>
+<tr>
+<td>Permite construir objetos mediante un proceso de varios pasos y variable (en contraposición a las fábricas de un solo paso).</td>
+<td>Construir objetos exige más conocimiento del dominio por parte del cliente que cuando se usa una fábrica.</td>
+</tr>
+<tr>
+<td>Oculta al cliente la representación interna del producto.</td>
+<td></td>
+</tr>
+<tr>
+<td>Las implementaciones del producto se pueden cambiar entre sí porque el cliente solo ve una interfaz abstracta.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="chain-of-responsibility">Chain of Responsibility<a class="headerlink" href="#chain-of-responsibility" title="Permanent link">&para;</a></h2>
+<p><strong>Usa el patrón Chain of Responsibility cuando quieras darle a más de un objeto la oportunidad de gestionar una petición.</strong></p>
+<h3 id="un-escenario_2">Un escenario<a class="headerlink" href="#un-escenario_2" title="Permanent link">&para;</a></h3>
+<p>Mighty Gumball ha estado recibiendo más correo electrónico del que es capaz de gestionar desde el lanzamiento de la Gumball Machine hecha en Java. Según su propio análisis, reciben cuatro tipos de correo: correo de admiradores de clientes que adoran el nuevo juego del 1 de cada 10, quejas de padres cuyos hijos están enganchados al juego, peticiones para instalar máquinas en ubicaciones nuevas y bastante spam. Todo el correo de admiradores debería ir directamente al CEO, todas las quejas deberían ir al departamento legal y todas las peticiones de máquinas nuevas deberían ir a desarrollo de negocio. El spam debería borrarse.</p>
+<h3 id="tu-tarea">Tu tarea<a class="headerlink" href="#tu-tarea" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>Tienes que ayudarnos a manejar el aluvión de correo que estamos recibiendo desde el lanzamiento de la Java Gumball Machine.</p>
+</div>
+<p>Mighty Gumball ya ha escrito unos detectores de IA capaces de decir si un correo es spam, correo de admiradores, una queja o una petición, pero necesitan que tú crees un diseño que pueda usar esos detectores para gestionar el correo entrante.</p>
+<h2 id="como-usar-el-patron-chain-of-responsibility">Cómo usar el patrón Chain of Responsibility<a class="headerlink" href="#como-usar-el-patron-chain-of-responsibility" title="Permanent link">&para;</a></h2>
+<p>Con el patrón Chain of Responsibility creas una cadena de objetos que examinan las peticiones. Cada objeto examina a su vez una petición y o bien la gestiona o bien la pasa al siguiente objeto de la cadena.</p>
+<pre class="mermaid"><code>classDiagram
+    class Handler {
+        &lt;&lt;abstract&gt;&gt;
+        -successor
+        +handleRequest()
+    }
+    class SpamHandler {
+        +handleRequest()
+    }
+    class FanHandler {
+        +handleRequest()
+    }
+    class ComplaintHandler {
+        +handleRequest()
+    }
+    class NewLocHandler {
+        +handleRequest()
+    }
+    Handler &lt;|-- SpamHandler
+    Handler &lt;|-- FanHandler
+    Handler &lt;|-- ComplaintHandler
+    Handler &lt;|-- NewLocHandler</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>Cada objeto de la cadena actúa como un handler y tiene un objeto sucesor. Si puede gestionar la petición, lo hace; en caso contrario, le pasa la petición a su sucesor.</li>
+</ul>
+</div>
+<p>A medida que llega el correo, se le pasa al primer handler: <code>SpamHandler</code>. Si el <code>SpamHandler</code> no puede gestionar la petición, esta se le pasa al <code>FanHandler</code>. Y así sucesivamente...</p>
+<pre class="mermaid"><code>flowchart LR
+    S["Spam Handler"] --&gt; F["Fan Handler"]
+    F --&gt; C["Complaint Handler"]
+    C --&gt; N["NewLoc Handler"]</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>Cada correo se le pasa al primer handler.</li>
+<li>Un correo no se gestiona si se cae por el final de la cadena, aunque siempre puedes implementar un handler «atrapa-todo» que se lleve cualquier correo.</li>
+</ul>
+</div>
+<table>
+<thead>
+<tr>
+<th>Chain of Responsibility: beneficios</th>
+<th>Chain of Responsibility: usos e inconvenientes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desacopla al emisor de la petición y a sus receptores.</td>
+<td>Se usa habitualmente en sistemas Windows para gestionar eventos como clics de ratón y pulsaciones de teclado.</td>
+</tr>
+<tr>
+<td>Simplifica tu objeto porque no tiene que conocer la estructura de la cadena ni mantener referencias directas a sus miembros.</td>
+<td>No se garantiza la ejecución de la petición; puede caerse por el final de la cadena si ningún objeto la gestiona (esto puede ser una ventaja o un inconveniente).</td>
+</tr>
+<tr>
+<td>Permite añadir o quitar responsabilidades dinámicamente cambiando los miembros o el orden de la cadena.</td>
+<td>Puede ser difícil de observar y depurar en tiempo de ejecución.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="flyweight">Flyweight<a class="headerlink" href="#flyweight" title="Permanent link">&para;</a></h2>
+<p><strong>Usa el patrón Flyweight cuando una instancia de una clase pueda usarse para proporcionar muchas instancias virtuales.</strong></p>
+<h3 id="un-escenario_3">Un escenario<a class="headerlink" href="#un-escenario_3" title="Permanent link">&para;</a></h3>
+<p>Quieres añadir árboles como objetos en tu nueva aplicación de diseño de paisajes. En tu aplicación, los árboles no hacen gran cosa; tienen una posición X-Y y pueden dibujarse dinámicamente, dependiendo de su edad. El asunto es que un usuario puede querer tener muchísimos árboles en uno de sus diseños de paisajes domésticos. Puede que tenga este aspecto:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>        Tree           Tree
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>   Tree      House     Tree      Tree
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>   Tree                Tree
+</span></code></pre></div>
+<pre class="mermaid"><code>classDiagram
+    class Tree {
+        -xCoord
+        -yCoord
+        -age
+        +display()
+    }
+    note for Tree "// use X-Y coords&lt;br/&gt;// &amp; complex age related calcs"</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>Cada instancia de <code>Tree</code> mantiene su propio estado.</li>
+</ul>
+</div>
+<h3 id="el-dilema-de-tu-gran-cliente">El dilema de tu gran cliente<a class="headerlink" href="#el-dilema-de-tu-gran-cliente" title="Permanent link">&para;</a></h3>
+<p>Tienes un cliente importante al que llevas meses vendiéndole la idea. Va a comprar 1.000 licencias de tu aplicación y está usando tu software para diseñar paisajes de enormes comunidades planificadas. Después de usar tu software durante una semana, tu cliente se queja de que, cuando crean bosquecillos grandes de árboles, la aplicación empieza a volverse lenta...</p>
+<h2 id="por-que-usar-el-patron-flyweight">¿Por qué usar el patrón Flyweight?<a class="headerlink" href="#por-que-usar-el-patron-flyweight" title="Permanent link">&para;</a></h2>
+<p>¿Y si, en lugar de tener miles de objetos <code>Tree</code>, pudieras rediseñar tu sistema de modo que solo tengas una instancia de <code>Tree</code> y un objeto cliente que mantenga el estado de TODOS tus árboles? ¡Eso es el Flyweight!</p>
+<pre class="mermaid"><code>classDiagram
+    class TreeManager {
+        -treeArray
+        +displayTrees()
+    }
+    class Tree {
+        +display(x, y, age)
+    }
+    note for TreeManager "// for all trees&lt;br/&gt;// get array row&lt;br/&gt;display(x, y, age);"
+    note for Tree "// use X-Y coords&lt;br/&gt;// &amp; complex age related calcs"</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>Todo el estado, de TODOS tus objetos virtuales <code>Tree</code>, se almacena en este array 2D.</li>
+<li>Un único objeto <code>Tree</code>, sin estado.</li>
+</ul>
+</div>
+<table>
+<thead>
+<tr>
+<th>Flyweight: beneficios</th>
+<th>Flyweight: usos e inconvenientes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reduce el número de instancias de objetos en tiempo de ejecución, ahorrando memoria.</td>
+<td>El Flyweight se usa cuando una clase tiene muchas instancias y todas se pueden controlar de forma idéntica.</td>
+</tr>
+<tr>
+<td>Centraliza en un único lugar el estado de muchos objetos «virtuales».</td>
+<td>Un inconveniente del patrón Flyweight es que, una vez implementado, las instancias lógicas de la clase no podrán comportarse de forma independiente de las demás instancias.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="interpreter">Interpreter<a class="headerlink" href="#interpreter" title="Permanent link">&para;</a></h2>
+<p><strong>Usa el patrón Interpreter para construir un intérprete de un lenguaje. El patrón Interpreter requiere cierto conocimiento de las gramáticas formales.</strong></p>
+<h3 id="un-escenario_4">Un escenario<a class="headerlink" href="#un-escenario_4" title="Permanent link">&para;</a></h3>
+<p>Si nunca has estudiado gramáticas formales, recuerda el simulador de patos: tienes la corazonada de que también sería una gran herramienta educativa para que los niños aprendan a programar. Aunque no sea así, sigue leyendo el patrón y te quedarás con la idea general. Con el simulador, cada niño puede controlar un pato con un lenguaje sencillo. Este es un ejemplo del lenguaje:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>right;
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>while (daylight) fly;
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>quack;
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>Gira el pato hacia la derecha.</li>
+<li>Vuela todo el día...</li>
+<li>...y después grazna.</li>
+</ul>
+</div>
+<p>Ahora, recordando cómo se construían las gramáticas en aquellas clases introductorias de programación, escribes la gramática:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>expression ::=  &lt;command&gt; | &lt;sequence&gt; | &lt;repetition&gt;
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sequence ::= &lt;expression&gt; &#39;;&#39; &lt;expression&gt;
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>command ::= right | quack | fly
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>repetition ::= while &#39;(&#39; &lt;variable&gt; &#39;)&#39;&lt;expression&gt;
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>variable ::= [A-Z,a-z]+
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>Un programa es una expresión que consta de secuencias de comandos y repeticiones (sentencias «while»).</li>
+<li>Una secuencia es un conjunto de expresiones separadas por punto y coma.</li>
+<li>Tenemos tres comandos: <code>right</code>, <code>quack</code> y <code>fly</code>.</li>
+<li>Una sentencia <code>while</code> no es más que una variable condicional y una expresión.</li>
+</ul>
+</div>
+<h3 id="y-ahora-que">¿Y ahora qué?<a class="headerlink" href="#y-ahora-que" title="Permanent link">&para;</a></h3>
+<p>Tienes una gramática; ahora solo necesitas una forma de representar e interpretar las frases de la gramática para que los estudiantes puedan ver los efectos de su programación sobre los patos simulados.</p>
+<h2 id="como-implementar-un-interprete">Cómo implementar un intérprete<a class="headerlink" href="#como-implementar-un-interprete" title="Permanent link">&para;</a></h2>
+<p>Cuando necesitas implementar un lenguaje sencillo, el patrón Interpreter define una representación basada en clases para su gramática, junto con un intérprete que interpreta sus frases. Para representar el lenguaje usas una clase para representar cada regla del lenguaje. Este es el lenguaje de los patos traducido a clases. Fíjate en el mapeo directo con la gramática.</p>
+<pre class="mermaid"><code>classDiagram
+    class Expression {
+        &lt;&lt;abstract&gt;&gt;
+        +interpret(context)
+    }
+    class Repetition {
+        -variable
+        -expression
+        +interpret(context)
+    }
+    class Sequence {
+        -expression1
+        -expression2
+        +interpret(context)
+    }
+    class Variable {
+        +interpret(context)
+    }
+    class QuackCommand {
+        +interpret(context)
+    }
+    class RightCommand {
+        +interpret(context)
+    }
+    class FlyCommand {
+        +interpret(context)
+    }
+    Expression &lt;|-- Repetition
+    Expression &lt;|-- Sequence
+    Expression &lt;|-- Variable
+    Expression &lt;|-- QuackCommand
+    Expression &lt;|-- RightCommand
+    Expression &lt;|-- FlyCommand</code></pre>
+<p>Para interpretar el lenguaje, llama al método <code>interpret()</code> en cada tipo de expresión. A este método se le pasa un contexto (que contiene el flujo de entrada del programa que estamos analizando) y este hace coincidir la entrada y la evalúa.</p>
+<table>
+<thead>
+<tr>
+<th>Interpreter: beneficios</th>
+<th>Interpreter: usos e inconvenientes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Representar cada regla de la gramática en una clase hace que el lenguaje sea fácil de implementar.</td>
+<td>Usa Interpreter cuando necesites implementar un lenguaje sencillo.</td>
+</tr>
+<tr>
+<td>Como la gramática está representada por clases, puedes cambiar o extender el lenguaje fácilmente.</td>
+<td>Es apropiado cuando tienes una gramática sencilla y la simplicidad importa más que la eficiencia.</td>
+</tr>
+<tr>
+<td>Al añadir métodos a la estructura de clases, puedes añadir comportamientos más allá de la interpretación, como una impresión bonita y una validación del programa más sofisticada.</td>
+<td>Se usa para lenguajes de scripting y de programación.</td>
+</tr>
+<tr>
+<td></td>
+<td>Este patrón puede volverse engorroso cuando el número de reglas de la gramática es grande. En esos casos puede ser más apropiado un generador de analizadores/compiladores.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mediator">Mediator<a class="headerlink" href="#mediator" title="Permanent link">&para;</a></h2>
+<p><strong>Usa el patrón Mediator para centralizar las comunicaciones y el control complejos entre objetos relacionados.</strong></p>
+<h3 id="un-escenario_5">Un escenario<a class="headerlink" href="#un-escenario_5" title="Permanent link">&para;</a></h3>
+<p>Bob tiene una casa automatizada, gracias a la buena gente de HouseOfTheFuture. Todos sus electrodomésticos están diseñados para hacerle la vida más fácil. Cuando Bob deja de pulsar el botón de posponer, su despertador le dice a la cafetera que empiece a preparar café. Aunque la vida es bonita para Bob, él y otros clientes siempre piden un montón de funcionalidades nuevas: «¡Sin café los fines de semana!». «¡Apaga el aspersor 15 minutos antes de que haya una ducha programada!». «¡Pon el despertador temprano los días de basura...».</p>
+<pre class="mermaid"><code>classDiagram
+    class Alarm {
+        +onEvent()
+        +checkCalendar()
+        +checkSprinkler()
+        +startCoffee()
+    }
+    class CoffeePot {
+        +onEvent()
+        +checkCalendar()
+        +checkAlarm()
+    }
+    class Calendar {
+        +onEvent()
+        +checkDayOfWeek()
+        +doSprinkler()
+        +doCoffee()
+        +doAlarm()
+    }
+    class Sprinkler {
+        +onEvent()
+        +checkCalendar()
+        +checkShower()
+        +checkTemp()
+        +checkWeather()
+    }</code></pre>
+<h3 id="el-dilema-de-houseofthefuture">El dilema de HouseOfTheFuture<a class="headerlink" href="#el-dilema-de-houseofthefuture" title="Permanent link">&para;</a></h3>
+<p>Cada vez cuesta más saber qué reglas residen en qué objetos, y cómo deberían relacionarse entre sí los distintos objetos.</p>
+<h2 id="el-mediator-en-accion">El Mediator en acción<a class="headerlink" href="#el-mediator-en-accion" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>¡Qué alivio no tener que descifrar las quisquillosas reglas de ese reloj despertador!</p>
+</div>
+<p>Con un Mediator añadido al sistema, todos los objetos de electrodomésticos se pueden simplificar enormemente:</p>
+<ul>
+<li>Le comunican al Mediator cuándo cambia su estado.</li>
+<li>Responden a las peticiones del Mediator.</li>
+</ul>
+<p>Antes de añadir el Mediator, todos los objetos de electrodomésticos necesitaban conocerse entre sí; es decir, todos estaban fuertemente acoplados. Con el Mediator en su sitio, los objetos de electrodomésticos quedan completamente desacoplados entre sí. El Mediator contiene toda la lógica de control del sistema entero. Cuando un electrodoméstico existente necesita una regla nueva, o cuando se añade un electrodoméstico nuevo al sistema, ya sabes que toda la lógica necesaria se añadirá al Mediator.</p>
+<pre class="mermaid"><code>classDiagram
+    class Mediator {
+        +onEvent()
+    }
+    class Alarm
+    class CoffeePot
+    class Calendar
+    class Sprinkler
+    Mediator --&gt; Alarm
+    Mediator --&gt; Calendar
+    Mediator --&gt; CoffeePot
+    Mediator --&gt; Sprinkler
+    Alarm --&gt; Mediator : state change
+    CoffeePot --&gt; Mediator : state change
+    Calendar --&gt; Mediator : state change
+    Sprinkler --&gt; Mediator : state change</code></pre>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">if</span><span class="p">(</span><span class="n">alarmEvent</span><span class="p">){</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">checkCalendar</span><span class="p">()</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="n">checkShower</span><span class="p">()</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">checkTemp</span><span class="p">()</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">if</span><span class="p">(</span><span class="n">weekend</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="n">checkWeather</span><span class="p">()</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="c1">// haz otras cosas</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">}</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="k">if</span><span class="p">(</span><span class="n">trashDay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">  </span><span class="n">resetAlarm</span><span class="p">()</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">  </span><span class="c1">// haz otras cosas</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Mediator: beneficios</th>
+<th>Mediator: usos e inconvenientes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aumenta la reutilización de los objetos soportados por el Mediator al desacoplarlos del sistema.</td>
+<td>El Mediator se usa habitualmente para coordinar componentes de interfaz gráfica relacionados.</td>
+</tr>
+<tr>
+<td>Simplifica el mantenimiento del sistema al centralizar la lógica de control.</td>
+<td>Un inconveniente del patrón Mediator es que, sin un diseño adecuado, el propio objeto Mediator puede volverse excesivamente complejo.</td>
+</tr>
+<tr>
+<td>Simplifica y reduce la variedad de mensajes enviados entre los objetos del sistema.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="memento">Memento<a class="headerlink" href="#memento" title="Permanent link">&para;</a></h2>
+<p><strong>Usa el patrón Memento cuando necesites poder devolver un objeto a uno de sus estados anteriores; por ejemplo, cuando tu usuario pida un «deshacer».</strong></p>
+<h3 id="un-escenario_6">Un escenario<a class="headerlink" href="#un-escenario_6" title="Permanent link">&para;</a></h3>
+<p>Tu juego de rol interactivo tiene un éxito enorme y ha creado una legión de adictos, todos intentando llegar al legendario «nivel 13». A medida que los usuarios avanzan a niveles del juego más difíciles, aumentan las probabilidades de encontrarse una situación que termine la partida. Los aficionados que han pasado días avanzando hasta un nivel avanzado no es de extrañar que se enfaden cuando su personaje muere y tienen que empezar de cero. El grito es: un comando de «guardar progreso», para que los jugadores puedan almacenar su progreso en el juego y al menos recuperar la mayor parte de sus esfuerzos cuando su personaje es eliminado injustamente. La función de «guardar progreso» debe diseñarse para devolver a una jugadora resucitada al último nivel que completó con éxito.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>Ten cuidado con la forma en que guardas el estado de la partida. Es bastante complicado y no quiero que nadie más con acceso a él lo estropee y me rompa el código.</p>
+</div>
+<h2 id="el-memento-en-funcionamiento">El Memento en funcionamiento<a class="headerlink" href="#el-memento-en-funcionamiento" title="Permanent link">&para;</a></h2>
+<p>El Memento tiene dos metas:</p>
+<ul>
+<li>Guardar el estado importante de un objeto clave del sistema.</li>
+<li>Mantener la encapsulación del objeto clave.</li>
+</ul>
+<p>Teniendo en cuenta el Principio de Responsabilidad Única, también es buena idea mantener separado del objeto clave el estado que estás guardando. Este objeto aparte que contiene el estado es lo que se conoce como el objeto Memento.</p>
+<pre class="mermaid"><code>classDiagram
+    class Client
+    class MasterGameObject {
+        -gameState
+        +getCurrentState()
+        +restoreState(savedState)
+    }
+    class GameMemento {
+        -savedGameState
+    }
+    Client --&gt; MasterGameObject
+    MasterGameObject --&gt; GameMemento</code></pre>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">// cuando se alcanza un nivel nuevo</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">Object</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Object</span><span class="p">)</span><span class="w"> </span><span class="n">mgo</span><span class="p">.</span><span class="na">getCurrentState</span><span class="p">();</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1">// cuando hay que hacer una restauración</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">mgo</span><span class="p">.</span><span class="na">restoreState</span><span class="p">(</span><span class="n">saved</span><span class="p">);</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">Object</span><span class="w"> </span><span class="nf">getCurrentState</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="c1">// reunir el estado</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="k">return</span><span class="p">(</span><span class="n">gameState</span><span class="p">);</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">}</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">restoreState</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">savedState</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="c1">// restaurar el estado</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>Aunque esta no es una implementación nada elaborada, fíjate en que el Client no tiene acceso a los datos del Memento.</li>
+</ul>
+</div>
+<table>
+<thead>
+<tr>
+<th>Memento: beneficios</th>
+<th>Memento: usos e inconvenientes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mantener el estado guardado fuera del objeto clave ayuda a conservar la cohesión.</td>
+<td>El Memento se usa para guardar el estado.</td>
+</tr>
+<tr>
+<td>Mantiene encapsulados los datos del objeto clave.</td>
+<td>Un inconveniente de usar Memento es que guardar y restaurar el estado puede llevar bastante tiempo.</td>
+</tr>
+<tr>
+<td>Proporciona una capacidad de recuperación fácil de implementar.</td>
+<td>En sistemas Java, considera usar Serialization para guardar el estado de un sistema.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prototype">Prototype<a class="headerlink" href="#prototype" title="Permanent link">&para;</a></h2>
+<p><strong>Usa el patrón Prototype cuando crear una instancia de una clase dada sea costoso o complicado.</strong></p>
+<h3 id="un-escenario_7">Un escenario<a class="headerlink" href="#un-escenario_7" title="Permanent link">&para;</a></h3>
+<p>Tu juego de rol interactivo tiene un apetito insaciable de monstruos. A medida que tus héroes recorren un paisaje creado dinámicamente, se encuentran con una cadena interminable de enemigos que deben ser derrotados. Te gustaría que las características de los monstruos evolucionaran con el paisaje cambiante. No tiene mucho sentido que los monstruos con forma de pájaro sigan a tus personajes hasta reinos submarinos. Por último, te gustaría permitir que los jugadores avanzados creen sus propios monstruos personalizados.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>¡Vaya! Solo el acto de crear todas estas diferentes clases de instancias de monstruos se está volviendo complicado... Meter todo tipo de detalles de estado en los constructores no parece muy cohesionado. Sería genial que hubiera un único sitio donde se pudieran encapsular todos los detalles de instanciación...</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>Sería mucho más limpio si pudiéramos desacoplar el código que maneja los detalles de crear los monstruos del código que realmente necesita crear las instancias sobre la marcha.</p>
+</div>
+<h2 id="el-prototype-al-rescate">El Prototype al rescate<a class="headerlink" href="#el-prototype-al-rescate" title="Permanent link">&para;</a></h2>
+<p>El patrón Prototype te permite crear instancias nuevas copiando instancias existentes. (En Java esto suele significar usar el método <code>clone()</code>, o deserialización cuando necesites copias profundas). Un aspecto clave de este patrón es que el código del cliente puede crear instancias nuevas sin saber qué clase concreta se está instanciando.</p>
+<pre class="mermaid"><code>classDiagram
+    class Monster {
+        &lt;&lt;interface&gt;&gt;
+    }
+    class WellKnownMonster
+    class DynamicPlayerGeneratedMonster
+    class MonsterRegistry {
+        +getMonster()
+    }
+    class MonsterMaker {
+        +makeRandomMonster()
+    }
+    Monster &lt;|.. WellKnownMonster
+    Monster &lt;|.. DynamicPlayerGeneratedMonster
+    MonsterMaker --&gt; MonsterRegistry
+    MonsterRegistry --&gt; Monster</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>El cliente necesita un monstruo nuevo adecuado a la situación actual. (El cliente no sabrá de qué clase de monstruo se trata).</li>
+<li>El registro encuentra el monstruo adecuado, hace un clon de él y devuelve el clon.</li>
+</ul>
+</div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">Monster</span><span class="w"> </span><span class="nf">makeRandomMonster</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="n">Monster</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MonsterRegistry</span><span class="p">.</span><span class="na">getMonster</span><span class="p">();</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">Monster</span><span class="w"> </span><span class="nf">getMonster</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="c1">// encuentra el monstruo correcto</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">correctMonster</span><span class="p">.</span><span class="na">clone</span><span class="p">();</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Prototype: beneficios</th>
+<th>Prototype: usos e inconvenientes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oculta al cliente las complejidades de crear instancias nuevas.</td>
+<td>Hay que considerar Prototype cuando un sistema debe crear objetos nuevos de muchos tipos en una jerarquía de clases compleja.</td>
+</tr>
+<tr>
+<td>Ofrece al cliente la opción de generar objetos cuyo tipo no se conoce.</td>
+<td>Un inconveniente de usar Prototype es que hacer una copia de un objeto puede ser complicado a veces.</td>
+</tr>
+<tr>
+<td>En algunas circunstancias, copiar un objeto puede ser más eficiente que crear un objeto nuevo.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="visitor">Visitor<a class="headerlink" href="#visitor" title="Permanent link">&para;</a></h2>
+<p><strong>Usa el patrón Visitor cuando quieras añadir capacidades a un compuesto de objetos y la encapsulación no sea importante.</strong></p>
+<h3 id="un-escenario_8">Un escenario<a class="headerlink" href="#un-escenario_8" title="Permanent link">&para;</a></h3>
+<p>Los clientes que concurren al Objectville Diner y al Objectville Pancake House se han vuelto más concienciados con su salud recientemente. Piden información nutricional antes de pedir sus comidas. Como ambos establecimientos están tan dispuestos a crear pedidos especiales, algunos clientes incluso piden información nutricional con base en cada ingrediente.</p>
+<h3 id="la-solucion-que-propone-lou">La solución que propone Lou<a class="headerlink" href="#la-solucion-que-propone-lou" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>classDiagram
+    class Menu {
+        // new methods
+        +getHealthRating()
+        +getCalories()
+        +getProtein()
+        +getCarbs()
+    }
+    class MenuItem {
+        // new methods
+        +getHealthRating()
+        +getCalories()
+        +getProtein()
+        +getCarbs()
+    }
+    class Ingredient
+    Menu o-- MenuItem
+    MenuItem o-- Ingredient</code></pre>
+<h3 id="las-preocupaciones-de-mel">Las preocupaciones de Mel<a class="headerlink" href="#las-preocupaciones-de-mel" title="Permanent link">&para;</a></h3>
+<p><strong>Mel:</strong> «Vaya, parece que estamos abriendo la caja de Pandora. ¿Quién sabe qué método nuevo tendremos que añadir a continuación? Y cada vez que añadimos un método nuevo tenemos que hacerlo en dos sitios. Además, ¿qué pasa si queremos mejorar la aplicación base con, digamos, una clase de recetas? ¡Entonces tendremos que hacer estos cambios en tres sitios distintos...!»</p>
+<h2 id="el-visitor-se-presenta">El Visitor se presenta<a class="headerlink" href="#el-visitor-se-presenta" title="Permanent link">&para;</a></h2>
+<p>El Visitor funciona de la mano con un Traverser. El Traverser sabe cómo navegar hasta todos los objetos de un Composite. El Traverser guía al Visitor a través del Composite para que el Visitor pueda recoger estado a medida que avanza. Una vez recogido el estado, el Client puede hacer que el Visitor realice distintas operaciones sobre ese estado. Cuando se necesita nueva funcionalidad, solo hay que mejorar el Visitor.</p>
+<pre class="mermaid"><code>classDiagram
+    class Client {
+        &lt;&lt;Client / Traverser&gt;&gt;
+    }
+    class Visitor {
+        +getState()
+        +getHealthRating()
+        +getCalories()
+        +getProtein()
+        +getCarbs()
+    }
+    class Menu {
+        +getState()
+    }
+    class MenuItem {
+        +getState()
+    }
+    class Ingredient {
+        +getState()
+    }
+    Client --&gt; Visitor : traverses
+    Visitor --&gt; Menu : getState()
+    Visitor --&gt; MenuItem : getState()
+    Visitor --&gt; Ingredient : getState()
+    Menu o-- MenuItem
+    MenuItem o-- Ingredient</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Anotaciones del diagrama</p>
+<ul>
+<li>El Client pide al Visitor que saque información de la estructura Composite...</li>
+<li>Todas estas clases del compuesto solo tienen que añadir un método <code>getState()</code> (y no preocuparse por exponerse a sí mismas).</li>
+<li>El Visitor tiene que poder llamar a <code>getState()</code> a través de las clases, y aquí es donde puedes añadir métodos nuevos que el cliente pueda usar.</li>
+<li>Se pueden añadir métodos nuevos al Visitor sin afectar al Composite.</li>
+<li>El Traverser sabe cómo guiar al Visitor a través de la estructura Composite.</li>
+</ul>
+</div>
+<table>
+<thead>
+<tr>
+<th>Visitor: beneficios</th>
+<th>Visitor: inconvenientes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Permite añadir operaciones a una estructura Composite sin cambiar la estructura en sí misma.</td>
+<td>La encapsulación de las clases del Composite se rompe cuando se usa el Visitor.</td>
+</tr>
+<tr>
+<td>Añadir nuevas operaciones es relativamente fácil.</td>
+<td>Como interviene la función de recorrido, los cambios en la estructura del Composite son más difíciles.</td>
+</tr>
+<tr>
+<td>El código de las operaciones que realiza el Visitor está centralizado.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../capitulo-13/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Capítulo 13: Mejor vivir con patrones">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 13: Mejor vivir con patrones
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copiado al portapapeles","clipboard.copy":"Copiar al portapapeles","search.result.more.one":"1 más en esta página","search.result.more.other":"# más en esta página","search.result.none":"No se encontraron documentos","search.result.one":"1 documento encontrado","search.result.other":"# documentos encontrados","search.result.placeholder":"Teclee para comenzar búsqueda","search.result.term.missing":"Falta","select.version":"Seleccionar versión"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      
+    
+  </body>
+</html>

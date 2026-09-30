@@ -1,0 +1,2718 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Traducción al español de Head First Design Patterns (Freeman y Robson, 2.ª edición), con diagramas reconstruidos en Mermaid.">
+      
+      
+        <meta name="author" content="Head First Design Patterns — traducción al español">
+      
+      
+      
+        <link rel="prev" href="../capitulo-12/">
+      
+      
+        <link rel="next" href="../capitulo-14/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.36">
+    
+    
+      
+        <title>Capítulo 13: Patrones en el mundo real - Head First Design Patterns — español</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.1e981d71.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navegación"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capitulo-13-patrones-en-el-mundo-real" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="./.." title="Head First Design Patterns — español" class="md-header__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navegación">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Head First Design Patterns — español
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Capítulo 13: Patrones en el mundo real
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Buscar">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Buscar">
+  <button type="button" class="md-search__button">
+    Buscar
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Head First Design Patterns — español" class="md-nav__button md-logo" aria-label="Head First Design Patterns — español" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Head First Design Patterns — español
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 1: Introducción a los patrones de diseño
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 2: El patrón Observer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 3: El patrón Decorator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 4: El patrón Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 5: El patrón Singleton
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 6: El patrón Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 7: Los patrones Adapter y Facade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 8: El patrón Template Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 9: Los patrones Iterator y Composite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 10: El patrón State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 11: El patrón Proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 12: Patrones compuestos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 13: Mejor vivir con patrones
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 13: Mejor vivir con patrones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#la-guia-de-objectville-para-vivir-mejor-con-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La guía de Objectville para vivir mejor con patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definicion-de-un-patron-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Definición de un patrón de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#un-vistazo-mas-de-cerca-a-la-definicion-de-un-patron-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un vistazo más de cerca a la definición de un patrón de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geek-bits-que-la-fuerza-este-contigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Geek Bits: que la fuerza esté contigo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usar-un-catalogo-de-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Usar un catálogo de patrones
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usar un catálogo de patrones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-una-descripcion-de-patron-en-un-catalogo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ejemplo: una descripción de patrón en un catálogo
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asi-que-quieres-ser-escritor-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Así que quieres ser escritor de patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizar-los-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Organizar los patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categorias-de-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Categorías de patrones
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Categorías de patrones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guru-y-alumno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Guru y alumno...
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pensar-en-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pensar en patrones
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pensar en patrones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tu-cerebro-y-los-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tu cerebro y los patrones
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sabras-que-necesitas-un-patron-cuando" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sabrás que necesitas un patrón cuando...
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-hora-del-refactoring-es-la-hora-de-los-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La hora del refactoring es la hora de los patrones
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saca-lo-que-de-verdad-no-necesitas-no-temas-retirar-un-patron-de-diseno-de-tu-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saca lo que de verdad no necesitas. No temas retirar un Patrón de Diseño de tu diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#si-no-lo-necesitas-ahora-no-lo-hagas-ahora" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Si no lo necesitas ahora, no lo hagas ahora
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tu-mente-y-los-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tu mente y los patrones
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tu mente y los patrones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#por-supuesto-quieremos-que-uses-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Por supuesto, ¡quieremos que uses patrones de diseño!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-olvides-el-poder-del-vocabulario-compartido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        No olvides el poder del vocabulario compartido
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="No olvides el poder del vocabulario compartido">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#las-cinco-mejores-formas-de-compartir-tu-vocabulario" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Las cinco mejores formas de compartir tu vocabulario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recorriendo-objectville-con-el-grupo-de-los-cuatro" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recorriendo Objectville con el Grupo de los Cuatro
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tu-viaje-apenas-acaba-de-empezar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tu viaje apenas acaba de empezar...
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tu viaje apenas acaba de empezar...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-texto-definitivo-sobre-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El texto definitivo sobre patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#los-textos-definitivos-sobre-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Los textos definitivos sobre patrones
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otros-recursos-sobre-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Otros recursos sobre patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sitios-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sitios web
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conferencias-y-talleres" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conferencias y talleres
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otros-recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Otros recursos
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-zoologico-de-los-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El zoológico de los patrones
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aniquilar-el-mal-con-los-antipatrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Aniquilar el mal con los antipatrones
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Aniquilar el mal con los antipatrones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-un-antipatron-de-desarrollo-de-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ejemplo: un antipatrón de desarrollo de software
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-herramientas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de herramientas de diseño
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Herramientas para tu caja de herramientas de diseño">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#principios-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Principios OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patrones-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrones OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tus-patrones-aqui" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¡Tus patrones aquí!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dejando-objectville" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dejando Objectville...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitulo-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capítulo 14: Apéndice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#la-guia-de-objectville-para-vivir-mejor-con-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La guía de Objectville para vivir mejor con patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definicion-de-un-patron-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Definición de un patrón de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#un-vistazo-mas-de-cerca-a-la-definicion-de-un-patron-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Un vistazo más de cerca a la definición de un patrón de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geek-bits-que-la-fuerza-este-contigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Geek Bits: que la fuerza esté contigo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usar-un-catalogo-de-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Usar un catálogo de patrones
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usar un catálogo de patrones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-una-descripcion-de-patron-en-un-catalogo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ejemplo: una descripción de patrón en un catálogo
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asi-que-quieres-ser-escritor-de-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Así que quieres ser escritor de patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizar-los-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Organizar los patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categorias-de-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Categorías de patrones
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Categorías de patrones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guru-y-alumno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Guru y alumno...
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pensar-en-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pensar en patrones
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pensar en patrones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tu-cerebro-y-los-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tu cerebro y los patrones
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sabras-que-necesitas-un-patron-cuando" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sabrás que necesitas un patrón cuando...
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-hora-del-refactoring-es-la-hora-de-los-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La hora del refactoring es la hora de los patrones
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saca-lo-que-de-verdad-no-necesitas-no-temas-retirar-un-patron-de-diseno-de-tu-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saca lo que de verdad no necesitas. No temas retirar un Patrón de Diseño de tu diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#si-no-lo-necesitas-ahora-no-lo-hagas-ahora" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Si no lo necesitas ahora, no lo hagas ahora
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tu-mente-y-los-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tu mente y los patrones
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tu mente y los patrones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#por-supuesto-quieremos-que-uses-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Por supuesto, ¡quieremos que uses patrones de diseño!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-olvides-el-poder-del-vocabulario-compartido" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        No olvides el poder del vocabulario compartido
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="No olvides el poder del vocabulario compartido">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#las-cinco-mejores-formas-de-compartir-tu-vocabulario" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Las cinco mejores formas de compartir tu vocabulario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recorriendo-objectville-con-el-grupo-de-los-cuatro" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recorriendo Objectville con el Grupo de los Cuatro
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tu-viaje-apenas-acaba-de-empezar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tu viaje apenas acaba de empezar...
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tu viaje apenas acaba de empezar...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-texto-definitivo-sobre-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El texto definitivo sobre patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#los-textos-definitivos-sobre-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Los textos definitivos sobre patrones
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otros-recursos-sobre-patrones-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Otros recursos sobre patrones de diseño
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sitios-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sitios web
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conferencias-y-talleres" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conferencias y talleres
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otros-recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Otros recursos
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-zoologico-de-los-patrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        El zoológico de los patrones
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aniquilar-el-mal-con-los-antipatrones" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Aniquilar el mal con los antipatrones
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Aniquilar el mal con los antipatrones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-un-antipatron-de-desarrollo-de-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ejemplo: un antipatrón de desarrollo de software
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-para-tu-caja-de-herramientas-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas para tu caja de herramientas de diseño
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Herramientas para tu caja de herramientas de diseño">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#principios-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Principios OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patrones-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Patrones OO
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tus-patrones-aqui" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¡Tus patrones aquí!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dejando-objectville" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dejando Objectville...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solución
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="capitulo-13-patrones-en-el-mundo-real">Capítulo 13: Patrones en el mundo real<a class="headerlink" href="#capitulo-13-patrones-en-el-mundo-real" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Ahhhh, ya estáis listos para un mundo nuevo y brillante lleno de Patrones de Diseño. Pero, antes de que abráis todas esas nuevas puertas de oportunidad, necesitamos cubrir unos cuantos detalles con los que os vais a encontrar ahí fuera, en el mundo real; sí, las cosas se ponen un poco más complejas de lo que son aquí en Objectville. Venid con nosotros, tenemos una buena guía para echaros una mano con la transición en la siguiente página...</p>
+</blockquote>
+<h2 id="la-guia-de-objectville-para-vivir-mejor-con-patrones-de-diseno">La guía de Objectville para vivir mejor con patrones de diseño<a class="headerlink" href="#la-guia-de-objectville-para-vivir-mejor-con-patrones-de-diseno" title="Permanent link">&para;</a></h2>
+<p>Por favor, acepta nuestra práctica guía con consejos y trucos para vivir con patrones en el mundo real. En esta guía aprenderás:</p>
+<ul>
+<li>A conocer las demasiado comunes definiciones erróneas sobre lo que es un «patrón de diseño».</li>
+<li>A descubrir esos catálogos de Patrones de Diseño tan chulos y por qué simplemente tienes que conseguirte uno.</li>
+<li>A evitar el ridículo de usar un Patrón de Diseño en el momento equivocado.</li>
+<li>A aprender a mantener los patrones en las clasificaciones a las que pertenecen.</li>
+<li>A ver que descubrir patrones no es cosa solo de gurús; lee nuestro breve «cómo hacerlo» y conviértete también tú en escritor de patrones.</li>
+<li>A estar presente cuando se revele la verdadera identidad del misterioso Grupo de los Cuatro.</li>
+<li>A mantener el pulso con los vecinos: los libros de mesa que todo usuario de patrones debe tener.</li>
+<li>A aprender a entrenar tu mente como un maestro Zen.</li>
+<li>A ganar amigos e influir en otros desarrolladores mejorando tu vocabulario de patrones.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>Ojo con la lista: esta es la hoja de ruta de todo el capítulo.</p>
+</div>
+<h2 id="definicion-de-un-patron-de-diseno">Definición de un patrón de diseño<a class="headerlink" href="#definicion-de-un-patron-de-diseno" title="Permanent link">&para;</a></h2>
+<p>Apostamos a que después de leer este libro tienes una idea bastante buena de lo que es un patrón. Pero nunca hemos dado realmente una definición de un Patrón de Diseño. Bueno, puede que la definición de uso común te sorprenda un poco:</p>
+<div class="admonition abstract">
+<p class="admonition-title">Definición</p>
+<p>Un Patrón es una solución a un problema en un contexto.</p>
+</div>
+<p>Esa no es la definición más reveladora, ¿verdad? Pero no te preocupes, vamos a recorrer cada una de estas partes: contexto, problema y solución:</p>
+<ul>
+<li><strong>El contexto</strong> es la situación en la que aplica el patrón. Esta debería ser una situación recurrente.</li>
+<li><strong>El problema</strong> se refiere a la meta que intentas alcanzar en ese contexto, pero también se refiere a cualquier restricción que se produzca en el contexto.</li>
+<li><strong>La solución</strong> es lo que buscas: un diseño general que cualquiera puede aplicar y que resuelve la meta y el conjunto de restricciones.</li>
+</ul>
+<p>Esta es una de esas definiciones que tardan un poco en asentarse, así que tómatela paso a paso. Intenta pensarla así:</p>
+<div class="admonition info">
+<p class="admonition-title">Otra manera de decirlo</p>
+<p>«Si te encuentras en un contexto con un problema que tiene una meta que se ve afectada por un conjunto de restricciones, entonces puedes aplicar un diseño que resuelva la meta y las restricciones y dé lugar a una solución.»</p>
+</div>
+<p>Ahora bien, esto parece mucho trabajo solo para averiguar qué es un Patrón de Diseño. Después de todo, ya sabes que un Patrón de Diseño te da una solución a un problema de diseño recurrente y común. ¿Y qué te aporta toda esta formalidad? Bueno, vas a ver que el hecho de tener una forma formal de describir los patrones nos permite crear un catálogo de patrones, que tiene todo tipo de beneficios.</p>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p><strong>Ejemplo:</strong> Tienes una colección de objetos. Necesitas recorrer los objetos sin exponer la implementación de la colección. Encapsula la iteración en una clase aparte.</p>
+</div>
+<h2 id="un-vistazo-mas-de-cerca-a-la-definicion-de-un-patron-de-diseno">Un vistazo más de cerca a la definición de un patrón de diseño<a class="headerlink" href="#un-vistazo-mas-de-cerca-a-la-definicion-de-un-patron-de-diseno" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>Ya he estado pensando en la definición de tres partes, y no creo que defina un patrón en absoluto.</p>
+</div>
+<p>Puede que tengas razón; vamos a darle vueltas a esto un poco... Necesitamos un problema, una solución y un contexto:</p>
+<div class="admonition example">
+<p class="admonition-title">El caso de las llaves encerradas</p>
+<p><strong>Problema:</strong> ¿Cómo llego puntual al trabajo?</p>
+<p><strong>Contexto:</strong> He cerrado las llaves dentro del coche.</p>
+<p><strong>Solución:</strong> Romper la ventanilla, meterme en el coche, arrancar el motor e ir al trabajo.</p>
+</div>
+<p>Tenemos todos los componentes de la definición: tenemos un problema, que incluye la meta de llegar al trabajo y las restricciones de tiempo, distancia y probablemente algunos otros factores. También tenemos un contexto en el que las llaves del coche son inaccesibles. Y tenemos una solución que nos da acceso a las llaves y resuelve las restricciones de tiempo y de distancia. ¡Ya tenemos que tener un patrón! ¿Verdad?</p>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>La próxima vez que alguien te diga que un patrón es una solución a un problema en un contexto, asiente y sonríe. Sabes lo que quiere decir, aunque no sea una definición suficiente para describir lo que es de verdad un Patrón de Diseño.</p>
+</div>
+<p>Nuestro ejemplo sí parece encajar con la definición de Patrón de Diseño, pero no es un verdadero patrón. ¿Por qué? Para empezar, sabemos que un patrón tiene que aplicarse a un problema recurrente. Aunque una persona despistada pueda encerrar las llaves en el coche a menudo, romper la ventanilla del coche no califica como una solución que se pueda aplicar una y otra vez (o al menos no es probable que lo sea si equilibramos la meta con otra restricción: el coste). También falla por otras dos vías: primero, no es fácil tomar esta descripción, dársela a alguien y que la aplique a su propio problema único. Segundo, hemos violado un aspecto importante pero sencillo de un patrón: ¡ni siquiera le hemos dado un nombre! Sin un nombre, el patrón no se convierte en parte de un vocabulario que se pueda compartir con otros desarrolladores. Por suerte, los patrones no se describen ni se documentan como un simple problema, contexto y solución; tenemos formas mucho mejores de describir los patrones y de recogerlos juntos en catálogos de patrones.</p>
+<div class="admonition info">
+<p class="admonition-title">Notas al margen</p>
+<p><strong>Patterns A-I</strong> — el catálogo de patrones de la A a la I.</p>
+<p><strong>Patterns J-R</strong> — el catálogo de patrones de la J a la R.</p>
+<p><strong>Patterns S-Z</strong> — el catálogo de patrones de la S a la Z.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Preguntas frecuentes</p>
+<p><strong>P: ¿Voy a ver descripciones de patrones enunciadas como un problema, un contexto y una solución?</strong></p>
+<p>R: Las descripciones de patrones, que normalmente encontrarás en los catálogos de patrones, suelen ser algo más reveladoras que eso. Vamos a mirar los catálogos de patrones en detalle dentro de un minuto; describen mucho más sobre la intención y la motivación de un patrón y sobre dónde podría aplicarse, junto con el diseño de la solución y las consecuencias (buenas y malas) de usarla.</p>
+<p><strong>P: ¿Está bien alterar ligeramente la estructura de un patrón para que encaje con mi diseño? ¿O tendré que ajustarme a la definición estricta?</strong></p>
+<p>R: Por supuesto que puedes alterarlo. Igual que los principios de diseño, los patrones no pretenden ser leyes ni reglas; son guías que puedes alterar para que se ajusten a tus necesidades. Como ya has visto, muchos ejemplos del mundo real no encajan en los diseños clásicos de patrones. Sin embargo, cuando adaptes patrones, nunca viene mal documentar en qué se diferencia tu patrón del diseño clásico; así, otros desarrolladores podrán reconocer rápidamente los patrones que estás usando y cualquier diferencia entre tu patrón y el patrón clásico.</p>
+<p><strong>P: ¿Dónde puedo conseguir un catálogo de patrones?</strong></p>
+<p>R: El primer catálogo de patrones y el más definitivo es <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>, de Gamma, Helm, Johnson y Vlissides (Addison Wesley). Este catálogo expone 23 patrones fundamentales. Hablaremos un poco más sobre este libro dentro de unas páginas. Muchos otros catálogos de patrones empiezan a publicarse en distintas áreas de dominio, como el software empresarial, los sistemas concurrentes y los sistemas de negocio.</p>
+</div>
+<h2 id="geek-bits-que-la-fuerza-este-contigo">Geek Bits: que la fuerza esté contigo<a class="headerlink" href="#geek-bits-que-la-fuerza-este-contigo" title="Permanent link">&para;</a></h2>
+<p>La definición de Patrón de Diseño nos dice que el problema consiste en una meta y un conjunto de restricciones. Los gurús de patrones tienen un término para esto: las llaman fuerzas. ¿Por qué? Bueno, estamos seguros de que ellos tienen sus propias razones, pero si te acuerdas de la película, la fuerza «da forma y controla el Universo». Del mismo modo, las fuerzas de la definición del patrón dan forma y controlan la solución. Solo cuando una solución equilibra ambos lados de la fuerza (el lado luminoso: tu meta, y el lado oscuro: las restricciones) tenemos un patrón útil.</p>
+<p>Esta terminología de la «fuerza» puede resultar bastante confusa cuando la ves por primera vez en las discusiones sobre patrones, pero recuerda simplemente que hay dos lados de la fuerza (las metas y las restricciones) y que tienen que equilibrarse o resolverse para crear una solución de patrón. ¡Que la jerga no se interponga en tu camino y que la fuerza esté contigo!</p>
+<h2 id="usar-un-catalogo-de-patrones">Usar un catálogo de patrones<a class="headerlink" href="#usar-un-catalogo-de-patrones" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>Ojalá hubiera sabido lo de los catálogos de patrones hace mucho tiempo...</p>
+</div>
+<p><strong>Frank:</strong> Rellenanos, Jim. Me acabo de iniciar en patrones leyendo unos cuantos artículos sueltos por ahí.</p>
+<p><strong>Jim:</strong> Claro, cada catálogo de patrones toma un conjunto de patrones y describe cada uno en detalle junto con su relación con los otros patrones.</p>
+<p><strong>Joe:</strong> ¿Estás diciendo que hay más de un catálogo de patrones?</p>
+<p><strong>Jim:</strong> Por supuesto; hay catálogos de Patrones de Diseño fundamentales y también hay catálogos de patrones específicos de dominio, como los patrones de computación empresarial o los de computación distribuida.</p>
+<p><strong>Frank:</strong> ¿Qué catálogo estás mirando?</p>
+<p><strong>Jim:</strong> Este es el catálogo clásico de GoF; contiene 23 Patrones de Diseño fundamentales.</p>
+<p><strong>Frank:</strong> ¿GoF?</p>
+<p><strong>Jim:</strong> Exacto, eso es abreviatura de <em>Gang of Four</em>, el Grupo de los Cuatro. El Grupo de los Cuatro son los tíos que reunieron el primer catálogo de patrones.</p>
+<p><strong>Joe:</strong> ¿Qué hay en el catálogo?</p>
+<p><strong>Jim:</strong> Hay un conjunto de patrones relacionados. Para cada patrón hay una descripción que sigue una plantilla y que detalla muchos aspectos del patrón. Por ejemplo, cada patrón tiene un nombre.</p>
+<p><strong>Frank:</strong> Vaya, eso es una bomba, ¡un nombre! Imagínate.</p>
+<p><strong>Jim:</strong> Para, Frank; en realidad, el nombre es realmente importante. Cuando tenemos un nombre para un patrón, nos da una forma de hablar del patrón; ya sabes, toda esa movida del vocabulario compartido.</p>
+<p><strong>Frank:</strong> Vale, vale. Estaba bromeando. Continúa, ¿qué más hay?</p>
+<p><strong>Jim:</strong> Bueno, como decía, cada patrón sigue una plantilla. Para cada patrón tenemos un nombre y unas cuantas secciones que nos cuentan más sobre el patrón. Por ejemplo, hay una sección <em>Intent</em> que describe qué es el patrón, una especie de definición. Luego están las secciones <em>Motivation</em> y <em>Applicability</em>, que describen cuándo y dónde se podría usar el patrón.</p>
+<p><strong>Joe:</strong> ¿Y el diseño en sí?</p>
+<p><strong>Jim:</strong> Hay varias secciones que describen el diseño de clases junto con todas las clases que lo componen y cuáles son sus papeles. También hay una sección que describe cómo implementar el patrón y, a menudo, código de ejemplo para mostrártelo.</p>
+<p><strong>Frank:</strong> Suena que se han pensado en todo.</p>
+<p><strong>Jim:</strong> Hay más. También hay ejemplos de dónde se ha usado el patrón en sistemas reales, así como lo que yo creo que es una de las secciones más útiles: cómo se relaciona el patrón con otros patrones.</p>
+<p><strong>Frank:</strong> Ah, o sea que te cuentan cosas como en qué se diferencian los patrones State y Strategy.</p>
+<p><strong>Jim:</strong> ¡Exactamente!</p>
+<p><strong>Joe:</strong> Entonces, Jim, ¿cómo usas de verdad el catálogo? Cuando tienes un problema, ¿vas a pescar una solución en el catálogo?</p>
+<p><strong>Jim:</strong> Primero intento familiarizarme con todos los patrones y con sus relaciones. Luego, cuando necesito un patrón, tengo ya una idea de lo que es. Vuelvo y miro las secciones <em>Motivation</em> y <em>Applicability</em> para asegurarme de que lo tengo bien. También hay otra sección muy importante: <em>Consequences</em>. La reviso para asegurarme de que no habrá algún efecto no intencionado en mi diseño.</p>
+<p><strong>Frank:</strong> Eso tiene sentido. Así que una vez que sabes que el patrón es el correcto, ¿cómo te aproximas a ello para integrarlo en tu diseño e implementarlo?</p>
+<p><strong>Jim:</strong> Ahí es donde entra el diagrama de clases. Primero leo la sección <em>Structure</em> para repasar el diagrama y luego la sección <em>Participants</em> para asegurarme de que entiendo el papel de cada clase. A partir de ahí, lo integro en mi diseño, haciendo las alteraciones que necesite para que encaje. Después reviso las secciones <em>Implementation</em> y <em>Sample Code</em> para asegurarme de que conozco las buenas técnicas de implementación y los posibles líos con los que me podría encontrar.</p>
+<p><strong>Joe:</strong> ¡Ya veo cómo un catálogo va a acelerar de verdad mi uso de los patrones!</p>
+<p><strong>Frank:</strong> Totalmente. Jim, ¿puedes guiarnos por una descripción de patrón?</p>
+<h3 id="ejemplo-una-descripcion-de-patron-en-un-catalogo">Ejemplo: una descripción de patrón en un catálogo<a class="headerlink" href="#ejemplo-una-descripcion-de-patron-en-un-catalogo" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>SINGLETON
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Object Creational
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Intent
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Et aliquat, velesto ent lore feuis acillao rperci tat, quat nonsequam il ea
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>at nim nos do enim qui eratio ex ea faci tet, sequis dion utat, volore magnisi.
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Motivation
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Et aliquat, velesto ent lore feuis acillao rperci tat, quat nonsequam il ea
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>at nim nos do enim qui eratio ex ea faci tet, sequis dion utat, volore magnisi.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Rud modolore dit laoreet augiam iril el dipis dionsequis dignibh eummy nibh
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>esequat. Duis nulputem ipisim esecte conullut wissi. Os nisissenim et lumsandre
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>do con el utpatuero corercipis augue doloreet luptat amet vel iuscidunt digna
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>feugue dunt num etummy nim dui blaor sequat num vel etue magna augiat.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Aliquis nonse vel exer se minissequis do dolortis ad magnit, sim zzrillut
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>ipsummo dolorem dignibh euguer sequam ea am quate magnim illam zzrit ad magna
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>feu facinit delit ut
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Applicability
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Duis nulputem ipisim esecte conullut wissiEctem ad magna aliqui blamet,
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>conullandre dolore magna feuis nos alit ad magnim quate modolore vent lut
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>luptat prat. Dui blaore min ea feuipit ing enit laore magnibh eniat wisissecte
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>et, suscilla ad mincinci blam dolorpe rcilit irit, conse dolore dolore et,
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>verci enis enit ip elesequisl ut ad esectem ing ea con eros autem diam nonullu
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>tpatiss ismodignibh er.
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>Structure
+</span></code></pre></div>
+<pre class="mermaid"><code>classDiagram
+    class Singleton {
+        -uniqueInstance
+        +getInstance()
+    }</code></pre>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Participants
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Duis nulputem ipisim esecte conullut wissiEctem ad magna aliqui blamet,
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>conullandre dolore magna feuis nos alit ad magnim quate modolore vent lut
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>luptat prat. Dui blaore min ea feuipit ing enit laore magnibh eniat wisissecte
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>et, suscilla ad mincinci blam dolorpe rcilit irit, conse dolore dolore et,
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>verci enis enit ip elesequisl ut ad esectem ing ea con eros autem diam nonullu
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>tpatiss ismodignibh er
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  - A dolore dolore et, verci enis enit ip elesequisl ut ad esectem ing ea con
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    eros autem diam nonullu tpatiss ismodignibh er
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  - A feuis nos alit ad magnim quate modolore vent lut luptat prat. Dui blaore
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    min ea feuipit ing enit laore magnibh eniat wisissec
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>  - Ad magnim quate modolore vent lut luptat prat. Dui blaore min ea feuipit
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    ing enit
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>Collaborations
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>  - Feuipit ing enit laore magnibh eniat wisissecte et, suscilla ad mincinci
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    blam dolorpe rcilit irit, conse dolore.
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>Consequences
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>Duis nulputem ipisim esecte conullut wissiEctem ad magna aliqui blamet,
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>conullandre:
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a> 1. Dolore dolore et, verci enis enit ip elesequisl ut ad esectem ing ea con
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    eros autem diam nonullu tpatiss ismodignibh er.
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a> 2. Modolore vent lut luptat prat. Dui blaore min ea feuipit ing enit laore
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    magnibh eniat wisissecte et, suscilla ad mincinci blam dolorpe rcilit
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    irit, conse dolore dolore et, verci enis enit ip elesequisl ut ad esectem.
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a> 3. Dolore dolore et, verci enis enit ip elesequisl ut ad esectem ing ea con
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>    eros autem diam nonullu tpatiss ismodignibh er.
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a> 4. Modolore vent lut luptat prat. Dui blaore min ea feuipit ing enit laore
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>    magnibh eniat wisissecte et, suscilla ad mincinci blam dolorpe rcilit
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    irit, conse dolore dolore et, verci enis enit ip elesequisl ut ad esectem.
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>Implementation/Sample Code
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>DuDuis nulputem ipisim esecte conullut wissiEctem ad magna aliqui blamet,
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>conullandre dolore magna feuis nos alit ad magnim quate modolore vent lut
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>luptat prat. Dui blaore min ea feuipit ing enit laore magnibh eniat
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>wisissecte et, suscilla ad mincinci blam dolorpe rcilit irit, conse dolore
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>dolore et, verci enis enit ip elesequisl ut ad esectem ing ea con eros autem
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>diam nonullu tpatiss ismodignibh er.
+</span></code></pre></div>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Singleton</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="c1">// other useful instance variables here</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Singleton</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">synchronized</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">            </span><span class="n">uniqueInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Singleton</span><span class="p">();</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">uniqueInstance</span><span class="p">;</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="c1">// other useful methods here</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Known Uses
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Nos alit ad magnim quate modolore vent lut luptat prat. Dui blaore min ea
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>feuipit ing enit laore magnibh eniat wisissecte et, suscilla ad mincinci blam
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>dolorpe rcilit irit, conse dolore dolore et, verci enis enit ip elesequisl ut
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>ad esectem ing ea con eros autem diam nonullu tpatiss ismodignibh er.
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>Related Patterns
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>Dui blaore min ea feuipit ing enit laore magnibh eniat wisissecte et,
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>suscilla ad mincinci blam dolorpe rcilit irit, conse dolore dolore et, verci
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>enis enit ip elesequisl ut ad esectem ing ea con eros autem diam nonullu
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>tpatiss ismodignibh er. alit ad magnim quate modolore vent lut luptat prat.
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>Elesequisl ut ad esectem ing ea con eros autem diam nonullu tpatiss ismodignibh
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>er. alit ad magnim quate modolore vent lut luptat prat. Dui blaore min ea
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>feuipit ing enit laore magnibh eniat wisissecte et, suscilla ad mincinci blam
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>dolorpe rcilit irit, conse dolore dolore et, verci enis enit ip elesequisl ut
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>ad esectem ing ea con eros autem diam nonullu tpatiss ismodignibh er.
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Notas al margen</p>
+<ul>
+<li><strong>Nombre:</strong> Todos los patrones de un catálogo empiezan con un nombre. El nombre es una parte vital de un patrón; sin un buen nombre, un patrón no puede convertirse en parte del vocabulario que compartes con otros desarrolladores.</li>
+<li><strong>Clasificación o categoría:</strong> Esta es la clasificación o la categoría del patrón. Hablaremos de estas dentro de unas páginas.</li>
+<li><strong><em>Intent</em>:</strong> La intención describe qué hace el patrón en una frase breve. También puedes pensar en esto como la definición del patrón (igual que la hemos estado usando en este libro).</li>
+<li><strong><em>Motivation</em>:</strong> La motivación te da un escenario concreto que describe el problema y cómo lo resuelve la solución.</li>
+<li><strong><em>Applicability</em>:</strong> La aplicabilidad describe situaciones en las que el patrón se puede aplicar.</li>
+<li><strong><em>Structure</em>:</strong> La estructura proporciona un diagrama que ilustra las relaciones entre las clases que participan en el patrón.</li>
+<li><strong><em>Participants</em>:</strong> Los participantes son las clases y los objetos del diseño. Esta sección describe sus responsabilidades y sus papeles en el patrón.</li>
+<li><strong><em>Collaborations</em>:</strong> <em>Collaborations</em> nos dice cómo trabajan juntos los participantes en el patrón.</li>
+<li><strong><em>Consequences</em>:</strong> Las consecuencias describen los efectos que puede tener usar este patrón: buenos y malos.</li>
+<li><strong><em>Implementation/Sample Code</em>:</strong> <em>Implementation</em> proporciona las técnicas que necesitas usar al implementar este patrón, y aporta fragmentos de código que pueden echarte una mano con tu implementación.</li>
+<li><strong><em>Known Uses</em>:</strong> <em>Known Uses</em> describe ejemplos de este patrón encontrados en sistemas reales.</li>
+<li><strong><em>Related Patterns</em>:</strong> <em>Related Patterns</em> describe la relación entre este patrón y otros.</li>
+</ul>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Preguntas frecuentes</p>
+<p><strong>P: ¿Es posible crear tus propios Patrones de Diseño? ¿O es algo que solo puede hacer un «gurú de patrones»?</strong></p>
+<p>R: Primero, recuerda que los patrones se descubren, no se crean. Así que cualquiera puede descubrir un Patrón de Diseño y luego redactar su descripción; sin embargo, no es fácil, y no ocurre ni deprisa ni a menudo. Ser un «escritor de patrones» exige compromiso.</p>
+<p>Deberías pensar primero por qué querrías hacerlo: la mayoría de la gente no redacta patrones; simplemente los usa. No obstante, puede que trabajes en un dominio especializado para el que pienses que nuevos patrones serían útiles, o que te hayas encontrado con una solución para lo que crees que es un problema recurrente, o puede que solo quieras implicarte en la comunidad de patrones y contribuir al cuerpo de trabajo creciente.</p>
+<p><strong>P: Me apunto; ¿por dónde empiezo?</strong></p>
+<p>R: Como en cualquier disciplina, cuanto más sepas, mejor. Estudiar los patrones existentes, lo que hacen y cómo se relacionan con otros patrones es crucial. No solo te familiariza con la forma en que se elaboran los patrones, sino que además te evita reinventar la rueda. A partir de ahí querrás empezar a escribir tus patrones en papel, para poder comunicárselos a otros desarrolladores; vamos a hablar más en un rato sobre cómo comunicar tus patrones. Si te interesa de verdad, querrás leer la sección que sigue a estas preguntas.</p>
+<p><strong>P: ¿Cómo sé cuándo tengo realmente un patrón?</strong></p>
+<p>R: Esa es una muy buena pregunta: no tienes un patrón hasta que otros lo han usado y han comprobado que funciona. En general, no tienes un patrón hasta que pasa la «Regla de los Tres». Esta regla dice que un patrón solo puede ser llamado patrón si se ha aplicado en una solución del mundo real al menos tres veces.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>A ritmo de «So you wanna be a Rock'n'Roll Star»:</p>
+<p><em>So you wanna be a design patterns star?</em>
+Well, listen now to what I tell.
+Get yourself a patterns catalog,
+Then take some time and learn it well.
+And when you've got your description right,
+And three developers agree without a fight,
+Then you'll know it's a pattern alright.</p>
+</div>
+<h2 id="asi-que-quieres-ser-escritor-de-patrones-de-diseno">Así que quieres ser escritor de patrones de diseño<a class="headerlink" href="#asi-que-quieres-ser-escritor-de-patrones-de-diseno" title="Permanent link">&para;</a></h2>
+<p><strong>Haz los deberes.</strong> Necesitas manejar bien los patrones existentes antes de poder crear uno nuevo. La mayoría de los patrones que parecen nuevos son, de hecho, solo variantes de patrones existentes. Estudiando los patrones, mejoras en el reconocimiento de los mismos y aprendes a relacionarlos con otros patrones.</p>
+<p><strong>Tómate tu tiempo para reflexionar y evaluar.</strong> Tu experiencia (los problemas que has encontrado y las soluciones que has usado) es donde nacen las ideas para los patrones. Así que tómate un tiempo para reflexionar sobre tus experiencias y rebúscales diseños novedosos que recurran. Recuerda que la mayoría de los diseños son variaciones de patrones existentes, y no patrones nuevos. Y cuando encuentres algo que parece un patrón nuevo, puede que su aplicabilidad sea demasiado estrecha para que califique como un patrón real.</p>
+<p><strong>Apunta tus ideas en papel de una forma que otros puedan entender.</strong> Localizar patrones nuevos no sirve de mucho si otros no pueden aprovechar lo que has encontrado; necesitas documentar tus patrones candidatos para que otros puedan leerlos, entenderlos, aplicarlos a su propia solución y devolverte luego sus comentarios. Por suerte, no necesitas inventar tu propio método para documentar patrones. Como ya has visto con la plantilla de GoF, ya se ha pensado mucho en cómo describir los patrones y sus características.</p>
+<p><strong>Haz que otros prueben tus patrones; después refina y refina algo más.</strong> No esperes acertar con tu patrón a la primera. Piensa en tu patrón como en un trabajo en curso que irá mejorando con el tiempo. Haz que otros desarrolladores revisen tu patrón candidato, que lo prueben y que te den sus comentarios. Incorpora esos comentarios a tu descripción y vuelve a intentarlo. Tu descripción nunca será perfecta, pero en algún momento debería ser lo bastante sólida como para que otros desarrolladores puedan leerla y entenderla.</p>
+<p><strong>No olvides la Regla de los Tres.</strong> Recuerda: mientras tu patrón no se haya aplicado con éxito en tres soluciones del mundo real, no puede calificar como patrón. Esa es otra buena razón para poner tu patrón en manos de otros, para que lo prueben, te den comentarios y te permitan converger en un patrón que funcione.</p>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>Usa una de las plantillas de patrones existentes para definir tu patrón. Se ha pensado mucho en estas plantillas y los demás usuarios de patrones reconocerán el formato.</p>
+</div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Name
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Intent
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Motivation
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Applicability
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>Structure
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>Participants
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>Collaborations
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>...
+</span></code></pre></div>
+<div class="admonition exercise">
+<p class="admonition-title">Empareja cada patrón con su descripción</p>
+<p>Une cada patrón con su descripción:</p>
+<table>
+<thead>
+<tr>
+<th>Patrón</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decorator</td>
+<td>Envuelve un objeto y le proporciona una interfaz diferente.</td>
+</tr>
+<tr>
+<td>State</td>
+<td>Las subclases deciden cómo implementar los pasos de un algoritmo.</td>
+</tr>
+<tr>
+<td>Iterator</td>
+<td>Las subclases deciden qué clases concretas crear.</td>
+</tr>
+<tr>
+<td>Facade</td>
+<td>Garantiza que se cree uno y solo un objeto.</td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Encapsula comportamientos intercambiables y usa delegación para decidir cuál usar.</td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>Los clientes tratan de forma uniforme a las colecciones de objetos y a los objetos individuales.</td>
+</tr>
+<tr>
+<td>Factory Method</td>
+<td>Encapsula comportamientos basados en el estado y usa delegación para cambiar entre comportamientos.</td>
+</tr>
+<tr>
+<td>Adapter</td>
+<td>Proporciona una forma de recorrer una colección de objetos sin exponer su implementación.</td>
+</tr>
+<tr>
+<td>Observer</td>
+<td>Simplifica la interfaz de un conjunto de clases.</td>
+</tr>
+<tr>
+<td>Template Method</td>
+<td>Envuelve un objeto para proporcionarle un comportamiento nuevo.</td>
+</tr>
+<tr>
+<td>Composite</td>
+<td>Permite a un cliente crear familias de objetos sin especificar sus clases concretas.</td>
+</tr>
+<tr>
+<td>Singleton</td>
+<td>Permite que los objetos sean notificados cuando cambia el estado.</td>
+</tr>
+<tr>
+<td>Abstract Factory</td>
+<td>Envuelve un objeto para controlar el acceso a él.</td>
+</tr>
+<tr>
+<td>Command</td>
+<td>Encapsula una petición como un objeto.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="organizar-los-patrones-de-diseno">Organizar los patrones de diseño<a class="headerlink" href="#organizar-los-patrones-de-diseno" title="Permanent link">&para;</a></h2>
+<p>A medida que crece el número de Patrones de Diseño descubiertos, tiene sentido particionarlos en clasificaciones para poder organizarlos, reducir nuestras búsquedas a un subconjunto de todos los Patrones de Diseño y hacer comparaciones dentro de un grupo de patrones.</p>
+<p>En la mayoría de los catálogos encontrarás los patrones agrupados según uno de unos pocos esquemas de clasificación. El esquema más conocido fue el que usó el primer catálogo de patrones, y particiona los patrones en tres categorías distintas según su propósito: de creación, de comportamiento y estructurales.</p>
+<table>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>En qué consiste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Creational</strong></td>
+<td>Los patrones de creación implican la instanciación de objetos y todos ellos proporcionan una forma de desacoplar al cliente de los objetos que necesita instanciar.</td>
+</tr>
+<tr>
+<td><strong>Behavioral</strong></td>
+<td>Cualquier patrón que sea un patrón de comportamiento se ocupa de cómo interactúan las clases y los objetos y de cómo se distribuye la responsabilidad.</td>
+</tr>
+<tr>
+<td><strong>Structural</strong></td>
+<td>Los patrones estructurales te permiten componer clases u objetos en estructuras mayores.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition exercise">
+<p class="admonition-title">¡Vamos a organizarlos!</p>
+<p>Lee la descripción de cada categoría y mira si puedes acorralar estos patrones en sus categorías correctas. Esto es ¡difícil! Pero haz tu mejor esfuerzo y luego comprueba las respuestas en la página siguiente.</p>
+<p>Observer · Abstract Factory · Composite · Strategy · Decorator · Adapter · State · Singleton · Factory Method · Template Method · Proxy · Command</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>Cada uno de estos patrones pertenece a una de esas categorías.</p>
+</div>
+<h2 id="categorias-de-patrones">Categorías de patrones<a class="headerlink" href="#categorias-de-patrones" title="Permanent link">&para;</a></h2>
+<p>Aquí tienes la agrupación de los patrones por categorías. Probablemente te resultó difícil el ejercicio, porque muchos de los patrones podrían encajar en más de una categoría. No te preocupes, todo el mundo tiene problemas para averiguar las categorías correctas de los patrones.</p>
+<table>
+<thead>
+<tr>
+<th>Creational</th>
+<th>Behavioral</th>
+<th>Structural</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Singleton</td>
+<td>Mediator</td>
+<td>Proxy</td>
+</tr>
+<tr>
+<td>Prototype</td>
+<td>Visitor</td>
+<td>Decorator</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>Template Method</td>
+<td>Facade</td>
+</tr>
+<tr>
+<td>Abstract Factory</td>
+<td>Iterator</td>
+<td>Composite</td>
+</tr>
+<tr>
+<td>Factory Method</td>
+<td>Command</td>
+<td>Flyweight</td>
+</tr>
+<tr>
+<td></td>
+<td>Memento</td>
+<td>Bridge</td>
+</tr>
+<tr>
+<td></td>
+<td>Interpreter</td>
+<td>Adapter</td>
+</tr>
+<tr>
+<td></td>
+<td>Observer</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Chain of Responsibility</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>State</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Strategy</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>Tenemos unos cuantos patrones (en gris) que todavía no has visto. Encontrarás una vista de conjunto de estos patrones en el apéndice.</p>
+</div>
+<p>Los patrones se clasifican a menudo por un segundo atributo: si el patrón se ocupa de clases o de objetos:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>En qué consiste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Class Patterns</strong></td>
+<td>Los patrones de clase describen cómo se definen las relaciones entre clases mediante herencia. Las relaciones en los patrones de clase se establecen en tiempo de compilación.</td>
+</tr>
+<tr>
+<td><strong>Object Patterns</strong></td>
+<td>Los patrones de objeto describen relaciones entre objetos y se definen principalmente por composición. Las relaciones en los patrones de objeto se crean normalmente en tiempo de ejecución y son más dinámicas y flexibles.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Template Method</td>
+<td>Abstract Factory</td>
+</tr>
+<tr>
+<td>Factory Method</td>
+<td>Builder</td>
+</tr>
+<tr>
+<td>Adapter</td>
+<td>Composite</td>
+</tr>
+<tr>
+<td>Interpreter</td>
+<td>Decorator</td>
+</tr>
+<tr>
+<td>Chain of Responsibility</td>
+<td>Facade</td>
+</tr>
+<tr>
+<td>Bridge</td>
+<td>Strategy</td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>Mediator</td>
+</tr>
+<tr>
+<td></td>
+<td>Flyweight</td>
+</tr>
+<tr>
+<td></td>
+<td>Prototype</td>
+</tr>
+<tr>
+<td></td>
+<td>Command</td>
+</tr>
+<tr>
+<td></td>
+<td>Iterator</td>
+</tr>
+<tr>
+<td></td>
+<td>Memento</td>
+</tr>
+<tr>
+<td></td>
+<td>Observer</td>
+</tr>
+<tr>
+<td></td>
+<td>State</td>
+</tr>
+<tr>
+<td></td>
+<td>Singleton</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>¡Fíjate en que hay muchos más patrones de objeto que patrones de clase!</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Preguntas frecuentes</p>
+<p><strong>P: ¿Son estos los únicos esquemas de clasificación?</strong></p>
+<p>R: No, se han propuesto otros esquemas. Algunos otros esquemas parten de las tres categorías y luego añaden subcategorías, como los «patrones de desacoplamiento». Querrás familiarizarte con los esquemas más comunes para organizar patrones, pero siéntete también libre de crear los tuyos propios, si te ayudan a entender mejor los patrones.</p>
+<p><strong>P: ¿Organizar los patrones en categorías te ayuda realmente a recordarlos?</strong></p>
+<p>R: Seguro que te da un marco para poder compararlos. Pero mucha gente se confunde con las categorías de creación, estructurales y de comportamiento; a menudo un patrón parece encajar en más de una categoría. Lo más importante es conocer las tres categorías y luego añadir subcategorías, como los «patrones de desacoplamiento». Cuando las categorías te ayuden, ¡úsalas!</p>
+<p><strong>P: ¿Por qué está el patrón Decorator en la categoría estructural? ¡Yo habría pensado que es un patrón de comportamiento; después de todo, añade comportamiento!</strong></p>
+<p>R: ¡Sí, muchos desarrolladores dicen eso! Aquí está el razonamiento que hay detrás de la clasificación del Grupo de los Cuatro: los patrones estructurales describen cómo se componen las clases y los objetos para crear estructuras nuevas o funcionalidad nueva. El patrón Decorator te permite componer objetos envolviendo un objeto con otro para proporcionar funcionalidad nueva. Así que el foco está en cómo compones los objetos dinámicamente para ganar funcionalidad, y no en la comunicación e interconexión entre objetos, que es el propósito de los patrones de comportamiento. Pero recuerda: la intención de estos patrones es diferente, y esa suele ser la clave para entender a qué categoría pertenece un patrón.</p>
+</div>
+<h3 id="guru-y-alumno">Guru y alumno...<a class="headerlink" href="#guru-y-alumno" title="Permanent link">&para;</a></h3>
+<p><strong>Guru:</strong> Alumno, tienes cara de preocupado.</p>
+<p><strong>Alumno:</strong> Sí, acabo de aprender lo de la clasificación de patrones y estoy confundido.</p>
+<p><strong>Guru:</strong> Continúa...</p>
+<p><strong>Alumno:</strong> Después de aprender mucho sobre patrones, me acaban de decir que cada patrón encaja en una de tres clasificaciones: estructural, de comportamiento o de creación. ¿Por qué necesitamos estas clasificaciones?</p>
+<p><strong>Guru:</strong> Siempre que tenemos una colección grande de cualquier cosa, encontramos naturalmente categorías donde encajar esas cosas. Nos ayuda a pensar en los elementos a un nivel más abstracto.</p>
+<p><strong>Alumno:</strong> Guru, ¿puede darme un ejemplo?</p>
+<p><strong>Guru:</strong> Por supuesto. Cojamos los automóviles; hay muchos modelos distintos de automóviles y naturalmente los metemos en categorías como coches económicos, coches deportivos, todoterrenos, camiones y coches de lujo.</p>
+<p><strong>Guru:</strong> Parece que no te lo esperabas; ¿esto no tiene sentido?</p>
+<p><strong>Alumno:</strong> Guru, tiene mucho sentido, pero me sorprende que sepa tanto de coches.</p>
+<p><strong>Guru:</strong> No todo se puede relacionar con flores de loto o boles de arroz. Ahora, ¿puedo continuar?</p>
+<p><strong>Alumno:</strong> Sí, sí, lo siento, por favor continúa.</p>
+<p><strong>Guru:</strong> Una vez que tienes clasificaciones o categorías, puedes hablar fácilmente de las distintas agrupaciones: «Si vas a hacer la ruta de montaña desde Silicon Valley hasta Santa Cruz, un coche deportivo con buena respuesta es la mejor opción». O bien: «Con la situación del petróleo empeorando, lo que quieres de verdad es comprar un coche económico; son más eficientes en combustible».</p>
+<p><strong>Alumno:</strong> Así que teniendo categorías, podemos hablar de un conjunto de patrones como de un grupo. Puede que sepamos que necesitamos un patrón de creación, sin saber exactamente cuál, pero aun así podemos hablar de patrones de creación.</p>
+<p><strong>Guru:</strong> Sí, y además nos da una forma de comparar a un miembro con el resto de la categoría. Por ejemplo: «El Mini es de largo el coche compacto más elegante», o para reducir nuestra búsqueda: «Necesito un coche eficiente en combustible».</p>
+<p><strong>Alumno:</strong> Entiendo. Así que podría decir que el patrón Adapter es el mejor patrón estructural para cambiar la interfaz de un objeto.</p>
+<p><strong>Guru:</strong> Sí. También podemos usar las categorías para un propósito más: lanzarnos a territorio nuevo. Por ejemplo: «De verdad queremos entregar un coche deportivo con prestaciones Ferrari a precios Honda».</p>
+<p><strong>Alumno:</strong> Eso suena como una trampa mortal.</p>
+<p><strong>Guru:</strong> Lo siento, no te he oído, alumno.</p>
+<p><strong>Alumno:</strong> Eh, he dicho «Ya lo veo».</p>
+<p><strong>Alumno:</strong> Así que las categorías nos dan una forma de pensar en cómo se relacionan los grupos de patrones y cómo se relacionan entre sí los patrones de un grupo. También nos dan una forma de extrapolar a patrones nuevos. Pero ¿por qué hay tres categorías y no cuatro o cinco?</p>
+<p><strong>Guru:</strong> Ah, igual que las estrellas del cielo nocturno, hay tantas categorías como quieras ver. Tres es un número cómodo y un número con el que mucha gente ha decidido que queda bien agrupar los patrones. Pero otros han propuesto cuatro, cinco o más.</p>
+<h2 id="pensar-en-patrones">Pensar en patrones<a class="headerlink" href="#pensar-en-patrones" title="Permanent link">&para;</a></h2>
+<p>Contextos, restricciones, fuerzas, catálogos, clasificaciones... vaya, esto empieza a sonar muy académico. Vale, todo eso es importante y el conocimiento es poder. Pero, seamos realistas: si entiendes la parte académica y no tienes la experiencia ni la práctica de usar patrones, no te va a marcar mucha diferencia en tu vida.</p>
+<p>Aquí tienes una guía rápida para empezar a pensar en patrones. ¿Qué queremos decir con eso? Queremos decir ser capaz de mirar un diseño y ver dónde encajan los patrones de manera natural y dónde no.</p>
+<h3 id="tu-cerebro-y-los-patrones">Tu cerebro y los patrones<a class="headerlink" href="#tu-cerebro-y-los-patrones" title="Permanent link">&para;</a></h3>
+<p><strong>Manténlo simple (KISS).</strong> Ante todo, cuando diseñes, resuelve las cosas de la manera más simple posible. Tu objetivo debería ser la simplicidad, no «¿cómo puedo aplicar un patrón a este problema?». No te sientas como un desarrollador sofisticado si no usas un patrón para resolver un problema. Otros desarrolladores apreciarán y admirarán la simplicidad de tu diseño. Dicho esto, a veces la mejor forma de mantener tu diseño simple y flexible es usar un patrón.</p>
+<p><strong>Los patrones de diseño no son una bala mágica; de hecho, ni siquiera son una bala.</strong> Como ya sabes, los patrones son soluciones generales a problemas recurrentes. Los patrones también tienen la ventaja de estar muy contrastados por muchos desarrolladores. Así que, cuando veas la necesidad de uno, puedes dormir tranquilo sabiendo que muchos desarrolladores han estado ahí antes y han resuelto el problema usando técnicas similares. Sin embargo, los patrones no son una bala mágica. No puedes enchufar uno, compilar y luego irte a comer pronto. Para usar patrones, también tienes que pensar las consecuencias para el resto de tu diseño.</p>
+<h3 id="sabras-que-necesitas-un-patron-cuando">Sabrás que necesitas un patrón cuando...<a class="headerlink" href="#sabras-que-necesitas-un-patron-cuando" title="Permanent link">&para;</a></h3>
+<p>Ah... la pregunta más importante: ¿cuándo usas un patrón? A medida que te acercas a tu diseño, introduce un patrón cuando estés seguro de que aborda un problema de tu diseño. Si puede que una solución más sencilla funcione, considera esa opción antes de comprometerte a usar un patrón.</p>
+<p>Saber cuándo un patrón aplica es donde entran tu experiencia y tu conocimiento. Una vez que estés seguro de que una solución simple no va a satisfacer tus necesidades, deberías considerar el problema junto con el conjunto de restricciones bajo el cual la solución tendrá que operar; te ayudarán a casar tu problema con un patrón. Si tienes un buen conocimiento de los patrones, puede que conozcas un patrón que encaje bien. Si no, repasa los patrones que parecen que podrían resolver el problema. Las secciones <em>Intent</em> y <em>Applicability</em> de los catálogos de patrones son particularmente útiles para esto. Una vez que hayas encontrado un patrón que parece encajar bien, asegúrate de que tiene un conjunto de consecuencias con el que puedas vivir y estudia su efecto sobre el resto de tu diseño. Si todo parece bien, ¡adelante!</p>
+<p>Hay una situación en la que querrás usar un patrón aunque una solución más simple funcionaría: cuando esperas que algunos aspectos de tu sistema varíen. Como hemos visto, identificar las áreas de cambio en tu diseño suele ser buena señal de que hace falta un patrón. Solo asegúrate de que estás añadiendo patrones para manejar el cambio práctico que probablemente ocurrirá, no el cambio hipotético que podría ocurrir.</p>
+<p>El momento del diseño no es el único momento en el que quieres considerar la introducción de patrones; también querrás hacerlo en el momento del refactoring.</p>
+<h3 id="la-hora-del-refactoring-es-la-hora-de-los-patrones">La hora del refactoring es la hora de los patrones<a class="headerlink" href="#la-hora-del-refactoring-es-la-hora-de-los-patrones" title="Permanent link">&para;</a></h3>
+<p>El refactoring es el proceso de hacer cambios en tu código para mejorar la forma en que está organizado. El objetivo es mejorar su estructura, no cambiar su comportamiento. Este es un gran momento para volver a examinar tu diseño y ver si podría estar mejor estructurado con patrones. Por ejemplo, un código lleno de sentencias condicionales puede señalar la necesidad del patrón State. O puede que sea el momento de limpiar las dependencias concretas con Factory. Hay libros enteros escritos sobre el tema del refactoring con patrones, y a medida que tus habilidades crezcan, querrás estudiar esta área más a fondo.</p>
+<h3 id="saca-lo-que-de-verdad-no-necesitas-no-temas-retirar-un-patron-de-diseno-de-tu-diseno">Saca lo que de verdad no necesitas. No temas retirar un Patrón de Diseño de tu diseño<a class="headerlink" href="#saca-lo-que-de-verdad-no-necesitas-no-temas-retirar-un-patron-de-diseno-de-tu-diseno" title="Permanent link">&para;</a></h3>
+<p>Nadie habla jamás de cuándo retirar un patrón. ¡Dirías que es una blasfemia! Nah, aquí todos somos adultos; podemos con ello.</p>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>Centra tu pensamiento en el diseño, no en los patrones. Usa patrones cuando haya una necesidad natural de ellos. Si algo más sencillo funciona, entonces úsalo.</p>
+</div>
+<p>Así que, ¿cuándo retiras un patrón? Cuando tu sistema se ha vuelto complejo y la flexibilidad que planificaste no hace falta. Dicho de otro modo, cuando una solución más sencilla sin el patrón sería mejor.</p>
+<h3 id="si-no-lo-necesitas-ahora-no-lo-hagas-ahora">Si no lo necesitas ahora, no lo hagas ahora<a class="headerlink" href="#si-no-lo-necesitas-ahora-no-lo-hagas-ahora" title="Permanent link">&para;</a></h3>
+<p>Los Patrones de Diseño son potentes, y es fácil ver toda clase de formas en que se pueden usar en tus diseños actuales. Los desarrolladores caen por naturaleza en la tentación de crear arquitecturas bellas que estén listas para el cambio venga de donde venga. Resiste la tentación. Si hoy tienes una necesidad práctica de soportar el cambio en un diseño, adelante, usa un patrón para manejar ese cambio. Sin embargo, si el motivo es solo hipotético, no añadas el patrón; solo añadirá complejidad a tu sistema, ¡y puede que nunca lo necesites!</p>
+<h2 id="tu-mente-y-los-patrones">Tu mente y los patrones<a class="headerlink" href="#tu-mente-y-los-patrones" title="Permanent link">&para;</a></h2>
+<p><strong>La mente principiante</strong> usa patrones en todas partes. Esto está bien: el principiante adquiere mucha experiencia y práctica en el uso de patrones. El principiante también piensa: «Cuantos más patrones use, mejor será el diseño». El principiante aprenderá que no es así, que todos los diseños deberían ser lo más simples posible. La complejidad y los patrones solo deberían usarse donde se necesitan para una extensibilidad práctica.</p>
+<blockquote>
+<p>«Necesito un patrón para Hola Mundo.»</p>
+</blockquote>
+<p><strong>La mente intermedia</strong> empieza a ver dónde se necesitan los patrones y dónde no. La mente intermedia todavía intenta encajar demasiados patrones cuadrados en agujeros redondos, pero también empieza a ver que los patrones se pueden adaptar para encajar en situaciones donde el patrón canónico no encaja.</p>
+<blockquote>
+<p>«Puede que necesite un Singleton aquí.»</p>
+</blockquote>
+<p><strong>La mente Zen</strong> es capaz de ver los patrones allí donde encajan de forma natural. La mente Zen no está obsesionada con usar patrones; al contrario, busca soluciones simples que resuelven mejor el problema. La mente Zen piensa en términos de principios de objetos y sus compensaciones. Cuando surge de forma natural la necesidad de un patrón, la mente Zen lo aplica sabiendo perfectamente que puede requerir adaptación. La mente Zen también ve relaciones con patrones similares y comprende las sutilezas de las diferencias en la intención de patrones relacionados.</p>
+<blockquote>
+<p>«Este es un sitio natural para un Decorator.»</p>
+</blockquote>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>La mente Zen es también una mente principiante: no deja que todo ese conocimiento sobre patrones influya demasiado en las decisiones de diseño.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">AVISO</p>
+<p>El uso excesivo de patrones de diseño puede llevar a un código que está claramente sobrediseñado. Ve siempre con la solución más sencilla que haga el trabajo e introduce patrones donde surja la necesidad.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>Espera un momento; ¿me he leído todo este libro y ahora me estás diciendo que NO use patrones?</p>
+</div>
+<h3 id="por-supuesto-quieremos-que-uses-patrones-de-diseno">Por supuesto, ¡quieremos que uses patrones de diseño!<a class="headerlink" href="#por-supuesto-quieremos-que-uses-patrones-de-diseno" title="Permanent link">&para;</a></h3>
+<p>Pero queremos que seas un buen diseñador OO incluso por encima de eso.</p>
+<p>Cuando una solución de diseño pide un patrón, obtienes el beneficio de usar una solución que ha sido contrastada en el tiempo por muchos desarrolladores. También estás usando una solución que está bien documentada y que otros desarrolladores van a reconocer (ya sabes, toda esa movida del vocabulario compartido).</p>
+<p>Sin embargo, cuando usas Patrones de Diseño, también puede haber una contrapartida. Los Patrones de Diseño suelen introducir clases y objetos adicionales, y por tanto pueden aumentar la complejidad de tus diseños. Los Patrones de Diseño también pueden añadir más capas a tu diseño, lo que no solo añade complejidad, sino también ineficiencia.</p>
+<p>Además, usar un Patrón de Diseño a veces puede ser sencillamente excesivo. Muchas veces puedes recurrir a tus principios de diseño y encontrar una solución mucho más sencilla para resolver el mismo problema. Si eso ocurre, no luches contra ello. Usa la solución más sencilla.</p>
+<p>No te dejes desanimar, eso sí. Cuando un Patrón de Diseño es la herramienta adecuada para el trabajo, las ventajas son muchas.</p>
+<h2 id="no-olvides-el-poder-del-vocabulario-compartido">No olvides el poder del vocabulario compartido<a class="headerlink" href="#no-olvides-el-poder-del-vocabulario-compartido" title="Permanent link">&para;</a></h2>
+<p>Hemos pasado tanto tiempo en este libro hablando de los clavos y tornillos del OO que es fácil olvidar el lado humano de los Patrones de Diseño: no solo ayudan a llenar tu cerebro con soluciones, sino que también te dan un vocabulario compartido con otros desarrolladores. No subestimes el poder de un vocabulario compartido; es uno de los mayores beneficios de los Patrones de Diseño.</p>
+<p>Solo piensa que algo ha cambiado desde la última vez que hablamos de vocabularios compartidos; ¡ahora ya has construido un vocabulario propio bastante considerable!</p>
+<p>Sin mencionar que también has aprendido un conjunto completo de principios de diseño OO a partir de los cuales puedes entender fácilmente la motivación y el funcionamiento de cualquier patrón nuevo que te encuentres.</p>
+<p>Ahora que tienes los fundamentos de los Patrones de Diseño bajo control, es hora de que salgas a extender la palabra entre los demás. ¿Por qué? Porque cuando tus compañeros desarrolladores conocen los patrones y también usan un vocabulario compartido, eso conduce a mejores diseños y mejor comunicación y, mejor de todo, te ahorrará mucho tiempo que podrás dedicar a cosas mucho más guais.</p>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>Así que creé esta clase de difusión. Lleva el seguimiento de todos los objetos que la escuchan y cada vez que llega un dato nuevo envía un mensaje a cada oyente. Lo mejor de todo es que los oyentes pueden unirse a la difusión en cualquier momento o incluso darse de baja. Y la propia clase de difusión no sabe nada de los oyentes; cualquier objeto que implemente la interfaz adecuada puede registrarse.</p>
+<p><em>Incompleto</em> · <em>Lento</em> · <em>Confuso</em></p>
+</div>
+<h3 id="las-cinco-mejores-formas-de-compartir-tu-vocabulario">Las cinco mejores formas de compartir tu vocabulario<a class="headerlink" href="#las-cinco-mejores-formas-de-compartir-tu-vocabulario" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>En reuniones de diseño:</strong> Cuando te reencuentras con tu equipo para discutir un diseño de software, usa los patrones de diseño para ayudaros a quedar «en el diseño» más tiempo. Discutir los diseños desde la perspectiva de los Patrones de Diseño y los principios OO evita que tu equipo se atasque en los detalles de implementación y evita muchos malentendidos.</li>
+<li><strong>Con otros desarrolladores:</strong> Usa los patrones en tus discusiones con otros desarrolladores. Esto ayuda a otros desarrolladores a conocer patrones nuevos y construye una comunidad. Lo mejor de compartir lo que has aprendido es esa sensación genial cuando alguien más «lo pilla».</li>
+<li><strong>En la documentación de arquitectura:</strong> Cuando escribas documentación de arquitectura, usar patrones reducirá la cantidad de documentación que necesitas escribir y dará a quien la lee una imagen más clara del diseño.</li>
+<li><strong>En los comentarios del código y en las convenciones de nomenclatura:</strong> Cuando escribas código, identifica claramente los patrones que estás usando en los comentarios. Además, elige nombres de clases y de métodos que revelen los patrones que hay por debajo. Otros desarrolladores que tengan que leer tu código te lo agradecerán por poder entender rápidamente tu implementación.</li>
+<li><strong>A grupos de desarrolladores interesados:</strong> Comparte tu conocimiento. Muchos desarrolladores han oído hablar de patrones pero no tienen una buena comprensión de lo que son. Ofrécete a dar un «almuerzo con bolsa marrón» sobre patrones o una charla en tu grupo de usuarios local.</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Notas al margen</p>
+<p><em>Sucinto</em> · <em>Preciso</em> · <em>Completo</em></p>
+<p>Observer</p>
+</div>
+<h2 id="recorriendo-objectville-con-el-grupo-de-los-cuatro">Recorriendo Objectville con el Grupo de los Cuatro<a class="headerlink" href="#recorriendo-objectville-con-el-grupo-de-los-cuatro" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota al margen</p>
+<p>GoF lanzó el movimiento de los patrones de software, pero muchos otros han hecho contribuciones significativas, entre ellos Ward Cunningham, Kent Beck, Jim Coplien, Grady Booch, Bruce Anderson, Richard Gabriel, Doug Lea, Peter Coad y Doug Schmidt, por nombrar solo unos cuantos.</p>
+</div>
+<p>No encontrarás a los Jets ni a los Sharks paseando por Objectville, pero sí encontrarás al Grupo de los Cuatro. Como probablemente hayas notado, no puedes llegar muy lejos en el Mundo de los Patrones sin toparte con ellos. Así que, ¿quién es esta misteriosa pandilla?</p>
+<p>Dicho de manera sencilla, «los GoF», que incluyen a Erich Gamma, Richard Helm, Ralph Johnson y John Vlissides, son el grupo de tíos que reunieron el primer catálogo de patrones y que, de paso, provocaron un movimiento entero en el campo del software!</p>
+<p>¿Cómo se cogió ese nombre? Nadie lo sabe con seguridad; es simplemente un nombre que se quedó pegado. Pero piénsalo: si vas a tener un elemento de «pandilla» dando vueltas por Objectville, ¿se te ocurren unos tíos mejor? De hecho, incluso han aceptado visitarnos...</p>
+<div class="admonition tip">
+<p class="admonition-title">Tour de patrones por Objectville</p>
+<ul>
+<li>Hoy hay más patrones que en el libro de GoF; infórmate de ellos también.</li>
+<li>Apunta a una extensibilidad práctica. No proporciones generalidad hipotética; sé extensible de maneras que importen.</li>
+<li>Ve a por la simplicidad y no te emociones demasiado. Si puedes llegar a una solución más sencilla sin usar un patrón, ve a por ella.</li>
+<li>Los patrones son herramientas, no reglas; hay que ajustarlos y adaptarlos a tu problema.</li>
+</ul>
+<p><strong>Richard Helm</strong> · <strong>Ralph Johnson</strong> · <strong>John Vlissides*</strong> · <strong>Erich Gamma</strong></p>
+<p>*John Vlissides falleció en 2005. Una gran pérdida para la comunidad de los Patrones de Diseño.</p>
+</div>
+<h2 id="tu-viaje-apenas-acaba-de-empezar">Tu viaje apenas acaba de empezar...<a class="headerlink" href="#tu-viaje-apenas-acaba-de-empezar" title="Permanent link">&para;</a></h2>
+<p>Ahora que dominas los Patrones de Diseño y estás listo para profundizar, tenemos tres textos definitivos que necesitas añadir a tu estantería...</p>
+<h3 id="el-texto-definitivo-sobre-patrones-de-diseno">El texto definitivo sobre patrones de diseño<a class="headerlink" href="#el-texto-definitivo-sobre-patrones-de-diseno" title="Permanent link">&para;</a></h3>
+<p>Este es el libro que inició todo el campo de los Patrones de Diseño cuando se publicó en 1995. Aquí encontrarás todos los patrones fundamentales. De hecho, este libro es la base del conjunto de patrones que usamos en <em>Head First Design Patterns</em>. No te creas que este libro sea la última palabra sobre Patrones de Diseño (el campo ha crecido muchísimo desde su publicación), pero sí es el primero y el más definitivo. Comprar una copia de <em>Design Patterns</em> es una gran manera de empezar a explorar patrones después de Head First.</p>
+<div class="admonition tip">
+<p class="admonition-title">Notas al margen</p>
+<p>Los autores de <em>Design Patterns</em> son conocidos cariñosamente como el «Grupo de los Cuatro», o GoF para abreviar.</p>
+<p>Christopher Alexander inventó los patrones, lo que inspiró aplicar soluciones similares al software.</p>
+</div>
+<h3 id="los-textos-definitivos-sobre-patrones">Los textos definitivos sobre patrones<a class="headerlink" href="#los-textos-definitivos-sobre-patrones" title="Permanent link">&para;</a></h3>
+<p>Los patrones no empezaron con GoF; empezaron con Christopher Alexander, profesor de arquitectura en Berkeley; sí, Alexander es arquitecto, no informático. Alexander inventó patrones para construir arquitecturas vivas (como casas, pueblos y ciudades).</p>
+<p>La próxima vez que tengas ganas de algo de lectura profunda y divertida, coge <em>The Timeless Way of Building</em> y <em>A Pattern Language</em>. Verás los verdaderos orígenes de los Patrones de Diseño y reconocerás las analogías directas entre crear «arquitectura viva» y software flexible y extensible.</p>
+<p>Así que coge una taza de café de Starbuzz, siéntate y disfruta...</p>
+<h3 id="otros-recursos-sobre-patrones-de-diseno">Otros recursos sobre patrones de diseño<a class="headerlink" href="#otros-recursos-sobre-patrones-de-diseno" title="Permanent link">&para;</a></h3>
+<p>Vas a encontrar que hay una comunidad de usuarios y escritores de patrones vibrantemente viva y acogedora, y están alegres de que te unas a ellos. Aquí tienes algunos recursos para empezar...</p>
+<h3 id="sitios-web">Sitios web<a class="headerlink" href="#sitios-web" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">The Portland Patterns Repository</p>
+<p>El Portland Patterns Repository, mantenido por Ward Cunningham, es un wiki dedicado a todo lo relacionado con los patrones. Encontrarás hilos de debate sobre cualquier tema en el que puedas pensar relacionado con los patrones y los sistemas OO.</p>
+<p><code>c2.com/cgi/wiki?WelcomeVisitors</code></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">The Hillside Group</p>
+<p>El Hillside Group fomenta prácticas comunes de programación y diseño y ofrece un recurso central para el trabajo con patrones. El sitio incluye información sobre muchos recursos relacionados con los patrones, como artículos, libros, listas de correo y herramientas.</p>
+<p><code>hillside.net</code></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">O'Reilly Online Learning</p>
+<p>O'Reilly Online Learning ofrece libros de patrones de diseño en línea, cursos y docencia en vivo. También encontrarás un curso intensivo (<em>bootcamp</em>) de patrones de diseño basado en este libro.</p>
+<p><code>oreilly.com</code></p>
+</div>
+<h3 id="conferencias-y-talleres">Conferencias y talleres<a class="headerlink" href="#conferencias-y-talleres" title="Permanent link">&para;</a></h3>
+<p>Si te apetece interactuar con la comunidad de patrones, no dejes de echar un vistazo a las muchas conferencias y talleres relacionados con los patrones. El sitio de Hillside mantiene una lista completa. Echa un vistazo a <em>Pattern Languages of Programs</em> (PLoP) y a la <em>ACM Conference on Object-Oriented Systems, Languages and Applications</em> (OOPSLA), que ahora forma parte de la conferencia SPLASH.</p>
+<h3 id="otros-recursos">Otros recursos<a class="headerlink" href="#otros-recursos" title="Permanent link">&para;</a></h3>
+<p>Estaríamos siendo negligentes si no mencionáramos Google, Stack Overflow, Quora y muchos otros sitios y servicios como buenos lugares para hacer preguntas, encontrar respuestas y discutir sobre patrones de diseño. Como con cualquier cosa de la web, comprueba siempre dos veces la información que recibes.</p>
+<h2 id="el-zoologico-de-los-patrones">El zoológico de los patrones<a class="headerlink" href="#el-zoologico-de-los-patrones" title="Permanent link">&para;</a></h2>
+<p>Como acabas de ver, los patrones no empezaron en el software; empezaron con la arquitectura de edificios y pueblos. De hecho, el concepto de patrón se puede aplicar en muchos dominios diferentes. Date una vuelta por el Zoológico de los Patrones para ver unos cuantos...</p>
+<div class="admonition example">
+<p class="admonition-title">Patrones de arquitectura</p>
+<p><strong>Los patrones de arquitectura</strong> se usan para crear la arquitectura viva y vibrante de edificios, pueblos y ciudades. Aquí es donde los patrones obtuvieron su origen.</p>
+<p><em>Habitat: se encuentran en edificios en los que te gusta vivir, mirar y visitar.</em></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Patrones de aplicación</p>
+<p><strong>Los patrones de aplicación</strong> son patrones para crear la arquitectura de sistemas. Muchas arquitecturas multinivel caen en esta categoría.</p>
+<p><em>Habitat: se ven colgados por ahí en arquitecturas de tres niveles, sistemas cliente-servidor y la web.</em></p>
+<p><em>Field note: se sabe que MVC ha pasado por ser un patrón de aplicación.</em></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Patrones específicos de dominio</p>
+<p><strong>Los patrones específicos de dominio</strong> son patrones que tratan de problemas en dominios concretos, como los sistemas concurrentes o los sistemas de tiempo real.</p>
+<p><em>Habitat: se ven rondando por las salas de juntas corporativas y las reuniones de gestión de proyectos.</em></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Patrones de proceso de negocio</p>
+<p><strong>Los patrones de proceso de negocio</strong> describen la interacción entre empresas, clientes y datos, y se pueden aplicar a problemas como cómo tomar y comunicar decisiones de forma eficaz.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Patrones organizativos</p>
+<p><strong>Los patrones organizativos</strong> describen las estructuras y prácticas de las organizaciones humanas. La mayoría de los esfuerzos hasta la fecha se han centrado en organizaciones que producen y/o soportan software.</p>
+<p><em>Habitat: equipo de desarrollo, equipo de soporte al cliente.</em></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Patrones de diseño de interfaces de usuario</p>
+<p><strong>Los patrones de diseño de interfaces de usuario</strong> abordan los problemas de cómo diseñar programas de software interactivos.</p>
+<p><em>Habitat: se ven en las proximidades de los diseñadores de videojuegos, los constructores de interfaces gráficas y los productores.</em></p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Notas de campo</p>
+<p>Por favor, añadid aquí vuestras observaciones sobre los dominios de los patrones:</p>
+<hr />
+</div>
+<h2 id="aniquilar-el-mal-con-los-antipatrones">Aniquilar el mal con los antipatrones<a class="headerlink" href="#aniquilar-el-mal-con-los-antipatrones" title="Permanent link">&para;</a></h2>
+<p>El Universo no estaría completo si tuviéramos patrones y ningún antipatrón, ¿verdad?</p>
+<p>Si un Patrón de Diseño te da una solución general a un problema recurrente en un contexto concreto, entonces, ¿qué te da un antipatrón?</p>
+<div class="admonition abstract">
+<p class="admonition-title">Definición</p>
+<p>Un Antipatrón te indica cómo pasar de un problema a una solución MALA.</p>
+</div>
+<p>Probablemente te estés preguntando: «¿Por qué demonios iba alguien a perder el tiempo documentando soluciones malas?».</p>
+<p>Piénsalo así: si hay una solución mala recurrente a un problema común, entonces documentándola podemos evitar que otros desarrolladores cometan el mismo error. Después de todo, ¡evitar soluciones malas puede ser tan valioso como encontrar buenas!</p>
+<p>Veamos los elementos de un antipatrón:</p>
+<div class="admonition note">
+<p class="admonition-title">Un antipatrón te dice por qué una mala solución resulta atractiva</p>
+<p>Un antipatrón te dice por qué una mala solución es atractiva. Seamos realistas: nadie elegiría una mala solución si no hubiera algo en ella que resultara atractivo a primera vista. Uno de los mayores trabajos del antipatrón es avisarte del aspecto seductor de la solución.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Un antipatrón te dice por qué esa solución a largo plazo es mala</p>
+<p>Un antipatrón te dice por qué esa solución a largo plazo es mala. Para entender por qué es un antipatrón, tienes que entender cómo va a tener un efecto negativo más adelante. El antipatrón describe dónde te vas a meter en problemas al usar la solución.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Un antipatrón sugiere otros patrones aplicables que pueden dar buenas soluciones</p>
+<p>Un antipatrón sugiere otros patrones aplicables que pueden proporcionar buenas soluciones. Para ser realmente útil, un antipatrón tiene que señalarte en la dirección correcta; debería sugerir otras posibilidades que puedan llevar a buenas soluciones.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>Un antipatrón siempre parece una buena solución, pero luego resulta ser una mala solución cuando se aplica.</p>
+<p>Al documentar los antipatrones ayudamos a otros a reconocer las soluciones malas antes de que las implementen.</p>
+<p>Como los patrones, hay muchos tipos de antipatrones, incluidos antipatrones de desarrollo, OO, organizativos y específicos de dominio.</p>
+</div>
+<p>Veamos un antipatrón.</p>
+<h3 id="ejemplo-un-antipatron-de-desarrollo-de-software">Ejemplo: un antipatrón de desarrollo de software<a class="headerlink" href="#ejemplo-un-antipatron-de-desarrollo-de-software" title="Permanent link">&para;</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>Aquí tienes un ejemplo de un antipatrón de desarrollo de software. Justo como un Patrón de Diseño, un antipatrón tiene un nombre para poder crear un vocabulario compartido. El problema y el contexto, igual que en la descripción de un Patrón de Diseño. Te dice por qué la solución es atractiva. La mala, aunque atractiva, solución. Cómo llegar a una buena solución. Ejemplo de dónde se ha observado este antipatrón.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Antipatrón</p>
+<p><strong>Nombre:</strong> Golden Hammer</p>
+<p><strong>Problema:</strong> Necesitas elegir tecnologías para tu desarrollo y crees que exactamente una tecnología debe dominar la arquitectura.</p>
+<p><strong>Contexto:</strong> Necesitas desarrollar un sistema nuevo o una pieza de software que no encaja bien con la tecnología con la que está familiarizado el equipo de desarrollo.</p>
+<p><strong>Fuerzas:</strong></p>
+<ul>
+<li>El equipo de desarrollo está comprometido con la tecnología que conoce.</li>
+<li>El equipo de desarrollo no está familiarizado con otras tecnologías.</li>
+<li>Las tecnologías desconocidas se consideran arriesgadas.</li>
+<li>Es fácil planificar y estimar el desarrollo usando la tecnología conocida.</li>
+</ul>
+<p><strong>Solución supuesta:</strong> Usa la tecnología conocida de todos modos. La tecnología se aplica obsesivamente a muchos problemas, incluidos aquellos donde resulta claramente inapropiada.</p>
+<p><strong>Solución refactorizada:</strong> Amplía los conocimientos de los desarrolladores mediante educación, formación y grupos de estudio de libros que exponen a los desarrolladores a nuevas soluciones.</p>
+<p><strong>Ejemplos:</strong> Las empresas web siguen usando y manteniendo sus sistemas de caché internos desarrollados en casa cuando ya hay alternativas de código abierto en uso.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota al pie</p>
+<p>Adaptado del wiki del Portland Pattern Repository en <code>https://wiki.c2.com/?WelcomeVisitors</code>, donde encontrarás muchos antipatrones y discusiones.</p>
+</div>
+<h2 id="herramientas-para-tu-caja-de-herramientas-de-diseno">Herramientas para tu caja de herramientas de diseño<a class="headerlink" href="#herramientas-para-tu-caja-de-herramientas-de-diseno" title="Permanent link">&para;</a></h2>
+<p>Has llegado a ese punto en el que nos has dejado atrás. Ahora es el momento de salir al mundo y explorar los patrones por tu cuenta...</p>
+<div class="admonition tip">
+<p class="admonition-title">Herramientas para tu caja de herramientas de diseño</p>
+<ul>
+<li>Deja que los Patrones de Diseño emerjan en tus diseños; no los fuerces solo por el simple hecho de usar un patrón.</li>
+<li>Los Patrones de Diseño no están grabados en piedra; adáptalos y ajústalos para que cumplan tus necesidades.</li>
+<li>Usa siempre la solución más sencilla que satisfaga tus necesidades, aunque no incluya un patrón.</li>
+<li>Estudia los catálogos de Patrones de Diseño para familiarizarte con los patrones y las relaciones entre ellos.</li>
+<li>Las clasificaciones de patrones (o categorías) proporcionan agrupaciones para los patrones. Cuando ayuden, úsalas.</li>
+<li>Necesitas comprometerte para ser un escritor de patrones: lleva tiempo y paciencia, y tienes que estar dispuesto a hacer muchos refinamientos.</li>
+<li>Recuerda: la mayoría de los patrones que te encontrarás serán adaptaciones de patrones existentes, no patrones nuevos.</li>
+<li>Construye el vocabulario compartido de tu equipo. Este es uno de los beneficios más potentes de usar patrones.</li>
+<li>Como cualquier comunidad, la comunidad de patrones tiene su propia jerga. No dejes que eso te frene. Habiendo leído este libro, ahora ya conoces casi toda ella.</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Nota al margen</p>
+<p>Ha llegado el momento de que salgas y descubras más patrones por tu cuenta. Hay muchos patrones específicos de dominio que ni siquiera hemos mencionado y también hay algunos patrones fundacionales que no cubrimos.</p>
+<p>También tienes patrones propios que crear.</p>
+<p>Echa un vistazo al apéndice; te adelantan algunos patrones más fundacionales que probablemente quieras echarle un vistazo.</p>
+</div>
+<h3 id="principios-oo">Principios OO<a class="headerlink" href="#principios-oo" title="Permanent link">&para;</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">Bases de OO y principios OO</p>
+<p>Abstracción, encapsulación, polimorfismo y herencia.</p>
+<p><strong>Abstracción</strong></p>
+<p><strong>Encapsulación</strong> — Encapsula lo que varía.</p>
+<p><strong>Polimorfismo</strong> — Prefiere la composición frente a la herencia.</p>
+<p><strong>Herencia</strong> — Programa hacia interfaces, no hacia implementaciones.</p>
+<ul>
+<li>Encapsula lo que varía.</li>
+<li>Prefiere la composición frente a la herencia.</li>
+<li>Programa hacia interfaces, no hacia implementaciones.</li>
+<li>Persigue diseños débilmente acoplados entre objetos que interactúan.</li>
+<li>Las clases deben estar abiertas a la extensión pero cerradas a la modificación.</li>
+<li>Depende de las abstracciones. No dependas de clases concretas.</li>
+<li>Habla solo con tus amigos.</li>
+<li>No nos llames, te llamaremos nosotros.</li>
+<li>Una clase debería tener una única razón para cambiar.</li>
+</ul>
+</div>
+<h3 id="patrones-oo">Patrones OO<a class="headerlink" href="#patrones-oo" title="Permanent link">&para;</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">Patrones OO</p>
+<ul>
+<li><strong>Observer</strong> - Define una dependencia de uno a muchos entre objetos de modo que, cuando un objeto cambia de estado, todos sus dependientes son notificados y actualizados.</li>
+<li><strong>Strategy</strong> - Define una familia de algoritmos, encapsula cada uno y los hace intercambiables. Strategy permite que el algoritmo varíe de forma independiente de los clientes que lo usan.</li>
+<li><strong>Abstract Factory</strong> - Proporciona una interfaz para crear familias de objetos relacionados o dependientes sin especificar sus clases concretas.</li>
+<li><strong>Decorator</strong> - Añade responsabilidades adicionales a un objeto dinámicamente. Los decoradores ofrecen una alternativa flexible a la subclasificación para ampliar la funcionalidad.</li>
+<li><strong>Singleton</strong> - Asegura que una clase tenga una sola instancia y proporciona un punto de acceso global a ella.</li>
+<li><strong>Command</strong> - Encapsula una petición como un objeto, lo que te permite parametrizar a los clientes con distintas peticiones, encolar o registrar peticiones y soportar operaciones deshacibles.</li>
+<li><strong>Adapter</strong> - Encapsula una petición como un objeto, lo que te permite parametrizar a los clientes con distintas peticiones, encolar o registrar peticiones y soportar operaciones deshacibles.</li>
+<li><strong>State</strong> - Permite que un objeto altere su comportamiento cuando cambia su estado interno.</li>
+<li><strong>Facade</strong> - Encapsula una petición como un objeto, lo que te permite parametrizar a los clientes con distintas peticiones, encolar o registrar peticiones y soportar operaciones deshacibles.</li>
+<li><strong>Proxy</strong> - Proporciona un sustituto o marcador de posición para otro objeto con el fin de controlar el acceso a él.</li>
+</ul>
+</div>
+<h3 id="tus-patrones-aqui">¡Tus patrones aquí!<a class="headerlink" href="#tus-patrones-aqui" title="Permanent link">&para;</a></h3>
+<div class="admonition question">
+<p class="admonition-title">Patrones compuestos</p>
+<p>Un Patrón Compuesto combina dos o más patrones en una solución que resuelve un problema recurrente o general.</p>
+<hr />
+<hr />
+<hr />
+</div>
+<h2 id="dejando-objectville">Dejando Objectville...<a class="headerlink" href="#dejando-objectville" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">¡Hombre, ha sido genial tenerte en Objectville!</p>
+<p>Te vamos a extrañar, seguro. Pero no te preocupes: antes de que te des cuenta, el próximo libro Head First estará publicado y podrás volver a visitarnos. ¿Cuál es el próximo libro, preguntas? Hmmm, ¡buena pregunta! ¿Por qué no nos ayudas a decidirlo?</p>
+<p>Envía un correo a <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#111;&#111;&#107;&#115;&#117;&#103;&#103;&#101;&#115;&#116;&#105;&#111;&#110;&#115;&#64;&#119;&#105;&#99;&#107;&#101;&#100;&#108;&#121;&#115;&#109;&#97;&#114;&#116;&#46;&#99;&#111;&#109;">&#98;&#111;&#111;&#107;&#115;&#117;&#103;&#103;&#101;&#115;&#116;&#105;&#111;&#110;&#115;&#64;&#119;&#105;&#99;&#107;&#101;&#100;&#108;&#121;&#115;&#109;&#97;&#114;&#116;&#46;&#99;&#111;&#109;</a>.</p>
+</div>
+<h2 id="solucion">Solución<a class="headerlink" href="#solucion" title="Permanent link">&para;</a></h2>
+<div class="admonition success">
+<p class="admonition-title">Solución</p>
+<p>Empareja cada patrón con su descripción:</p>
+<table>
+<thead>
+<tr>
+<th>Patrón</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decorator</td>
+<td>Envuelve un objeto para proporcionarle un comportamiento nuevo.</td>
+</tr>
+<tr>
+<td>State</td>
+<td>Encapsula comportamientos basados en el estado y usa delegación para cambiar entre comportamientos.</td>
+</tr>
+<tr>
+<td>Iterator</td>
+<td>Proporciona una forma de recorrer una colección de objetos sin exponer su implementación.</td>
+</tr>
+<tr>
+<td>Facade</td>
+<td>Simplifica la interfaz de un conjunto de clases.</td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Encapsula comportamientos intercambiables y usa delegación para decidir cuál usar.</td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>Envuelve un objeto para controlar el acceso a él.</td>
+</tr>
+<tr>
+<td>Factory Method</td>
+<td>Las subclases deciden qué clases concretas crear.</td>
+</tr>
+<tr>
+<td>Adapter</td>
+<td>Envuelve un objeto y le proporciona una interfaz diferente.</td>
+</tr>
+<tr>
+<td>Observer</td>
+<td>Permite que los objetos sean notificados cuando cambia el estado.</td>
+</tr>
+<tr>
+<td>Template Method</td>
+<td>Las subclases deciden cómo implementar los pasos de un algoritmo.</td>
+</tr>
+<tr>
+<td>Composite</td>
+<td>Los clientes tratan de forma uniforme a las colecciones de objetos y a los objetos individuales.</td>
+</tr>
+<tr>
+<td>Singleton</td>
+<td>Garantiza que se cree uno y solo un objeto.</td>
+</tr>
+<tr>
+<td>Abstract Factory</td>
+<td>Permite a un cliente crear familias de objetos sin especificar sus clases concretas.</td>
+</tr>
+<tr>
+<td>Command</td>
+<td>Encapsula una petición como un objeto.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../capitulo-12/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Capítulo 12: Patrones compuestos">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 12: Patrones compuestos
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../capitulo-14/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Capítulo 14: Apéndice">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Capítulo 14: Apéndice
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copiado al portapapeles","clipboard.copy":"Copiar al portapapeles","search.result.more.one":"1 más en esta página","search.result.more.other":"# más en esta página","search.result.none":"No se encontraron documentos","search.result.one":"1 documento encontrado","search.result.other":"# documentos encontrados","search.result.placeholder":"Teclee para comenzar búsqueda","search.result.term.missing":"Falta","select.version":"Seleccionar versión"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      
+    
+  </body>
+</html>

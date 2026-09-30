@@ -11,18 +11,18 @@
 # The site_name is shown in the page header and the browser window title
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_name
-site_name = "Documentation"
+site_name = "Head First Design Patterns — español"
 
 # The site_description is included in the HTML head and should contain a
 # meaningful description of the site content for use by search engines.
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_description
-site_description = "A new project generated from the default template project."
+site_description = "Traducción al español de Head First Design Patterns (Freeman y Robson, 2.ª edición), con diagramas reconstruidos en Mermaid."
 
 # The site_author attribute. This is used in the HTML head element.
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_author
-site_author = "<your name here>"
+site_author = "Head First Design Patterns — traducción al español"
 
 # The site_url is the canonical URL for your site. When building online
 # documentation you should set this.
@@ -44,10 +44,24 @@ Copyright &copy; 2026 The authors
 # can be defined using TOML syntax.
 #
 # Read more: https://zensical.org/docs/setup/navigation/
-# nav = [
-#   { "Get started" = "index.md" },
-#   { "Markdown in 5min" = "markdown.md" },
-# ]
+nav = [
+  { "Índice" = "index.md" },
+  { "Introducción" = "introduccion/index.md" },
+  { "Capítulo 1: Introducción a los patrones de diseño" = "capitulo-1/index.md" },
+  { "Capítulo 2: El patrón Observer" = "capitulo-2/index.md" },
+  { "Capítulo 3: El patrón Decorator" = "capitulo-3/index.md" },
+  { "Capítulo 4: El patrón Factory" = "capitulo-4/index.md" },
+  { "Capítulo 5: El patrón Singleton" = "capitulo-5/index.md" },
+  { "Capítulo 6: El patrón Command" = "capitulo-6/index.md" },
+  { "Capítulo 7: Los patrones Adapter y Facade" = "capitulo-7/index.md" },
+  { "Capítulo 8: El patrón Template Method" = "capitulo-8/index.md" },
+  { "Capítulo 9: Los patrones Iterator y Composite" = "capitulo-9/index.md" },
+  { "Capítulo 10: El patrón State" = "capitulo-10/index.md" },
+  { "Capítulo 11: El patrón Proxy" = "capitulo-11/index.md" },
+  { "Capítulo 12: Patrones compuestos" = "capitulo-12/index.md" },
+  { "Capítulo 13: Mejor vivir con patrones" = "capitulo-13/index.md" },
+  { "Capítulo 14: Apéndice" = "capitulo-14/index.md" },
+]
 
 # With the "extra_css" option you can add your own CSS styling to customize
 # your Zensical project according to your needs. You can add any number of
@@ -108,7 +122,7 @@ Copyright &copy; 2026 The authors
 # Read more:
 # - https://zensical.org/docs/setup/language/
 #
-language = "en"
+language = "es"
 
 # Zensical provides a number of feature toggles that change the behavior
 # of the documentation site.
